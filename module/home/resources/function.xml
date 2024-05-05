@@ -4,4 +4,32 @@
         <name>view</name>
         <uri>view</uri>
     </function>
+    <function>
+        <name>Carrousel_Automation</name>
+        <uri>Carrousel_Automation</uri>
+    </function>
+    <function>
+        <name>Carrousel_Type</name>
+        <uri>Carrousel_Type</uri>
+    </function>
+    <function>
+        <name>homePageCategory</name>
+        <uri>homePageCategory</uri>
+    </function>
+    <function>
+        <name>homePageOperation</name>
+        <uri>homePageOperation</uri>
+    </function>
+    <function>
+        <name>homePageCity</name>
+        <uri>homePageCity</uri>
+    </function>
+    <function>
+        <name>homePageRecommendations</name>
+        <uri>homePageRecommendations</uri>
+    </function>
+    <function>
+        <name>homePageMostVisited</name>
+        <uri>homePageMostVisited</uri>
+    </function>
 </functions>
