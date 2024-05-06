@@ -6,6 +6,7 @@
 
 		function __construct() {
 			$this -> dao = home_dao::getInstance();
+			$this -> db = db::getInstance();
 		}
 
 		public static function getInstance() {
@@ -18,37 +19,37 @@
 
 		public function get_Carrousel_Automation_BLL() {
 			// return 'Entro a home_bll --> get_Carrousel_Automation_BLL';
-            return $this -> dao -> select_automation();
+            return $this -> dao -> select_automation($this -> db);
 		}
 
 		public function get_Carrousel_Type_BLL() {
 			// return 'Entro a home_bll --> get_Carrousel_Type_BLL';
-            return $this -> dao -> select_type();
+            return $this -> dao -> select_type($this -> db);
 		}
 
 		public function get_homePageCategory_BLL() {
 			// return 'Entro a home_bll --> get_homePageCategory_BLL';
-            return $this -> dao -> select_categories();
+            return $this -> dao -> select_categories($this -> db);
 		}
 
         public function get_homePageOperation_BLL() {
 			// return 'Entro a home_bll --> get_homePageOperation_BLL';
-            return $this -> dao -> select_operation();
+            return $this -> dao -> select_operation($this -> db);
 		}
 
 		public function get_homePageCity_BLL() {
 			// return 'Entro a home_bll --> get_homePageCity_BLL';
-            return $this -> dao -> select_city();
+            return $this -> dao -> select_city($this -> db);
 		}
 
 		public function get_homePageRecommendations_BLL() {
 			// return 'Entro a home_bll --> get_homePageRecommendations_BLL';
-            return $this -> dao -> select_recommendations();
+            return $this -> dao -> select_recommendations($this -> db);
 		}
 
         public function get_homePageMostVisited_BLL() {
 			// return 'Entro a home_bll --> get_homePageMostVisited_BLL';
-            return $this -> dao -> select_mostVisited();
+            return $this -> dao -> select_mostVisited($this -> db);
 		}
 	}
 ?>

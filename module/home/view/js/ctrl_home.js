@@ -1,7 +1,7 @@
 function carousel_AutomationParts() {
     ajaxPromise('?module=home&op=Carrousel_Automation', 'GET', 'JSON')
         .then(function (data) {
-            console.log("Datos recibidos de carousel_AutomationParts:" + data);
+            console.log("Datos recibidos de carousel_AutomationParts:", data);
             // Limpiar el contenido actual del carrusel
             $("#swiper-aut-parts .swiper-wrapper").empty();
 
@@ -52,7 +52,7 @@ function carousel_AutomationParts() {
 function loadTypes() {
     ajaxPromise('?module=home&op=Carrousel_Type', 'GET', 'JSON')
     .then(function(data) {
-        console.log("Datos recibidos de load_Types:" + data);
+        console.log("Datos recibidos de load_Types:", data);
         for (row in data) {
             $('<div></div>').addClass('col-lg-3 col-md-6 d-flex align-items-stretch carousel_type').addClass('swiper-slide').attr( 'id', data[row].id_type ).appendTo('#types-carousel .container_Types')
                 .html(
@@ -134,7 +134,7 @@ function loadTypes() {
 function loadCategories() {
     ajaxPromise('?module=home&op=homePageCategory','GET', 'JSON')
     .then(function(data) {
-        console.log("Datos recibidos de load_Categories:" + data);
+        console.log("Datos recibidos de load_Categories:", data);
         for (row in data) {
             $('<div></div>').addClass('col-lg-3 col-md-6 d-flex align-items-stretch carousel_categories').addClass('swiper-slide').attr( 'id', data[row].id_category ).appendTo('#categories-carousel .container_Categories')
                 .html(
@@ -216,7 +216,7 @@ function loadCategories() {
 function loadOperations() {
     ajaxPromise('?module=home&op=homePageOperation','GET', 'JSON')
     .then(function(data) {
-        console.log("Datos recibidos de load_Operations:" + data);
+        console.log("Datos recibidos de load_Operations:", data);
         for (row in data) {
             $('<div></div>').attr( 'id', data[row].id_operation ).addClass('col-lg-3 col-md-6 d-flex align-items-stretch carousel_operations').appendTo('#containerOperations')
                 .html(
@@ -241,7 +241,7 @@ function loadOperations() {
 function loadCities() {
     ajaxPromise('?module=home&op=homePageCity', 'GET', 'JSON')
         .then(function (data) {
-            console.log("Datos recibidos de loadCities:" + data);
+            console.log("Datos recibidos de loadCities:", data);
             var containerCities = $('#containerCities');
 
             // Initialize Swiper container
@@ -320,7 +320,7 @@ function loadCities() {
 function loadRecommendations() {
     ajaxPromise('?module=home&op=homePageRecommendations','GET', 'JSON')
     .then(function(data) {
-        console.log("Datos recibidos de loadRecommendations:" + data);
+        console.log("Datos recibidos de loadRecommendations:", data);
         for (row in data) {
             $('<div></div>').attr( 'id', data[row].name_city ).addClass('col-lg-3 col-md-6 d-flex align-items-stretch').appendTo('#containerRecommendations')
                 .html(
@@ -345,7 +345,7 @@ function loadRecommendations() {
 function loadMostVisited() {
     ajaxPromise('?module=home&op=homePageMostVisited','GET', 'JSON')
     .then(function(data) {
-        console.log("Datos recibidos de loadMostVisited:" + data);
+        console.log("Datos recibidos de loadMostVisited:", data);
         for (row in data) {
             $('<div></div>').attr( 'id', data[row].name_city ).addClass('col-lg-3 col-md-6 d-flex align-items-stretch').appendTo('#containerMostVisited')
                 .html(
