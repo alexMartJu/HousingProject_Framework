@@ -29,10 +29,14 @@
             }else{
                 $this -> uriModule = 'home'; //importante
             }
-            if(isset($_GET['op'])){
-                $this -> uriFunction = ($_GET['op'] === "") ? 'view' : $_GET['op'];
-            }else{
-                $this -> uriFunction = 'view';
+            if(isset($_POST['op'])) {
+                $this->uriFunction = ($_POST['op'] === "") ? 'view' : $_POST['op'];
+                // error_log("Valor de op en POST: " . $this->uriFunction);
+            } elseif(isset($_GET['op'])) {
+                $this->uriFunction = ($_GET['op'] === "") ? 'view' : $_GET['op'];
+                // error_log("Valor de op en GET: " . $this->uriFunction);
+            } else {
+                $this->uriFunction = 'view';
             }
         }
     

@@ -1,5 +1,5 @@
 function carousel_AutomationParts() {
-    ajaxPromise('?module=home&op=Carrousel_Automation', 'GET', 'JSON')
+    ajaxPromise(friendlyURL('?module=home'), 'POST', 'JSON', {op: 'Carrousel_Automation'})
         .then(function (data) {
             console.log("Datos recibidos de carousel_AutomationParts:", data);
             // Limpiar el contenido actual del carrusel
@@ -9,7 +9,7 @@ function carousel_AutomationParts() {
             for (row in data) {
                 $('<div></div>').addClass('swiper-slide carousel_aut_parts').attr( 'id', data[row].id_aut_parts ).appendTo("#swiper-aut-parts .swiper-wrapper")
                     .html(
-                        "<img class='swiper-img' src='" + data[row].img_aut_parts + "' alt=''>" +
+                        "<img class='swiper-img' src='http://localhost/Framework/HousingProject_Framework/" + data[row].img_aut_parts + "' alt=''>" +
                         "<div class='carousel-container'>" +
                         "<div class='carousel-content animate__animated animate__fadeInUp'>" +
                         "<h2><span>" + data[row].name_aut_parts + "</span></h2>" +
@@ -50,7 +50,7 @@ function carousel_AutomationParts() {
 }
 
 function loadTypes() {
-    ajaxPromise('?module=home&op=Carrousel_Type', 'GET', 'JSON')
+    ajaxPromise(friendlyURL('?module=home'), 'POST', 'JSON', {op: 'Carrousel_Type'})
     .then(function(data) {
         console.log("Datos recibidos de load_Types:", data);
         for (row in data) {
@@ -58,7 +58,7 @@ function loadTypes() {
                 .html(
                     "<div class='member' data-aos='fade-up'>" +
                     "<div class='member-img'>" +
-                    "<img src='" + data[row].img_type + "' class='img-fluid' alt=''>" +
+                    "<img src='http://localhost/Framework/HousingProject_Framework/" + data[row].img_type + "' class='img-fluid' alt=''>" +
                     "</div>" +
                     "<div class='member-info'>" +
                     "<h4>" + data[row].name_type + "</h4>" +
@@ -132,7 +132,7 @@ function loadTypes() {
 }
 
 function loadCategories() {
-    ajaxPromise('?module=home&op=homePageCategory','GET', 'JSON')
+    ajaxPromise(friendlyURL('?module=home'), 'POST', 'JSON', {op: 'homePageCategory'})
     .then(function(data) {
         console.log("Datos recibidos de load_Categories:", data);
         for (row in data) {
@@ -140,7 +140,7 @@ function loadCategories() {
                 .html(
                     "<div class='member' data-aos='fade-up'>" +
                     "<div class='member-img'>" +
-                    "<img src='" + data[row].img_category + "' class='img-fluid' alt=''>" +
+                    "<img src='http://localhost/Framework/HousingProject_Framework/" + data[row].img_category + "' class='img-fluid' alt=''>" +
                     "</div>" +
                     "<div class='member-info'>" +
                     "<h4>" + data[row].name_category + "</h4>" +
@@ -214,7 +214,7 @@ function loadCategories() {
 }
 
 function loadOperations() {
-    ajaxPromise('?module=home&op=homePageOperation','GET', 'JSON')
+    ajaxPromise(friendlyURL('?module=home'), 'POST', 'JSON', {op: 'homePageOperation'})
     .then(function(data) {
         console.log("Datos recibidos de load_Operations:", data);
         for (row in data) {
@@ -222,7 +222,7 @@ function loadOperations() {
                 .html(
                     "<div class='member' data-aos='fade-up'>" +
                     "<div class='member-img'>" +
-                    "<img src='" + data[row].img_operation + "' class='img-fluid' alt=''>" +
+                    "<img src='http://localhost/Framework/HousingProject_Framework/" + data[row].img_operation + "' class='img-fluid' alt=''>" +
                     "</div>" +
                     "<div class='member-info'>" +
                     "<h4>" + data[row].name_operation + "</h4>" +
@@ -239,7 +239,7 @@ function loadOperations() {
 }
 
 function loadCities() {
-    ajaxPromise('?module=home&op=homePageCity', 'GET', 'JSON')
+    ajaxPromise(friendlyURL('?module=home'), 'POST', 'JSON', {op: 'homePageCity'})
         .then(function (data) {
             console.log("Datos recibidos de loadCities:", data);
             var containerCities = $('#containerCities');
@@ -259,7 +259,7 @@ function loadCities() {
                 cityDiv.html(
                     "<div class='member' data-aos='fade-up'>" +
                     "<div class='member-img '>" +
-                    "<img src='" + data[row].img_city + "' class='img-fluid' alt=''>" +
+                    "<img src='http://localhost/Framework/HousingProject_Framework/" + data[row].img_city + "' class='img-fluid' alt=''>" +
                     "<div class='social'>" +
                     "<a href=''><i class='bi bi-twitter'></i></a>" +
                     "<a href=''><i class='bi bi-facebook'></i></a>" +
@@ -318,7 +318,7 @@ function loadCities() {
 
 
 function loadRecommendations() {
-    ajaxPromise('?module=home&op=homePageRecommendations','GET', 'JSON')
+    ajaxPromise(friendlyURL('?module=home'), 'POST', 'JSON', {op: 'homePageRecommendations'})
     .then(function(data) {
         console.log("Datos recibidos de loadRecommendations:", data);
         for (row in data) {
@@ -326,7 +326,7 @@ function loadRecommendations() {
                 .html(
                     "<div class='member' data-aos='fade-up'>" +
                     "<div class='member-img'>" +
-                    "<img src='" + data[row].img_city + "' class='img-fluid' alt=''>" +
+                    "<img src='http://localhost/Framework/HousingProject_Framework/" + data[row].img_city + "' class='img-fluid' alt=''>" +
                     "</div>" +
                     "<div class='member-info'>" +
                     "<h4>" + data[row].name_city + "</h4>" +
@@ -343,7 +343,7 @@ function loadRecommendations() {
 }
 
 function loadMostVisited() {
-    ajaxPromise('?module=home&op=homePageMostVisited','GET', 'JSON')
+    ajaxPromise(friendlyURL('?module=home'), 'POST', 'JSON', {op: 'homePageMostVisited'})
     .then(function(data) {
         console.log("Datos recibidos de loadMostVisited:", data);
         for (row in data) {
@@ -351,7 +351,7 @@ function loadMostVisited() {
                 .html(
                     "<div class='member' data-aos='fade-up'>" +
                     "<div class='member-img'>" +
-                    "<img src='" + data[row].img_city + "' class='img-fluid' alt=''>" +
+                    "<img src='http://localhost/Framework/HousingProject_Framework/" + data[row].img_city + "' class='img-fluid' alt=''>" +
                     "</div>" +
                     "<div class='member-info'>" +
                     "<h4>" + data[row].name_city + "</h4>" +
@@ -376,7 +376,7 @@ function loadLastSearch() {
                 .html(
                     "<div class='member' data-aos='fade-up'>" +
                     "<div class='member-img'>" +
-                    "<img src='" + search[0].img_city + "' class='img-fluid' alt=''>" +
+                    "<img src='http://localhost/Framework/HousingProject_Framework/" + search[0].img_city + "' class='img-fluid' alt=''>" +
                     "</div>" +
                     "<div class='member-info'>" +
                     "<h4>" + search[0].name_city + "</h4>" +
