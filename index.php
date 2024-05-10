@@ -1,3 +1,3 @@
 <?php
-	require_once 'router/router.php';
+	require_once 'router/router.class.singleton.php';
 ?>

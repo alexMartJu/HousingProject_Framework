@@ -53,7 +53,7 @@
                 $modules = simplexml_load_file('resources/modules.xml');
                 foreach ($modules as $row) {
                     if (in_array($this -> uriModule, (Array) $row -> uri)) {
-                        $path = MODULES_PATH . $row -> name . '/controller/controller_' . (String) $row -> name . '.class.php';
+                        $path = MODULES_PATH . $row -> name . '/controller/controller_' . (String) $row -> name . '.class.singleton.php';
                         if (file_exists($path)) {
                             require_once($path);
                             $controllerName = 'controller_' . (String) $row -> name;
