@@ -4,4 +4,8 @@
         <name>view</name>
         <uri>view</uri>
     </function>
+    <function>
+        <name>all_housings</name>
+        <uri>all_housings</uri>
+    </function>
 </functions>
