@@ -28,82 +28,82 @@ function ajaxForSearch(url, type, dataType, data=false) {
         // console.log('estoy aqui1')
         .then(function (data) {
             console.log("Datos recibidos de load_Housings:", data);
-            // $('#content_shop_housings').empty();
-            // $('.date_housing' && '.date_img').empty();
-            // $('.section_details').show(); //mostramos section de filtros
-            // $('.container_shop').css('margin-top', '120px'); //ponemos el margen-top a 120px
-            // $('.map-wrapper').css('margin-top', '120px'); //ponemos el margen-top a 120px
+            $('#content_shop_housings').empty();
+            $('.date_housing' && '.date_img').empty();
+            $('.section_details').show(); //mostramos section de filtros
+            $('.container_shop').css('margin-top', '120px'); //ponemos el margen-top a 120px
+            $('.map-wrapper').css('margin-top', '120px'); //ponemos el margen-top a 120px
             
-            // //Mejora para que cuando no hayan resultados en los filtros aplicados
-            // if (data == "error") {
-            //     $('<div></div>').appendTo('#content_shop_housings')
-            //         .html(
-            //             '<h3>No results are found with the filters applied!</h3>'
-            //         )
-            // } else {
-            //     for (row in data) {
-            //         $('<div></div>').attr({ 'id': data[row].id_housing, 'class': 'list_content_shop col-g-12' }).appendTo('#content_shop_housings')
-            //             .html(
-            //                 "<div class='hola col-lg-12 mt-4'>" +
-            //                 "<div class='cont-img col-lg-4 more_info_list1' id='" + data[row].id_housing + "' onclick='event.stopPropagation();'>" +
-            //                 "<div class='swiper' id='swiper-container-" + data[row].id_housing + "'>" +
-            //                 "<div class='swiper-wrapper carrousel_cont_shop'>" +
+            //Mejora para que cuando no hayan resultados en los filtros aplicados
+            if (data == "error") {
+                $('<div></div>').appendTo('#content_shop_housings')
+                    .html(
+                        '<h3>No results are found with the filters applied!</h3>'
+                    )
+            } else {
+                for (row in data) {
+                    $('<div></div>').attr({ 'id': data[row].id_housing, 'class': 'list_content_shop col-g-12' }).appendTo('#content_shop_housings')
+                        .html(
+                            "<div class='hola col-lg-12 mt-4'>" +
+                            "<div class='cont-img col-lg-4 more_info_list1' id='" + data[row].id_housing + "' onclick='event.stopPropagation();'>" +
+                            "<div class='swiper' id='swiper-container-" + data[row].id_housing + "'>" +
+                            "<div class='swiper-wrapper carrousel_cont_shop'>" +
 
-            //                 "</div>" +
-            //                 "<div class='swiper-pagination'></div>" +
-            //                 "<div class='swiper-button-next'></div>" +
-            //                 "<div class='swiper-button-prev'></div>" +
-            //                 "</div>" +
-            //                 "</div>" +
-            //                 "<div class='hello col-lg-8 more_info_list1' id='" + data[row].id_housing + "'>" +
-            //                 "<div class='gh'>" +
-            //                 "<i class='fa-solid fa-euro-sign fa-2x'> " + data[row].housing_price + "</i>" +
-            //                 "<hr />" +
-            //                 "</div>" +
-            //                 "<p class='di'><strong> " + data[row].name_type + "</strong> of  " + data[row].housing_m2 + "m<sup>2</sup> in " + data[row].name_city + "<span class='span_total_likes'> | Total Likes: " + data[row].likes_count + "</span>" + "<img class='img-icon img-like unpainted_like_list' id='" + data[row].id_housing + "' src= 'view/icons/list_shop/like-regular.svg' alt=''></img>" + "</p>" +
-            //                 "<i class='fas fa-info-circle'> " + data[row].cadastral_ref + "</i>" +
-            //                 "<i class='fa-solid fa-warehouse'> " + data[row].garage + "</i>" +
-            //                 "<i class='fa-solid fa-location-dot'> " + data[row].housing_address + "</i>" +
-            //                 "<i class='fa-solid fa-fire'> " + data[row].housing_heating + "</i>" +
-            //                 "<i class='fa-solid fa-square'> " + data[row].housing_m2 + " m<sup>2</sup></i>" +
-            //                 "<i class='fa-solid fa-people-roof'> " + data[row].housing_rooms + " rooms</i>" +
-            //                 "<div class='description'>" +
-            //                 "<p>Descripción general aquí sobre una casa que esta en venta y que necesita venderse para calllar y no ver nada que no interese muchas overflow: hidden kjd ajahkdaka kjadjakj fhdhksfks skskjskfs jkdsjkjds kasjksakd jasjksad</p>" +
-            //                 "</div>" +
-            //                 "</div>" +
-            //                 "</div>"
+                            "</div>" +
+                            "<div class='swiper-pagination'></div>" +
+                            "<div class='swiper-button-next'></div>" +
+                            "<div class='swiper-button-prev'></div>" +
+                            "</div>" +
+                            "</div>" +
+                            "<div class='hello col-lg-8 more_info_list1' id='" + data[row].id_housing + "'>" +
+                            "<div class='gh'>" +
+                            "<i class='fa-solid fa-euro-sign fa-2x'> " + data[row].housing_price + "</i>" +
+                            "<hr />" +
+                            "</div>" +
+                            "<p class='di'><strong> " + data[row].name_type + "</strong> of  " + data[row].housing_m2 + "m<sup>2</sup> in " + data[row].name_city + "<span class='span_total_likes'> | Total Likes: " + data[row].likes_count + "</span>" + "<img class='img-icon img-like unpainted_like_list' id='" + data[row].id_housing + "' src= 'view/icons/list_shop/like-regular.svg' alt=''></img>" + "</p>" +
+                            "<i class='fas fa-info-circle'> " + data[row].cadastral_ref + "</i>" +
+                            "<i class='fa-solid fa-warehouse'> " + data[row].garage + "</i>" +
+                            "<i class='fa-solid fa-location-dot'> " + data[row].housing_address + "</i>" +
+                            "<i class='fa-solid fa-fire'> " + data[row].housing_heating + "</i>" +
+                            "<i class='fa-solid fa-square'> " + data[row].housing_m2 + " m<sup>2</sup></i>" +
+                            "<i class='fa-solid fa-people-roof'> " + data[row].housing_rooms + " rooms</i>" +
+                            "<div class='description'>" +
+                            "<p>Descripción general aquí sobre una casa que esta en venta y que necesita venderse para calllar y no ver nada que no interese muchas overflow: hidden kjd ajahkdaka kjadjakj fhdhksfks skskjskfs jkdsjkjds kasjksakd jasjksad</p>" +
+                            "</div>" +
+                            "</div>" +
+                            "</div>"
 
-            //             );
-            //         for (images in data[row].img_housings) {
-            //             $('<div></div>').attr({ 'id': data[row].img_housings[images], class: 'swiper-slide' }).appendTo('#swiper-container-' + data[row].id_housing + ' .carrousel_cont_shop')
-            //                 .html(
-            //                     "<img src= '" + data[row].img_housings[images] + "' alt=''>"
-            //                 );
-            //         }
-            //         var swiper = new Swiper('#swiper-container-' + data[row].id_housing + '', {
-            //             slidesPerView: 1,
-            //             spaceBetween: 10,
-            //             loop: true,
-            //             pagination: {
-            //                 el: ".swiper-pagination",
-            //                 clickable: true
-            //             },
-            //             navigation: {
-            //                 nextEl: ".swiper-button-next",
-            //                 prevEl: ".swiper-button-prev"
-            //             },
-            //             disableOnInteraction: false,
-            //             effect: "cube",
-            //             cubeEffect: {
-            //                 shadow: false // Desactiva la sombra del efecto cube
-            //             }
-            //         });
-            //     }
-            // }
-            // if (data != "error") {
-            //     // load_likes_list();
-            //     mapBox_all(data);
-            // }
+                        );
+                    for (images in data[row].img_housings) {
+                        $('<div></div>').attr({ 'id': data[row].img_housings[images], class: 'swiper-slide' }).appendTo('#swiper-container-' + data[row].id_housing + ' .carrousel_cont_shop')
+                            .html(
+                                "<img src= '" + data[row].img_housings[images] + "' alt=''>"
+                            );
+                    }
+                    var swiper = new Swiper('#swiper-container-' + data[row].id_housing + '', {
+                        slidesPerView: 1,
+                        spaceBetween: 10,
+                        loop: true,
+                        pagination: {
+                            el: ".swiper-pagination",
+                            clickable: true
+                        },
+                        navigation: {
+                            nextEl: ".swiper-button-next",
+                            prevEl: ".swiper-button-prev"
+                        },
+                        disableOnInteraction: false,
+                        effect: "cube",
+                        cubeEffect: {
+                            shadow: false // Desactiva la sombra del efecto cube
+                        }
+                    });
+                }
+            }
+            if (data != "error") {
+                // load_likes_list();
+                mapBox_all(data);
+            }
         }).catch(function () {
             console.log('estoy aqui');
             // window.location.href = "index.php?page=503";

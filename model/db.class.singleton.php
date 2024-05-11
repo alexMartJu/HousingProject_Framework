@@ -53,4 +53,13 @@
             return $this -> array;
         }
 
+        public function listar_array($stmt) {
+            $this -> array = array();
+            while ($row = $stmt -> fetch_array(MYSQLI_ASSOC)) {
+                $row['img_housings'] = explode(';', $row['img_housings']);
+                array_push($this -> array, $row);
+            }
+            return $this -> array;
+        }
+
     }
