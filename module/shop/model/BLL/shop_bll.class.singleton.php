@@ -5,7 +5,7 @@
 		static $_instance;
 
 		function __construct() {
-			
+			$this -> dao = shop_dao::getInstance();
 		}
 
 		public static function getInstance() {
@@ -17,7 +17,18 @@
 		}
 
 		public function get_all_housings_BLL($args) {
-            return 'Entro a shop_bll --> get_all_housings_BLL';
+            // return 'Entro a shop_bll --> get_all_housings_BLL';
+			try {
+                $Dates_Housings = $this -> dao -> select_all_housings();
+            } catch (Exception $e) {
+                return "error";
+            }
+            
+            if (!empty($Dates_Housings)) {
+                return $Dates_Housings;
+            } else {
+                return "error";
+            }     
 		}
 	}
 ?>
