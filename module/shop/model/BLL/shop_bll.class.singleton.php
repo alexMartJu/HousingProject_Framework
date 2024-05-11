@@ -31,5 +31,41 @@
                 return "error";
             }     
 		}
+
+		public function get_details_housing_BLL($args) {
+            // return 'Entro a shop_bll --> get_details_housing_BLL';
+			try {
+				$Date_housing = $this -> dao -> select_one_housing($this -> db, $args);
+			} catch (Exception $e) {
+				return "error";
+			}
+			try {
+				$Date_images = $this -> dao -> select_imgs_housing($this -> db, $args);
+			} catch (Exception $e) {
+				return "error";
+			}
+			try {
+				$Date_extras = $this -> dao -> select_extras_housing($this -> db, $args);
+			} catch (Exception $e) {
+				return "error";
+			}
+	
+			if (!empty($Date_housing || $Date_images || $Date_extras)) {
+				// Updatear visit count solo si se han obtenido datos exitosamente
+				try {
+					$this->dao->update_visit_count($this->db, $args);
+				} catch (Exception $e) {
+					return "error";
+				}
+
+				$rdo = array();
+				$rdo[0] = $Date_housing;
+				$rdo[1][] = $Date_images;
+				$rdo[2][] = $Date_extras;
+				return $rdo;
+			} else {
+				return "error";
+			}
+		}
 	}
 ?>

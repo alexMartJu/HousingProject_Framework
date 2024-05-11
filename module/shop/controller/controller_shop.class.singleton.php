@@ -20,7 +20,11 @@
         function all_housings() {
             // echo 'Entro al controller_shop --> all_housings';
             echo json_encode(common::load_model('shop_model', 'get_all_housings', [$_POST['offset'], $_POST['items_page']]));
-            
+        }
+
+        function details_housing() {
+            // echo 'Entro al controller_shop --> all_housings';
+            echo json_encode(common::load_model('shop_model', 'get_details_housing', $_POST['id']));
         }
     }
 ?>

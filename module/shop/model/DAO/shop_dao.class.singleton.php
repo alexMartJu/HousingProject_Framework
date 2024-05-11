@@ -29,5 +29,52 @@
             return $db -> listar_array($stmt);
             
         }
+
+        public function select_one_housing($db, $id) {
+
+            $sql = "SELECT *
+            FROM housings h, h_type t, operation o, city c
+            WHERE h.id_housing = '$id'
+            AND  h.id_type = t.id_type 
+            AND h.id_operation = o.id_operation
+            AND h.id_city = c.id_city";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar_object($stmt);
+            
+        }
+
+        public function select_imgs_housing($db, $id) {
+
+            $sql = "SELECT *
+            FROM img_housings 
+            WHERE id_housing = '$id'";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar_array_indexed($stmt);
+            
+        }
+
+        public function select_extras_housing($db, $id) {
+
+            $sql = "SELECT e.id_extras, e.name_extras, e.img_extras
+            FROM `extras` e INNER JOIN `housing_extras` he
+            ON e.id_extras = he.id_extras
+            WHERE he.id_housing = '$id'";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar_array_indexed($stmt);
+            
+        }
+
+        public function update_visit_count($db, $id) {
+
+            $sql = "UPDATE housings
+                    SET visit_count = visit_count + 1 
+                    WHERE id_housing = '$id'";
+
+            return $db->ejecutar($sql);
+            
+        }
     }
 ?>

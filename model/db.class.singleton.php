@@ -8,6 +8,7 @@
         private $stmt;
         private $array;
         static $_instance;
+        private $object;
 
         private function __construct() {
             $this -> setConexion();
@@ -58,6 +59,21 @@
             while ($row = $stmt -> fetch_array(MYSQLI_ASSOC)) {
                 $row['img_housings'] = explode(';', $row['img_housings']);
                 array_push($this -> array, $row);
+            }
+            return $this -> array;
+        }
+
+        public function listar_object($stmt) {
+            $this -> object = $stmt -> fetch_object(); 
+            return $this -> object;
+        }
+
+        public function listar_array_indexed($stmt) {
+            $this -> array = array();
+            if (mysqli_num_rows($stmt) > 0) {
+                foreach ($stmt as $row) {
+                    array_push($this -> array, $row);
+                }
             }
             return $this -> array;
         }

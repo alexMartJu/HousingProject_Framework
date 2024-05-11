@@ -110,192 +110,193 @@ function ajaxForSearch(url, type, dataType, data=false) {
         });
 }
 
-// function clicks() {
-//     $(document).on("click", ".more_info_list1", function () {
-//         if (!$(event.target).hasClass('img-like')) {
-//             var id_housing = this.getAttribute('id');
-//             console.log(id_housing);
-//             loadDetails(id_housing);
-//         }
-//     });
-// }
+function clicks() {
+    $(document).on("click", ".more_info_list1", function () {
+        if (!$(event.target).hasClass('img-like')) {
+            var id_housing = this.getAttribute('id');
+            console.log(id_housing);
+            loadDetails(id_housing);
+        }
+    });
+}
 
-// function loadDetails(id_housing) {
-//     ajaxPromise('module/shop/controller/controller_shop.php?op=details_housing&id=' + id_housing, 'GET', 'JSON')
-//         .then(function (data) {
-//             console.log(data);
-//             // Obtener el arreglo actual de búsquedas desde el localStorage
-//             var lastSearches = JSON.parse(localStorage.getItem('lastSearches')) || [];
+function loadDetails(id_housing) {
+    ajaxPromise('?module=shop&op=details_housing', 'POST', 'JSON', {'id': id_housing})
+        .then(function (data) {
+            console.log("Datos recibidos de loadDetails:", data);
+            // Obtener el arreglo actual de búsquedas desde el localStorage
+            var lastSearches = JSON.parse(localStorage.getItem('lastSearches')) || [];
 
-//             // Agregar la nueva búsqueda al arreglo
-//             lastSearches.push(data);
+            // Agregar la nueva búsqueda al arreglo
+            lastSearches.push(data);
 
-//             // Almacenar el arreglo actualizado en el localStorage
-//             localStorage.setItem('lastSearches', JSON.stringify(lastSearches));
+            // Almacenar el arreglo actualizado en el localStorage
+            localStorage.setItem('lastSearches', JSON.stringify(lastSearches));
             
-//             $('#content_shop_housings').empty();
-//             $('.contenedor').empty();
-//             $('.date_img_dentro').empty();
-//             $('.date_car_dentro').empty();
-//             $('#carrousel_details').empty();
-//             $('.filters').empty();
-//             $('.section_details').hide(); //ocultamos section de filtros.
-//             $('.container_shop').css('margin-top', '0px'); //ponemos margin-top a 0px.
-//             $('.map-wrapper').css('margin-top', '0px');
-//             $('#pagination').empty();
+            $('#content_shop_housings').empty();
+            $('.contenedor').empty();
+            $('.date_img_dentro').empty();
+            $('.date_car_dentro').empty();
+            $('#carrousel_details').empty();
+            $('.filters').empty();
+            $('.section_details').hide(); //ocultamos section de filtros.
+            $('.container_shop').css('margin-top', '0px'); //ponemos margin-top a 0px.
+            $('.map-wrapper').css('margin-top', '0px');
+            $('#pagination').empty();
 
-//             // console.log(data[1][0]);
-//             $('<div class="row gy-4"> \
-//                     <div class="col-lg-12"> \
-//                         <div class="portfolio-details-slider swiper"> \
-//                             <div class="swiper-wrapper align-items-center" id="carrousel_details"> \
-//                             </div> \
-//                             <div class="swiper-pagination"></div> \
-//                             <div class="swiper-button-next"></div> \
-//                             <div class="swiper-button-prev"></div> \
-//                         </div> \
-//                     </div> \
-//                 </div').appendTo('.date_img');
-//             for (row in data[1][0]) {
-//                 console.log(data[1][0][row].img_housings);
-//                 $('<div></div>').attr({ 'id': data[1][0].id_img, class: 'swiper-slide' }).appendTo('#carrousel_details')
-//                     .html(
-//                         "<img src= '" + data[1][0][row].img_housings + "' alt=''>"
-//                     );
-//             }
-//             console.log('Inicializando Swiper...');
-//             var gr = new Swiper('.portfolio-details-slider', {
-//                 slidesPerView: 2,
-//                 spaceBetween: 0,
-//                 loop: true,
-//                 autoplay: {
-//                     delay: 3000,
-//                     disableOnInteraction: false
-//                 },
-//                 pagination: {
-//                     el: '.swiper-pagination',
-//                     type: 'bullets',
-//                     clickable: true
-//                 },
-//                 navigation: {
-//                     nextEl: '.swiper-button-next',
-//                     prevEl: '.swiper-button-prev',
-//                 },
-//                 disableOnInteraction: false,
+            // console.log(data[1][0]);
+            $('<div class="row gy-4"> \
+                    <div class="col-lg-12"> \
+                        <div class="portfolio-details-slider swiper"> \
+                            <div class="swiper-wrapper align-items-center" id="carrousel_details"> \
+                            </div> \
+                            <div class="swiper-pagination"></div> \
+                            <div class="swiper-button-next"></div> \
+                            <div class="swiper-button-prev"></div> \
+                        </div> \
+                    </div> \
+                </div').appendTo('.date_img');
+            for (row in data[1][0]) {
+                console.log(data[1][0][row].img_housings);
+                $('<div></div>').attr({ 'id': data[1][0].id_img, class: 'swiper-slide' }).appendTo('#carrousel_details')
+                    .html(
+                        "<img src= '" + data[1][0][row].img_housings + "' alt=''>"
+                    );
+            }
+            console.log('Inicializando Swiper...');
+            var gr = new Swiper('.portfolio-details-slider', {
+                slidesPerView: 2,
+                spaceBetween: 0,
+                loop: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    type: 'bullets',
+                    clickable: true
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                disableOnInteraction: false,
 
-//             });
-//             // Verificar si los elementos están presentes antes de intentar seleccionarlos
-//             if ($('#carrousel_details').length > 0) {
-//                 console.log('Se encontraron elementos con el id "carrousel_details".');
-//             } else {
-//                 console.log('No se encontraron elementos con el id "carrousel_details".');
-//             }
+            });
+            // Verificar si los elementos están presentes antes de intentar seleccionarlos
+            if ($('#carrousel_details').length > 0) {
+                console.log('Se encontraron elementos con el id "carrousel_details".');
+            } else {
+                console.log('No se encontraron elementos con el id "carrousel_details".');
+            }
 
-//             if ($('.portfolio-details-slider').length > 0) {
-//                 console.log('Se encontraron elementos con la clase "portfolio-details-slider".');
-//             } else {
-//                 console.log('No se encontraron elementos con la clase "portfolio-details-slider".');
-//             }
+            if ($('.portfolio-details-slider').length > 0) {
+                console.log('Se encontraron elementos con la clase "portfolio-details-slider".');
+            } else {
+                console.log('No se encontraron elementos con la clase "portfolio-details-slider".');
+            }
 
 
-//             $('<div></div>').attr({ 'id': data[0].id_housing, class: 'date_car_dentro' }).appendTo('.date_housing')
-//                 .html(`
-//                     <div class='col-lg-8 mx-auto'>
-//                     <div class='portfolio-info'>
-//                     <h3>${data[0].housing_price} € || <img class='img-icon-details img-like unpainted_like_details' src='view/icons/details_shop/like-regular.svg' id=${data[0].id_housing} alt=''></h3>
-//                     <ul class='lista_1'>
-//                     <li><strong>Housing Type</strong>: ${data[0].name_type}</li>
-//                     <li><strong>Client</strong>: ASU Company</li>
-//                     <li><strong>Publication date</strong>: ${data[0].publication_date}</li>
-//                     <li><strong>Project URL</strong>: <a href='#'>www.example.com</a></li>
-//                     </ul>
-//                     <ul class='hola'>
-//                     <p></p>
-//                     </ul>
-//                     <h3 class='hello'>Characteristics</h3>
-//                     <ul class='icon-list-characteristics'>
-//                     <li>
-//                     <img src= 'view/icons/details_shop/square_meters.svg' alt=''>
-//                     <div class='icon-content'>
-//                     <span><strong>Square meters</strong></span>
-//                     <span>${data[0].housing_m2} m<sup>2</sup></span>
-//                     </div>
-//                     </li>
-//                     </ul>
-//                     <h3 class='hello'>Extras</h3>
-//                     <ul class='icon-list-extras'>
-//                     </ul>
-//                     <h3 class='hello'>Location</h3>
-//                     <ul class='location-maps'>
-//                     <div id="map1"></div>
-//                     </ul>
-//                     </ul>
-//                     <h3 class='hello'>Housings Related</h3>
-//                     <ul class='results'>
+            $('<div></div>').attr({ 'id': data[0].id_housing, class: 'date_car_dentro' }).appendTo('.date_housing')
+                .html(`
+                    <div class='col-lg-8 mx-auto'>
+                    <div class='portfolio-info'>
+                    <h3>${data[0].housing_price} € || <img class='img-icon-details img-like unpainted_like_details' src='view/icons/details_shop/like-regular.svg' id=${data[0].id_housing} alt=''></h3>
+                    <ul class='lista_1'>
+                    <li><strong>Housing Type</strong>: ${data[0].name_type}</li>
+                    <li><strong>Client</strong>: ASU Company</li>
+                    <li><strong>Publication date</strong>: ${data[0].publication_date}</li>
+                    <li><strong>Project URL</strong>: <a href='#'>www.example.com</a></li>
+                    </ul>
+                    <ul class='hola'>
+                    <p></p>
+                    </ul>
+                    <h3 class='hello'>Characteristics</h3>
+                    <ul class='icon-list-characteristics'>
+                    <li>
+                    <img src= 'view/icons/details_shop/square_meters.svg' alt=''>
+                    <div class='icon-content'>
+                    <span><strong>Square meters</strong></span>
+                    <span>${data[0].housing_m2} m<sup>2</sup></span>
+                    </div>
+                    </li>
+                    </ul>
+                    <h3 class='hello'>Extras</h3>
+                    <ul class='icon-list-extras'>
+                    </ul>
+                    <h3 class='hello'>Location</h3>
+                    <ul class='location-maps'>
+                    <div id="map1"></div>
+                    </ul>
+                    </ul>
+                    <h3 class='hello'>Housings Related</h3>
+                    <ul class='results'>
                     
-//                     </ul>
-//                     </div>
-//                     </div>`
+                    </ul>
+                    </div>
+                    </div>`
 
-//                 )
-//             if (data[0].housing_bedrooms != 0) {
-//                 $('<div></div>').appendTo('.portfolio-info .icon-list-characteristics')
-//                 .html(
-//                     `<li>
-//                     <img src= 'view/icons/details_shop/bedroom.svg' alt=''>
-//                     <div class='icon-content'>
-//                     <span><strong>Bedrooms</strong></span>
-//                     <span>${data[0].housing_bedrooms}</span>
-//                     </div>
-//                     </li>`
-//                 ); 
-//             }
-//             if (data[0].housing_bathrooms != 0) {
-//                 $('<div></div>').appendTo('.portfolio-info .icon-list-characteristics')
-//                 .html(
-//                     `<li>
-//                     <img src= 'view/icons/details_shop/bathroom.svg' alt=''>
-//                     <div class='icon-content'>
-//                     <span><strong>Bathrooms</strong></span>
-//                     <span>${data[0].housing_bathrooms}</span>
-//                     </div>
-//                     </li>`
-//                 ); 
-//             }
-//             if (data[0].housing_heating != 'No heating') {
-//                 $('<div></div>').appendTo('.portfolio-info .icon-list-characteristics')
-//                 .html(
-//                     `<li>
-//                     <img src= 'view/icons/details_shop/heating.svg' alt=''>
-//                     <div class='icon-content'>
-//                     <span><strong>Heating</strong></span>
-//                     <span>${data[0].housing_heating}</span>
-//                     </div>
-//                     </li>`
-//                 ); 
-//             }
-//             for (row in data[2][0]) {
-//                 $('<div></div>').attr({'id': data[2][0][row].id_extras}).appendTo('.portfolio-info .icon-list-extras')
-//                     .html(
-//                         `<li>
-//                         <img src= '${data[2][0][row].img_extras}' alt=''>
-//                         <span>${data[2][0][row].name_extras}</span>
-//                         </li>`
+                )
+            if (data[0].housing_bedrooms != 0) {
+                $('<div></div>').appendTo('.portfolio-info .icon-list-characteristics')
+                .html(
+                    `<li>
+                    <img src= 'view/icons/details_shop/bedroom.svg' alt=''>
+                    <div class='icon-content'>
+                    <span><strong>Bedrooms</strong></span>
+                    <span>${data[0].housing_bedrooms}</span>
+                    </div>
+                    </li>`
+                ); 
+            }
+            if (data[0].housing_bathrooms != 0) {
+                $('<div></div>').appendTo('.portfolio-info .icon-list-characteristics')
+                .html(
+                    `<li>
+                    <img src= 'view/icons/details_shop/bathroom.svg' alt=''>
+                    <div class='icon-content'>
+                    <span><strong>Bathrooms</strong></span>
+                    <span>${data[0].housing_bathrooms}</span>
+                    </div>
+                    </li>`
+                ); 
+            }
+            if (data[0].housing_heating != 'No heating') {
+                $('<div></div>').appendTo('.portfolio-info .icon-list-characteristics')
+                .html(
+                    `<li>
+                    <img src= 'view/icons/details_shop/heating.svg' alt=''>
+                    <div class='icon-content'>
+                    <span><strong>Heating</strong></span>
+                    <span>${data[0].housing_heating}</span>
+                    </div>
+                    </li>`
+                ); 
+            }
+            for (row in data[2][0]) {
+                $('<div></div>').attr({'id': data[2][0][row].id_extras}).appendTo('.portfolio-info .icon-list-extras')
+                    .html(
+                        `<li>
+                        <img src= '${data[2][0][row].img_extras}' alt=''>
+                        <span>${data[2][0][row].name_extras}</span>
+                        </li>`
                         
-//                     );
-//                 }
-//                 // <h3 class='hello'>Housings Related (${data[0].name_type}s or ${data[2][0][row].name_extras})</h3>
-//                 localStorage.setItem('id_details', data[0].id_housing);
-//                 load_likes_details(data[0].id_housing);
-//                 mapBox(data[0]);
-//                 console.log("id extras " + data[2][0][row].id_extras);
-//                 more_husings_related(data[0].id_type, data[0].id_housing, data[2][0][row].id_extras);
-//         }).catch(function () {
-//             window.location.href = "index.php?page=503";
-//             //window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=Load_Details SHOP";
-//         });
+                    );
+                }
+                // <h3 class='hello'>Housings Related (${data[0].name_type}s or ${data[2][0][row].name_extras})</h3>
+                localStorage.setItem('id_details', data[0].id_housing);
+                // load_likes_details(data[0].id_housing);
+                mapBox(data[0]);
+                console.log("id extras " + data[2][0][row].id_extras);
+                // more_husings_related(data[0].id_type, data[0].id_housing, data[2][0][row].id_extras);
+        }).catch(function () {
+            // console.log('estoy aqui');
+            window.location.href = "index.php?page=503";
+            //window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=Load_Details SHOP";
+        });
 
-// }
+}
 
 // function print_filters() {
 //     ajaxPromise('module/shop/controller/controller_shop.php?op=print_dynamic_filters_shop', 'GET', 'JSON')
@@ -663,26 +664,26 @@ function mapBox_all(data) {
     }
 }
 
-// function mapBox(id_housing) {
-//     mapboxgl.accessToken = 'pk.eyJ1IjoiMjBqdWFuMTUiLCJhIjoiY2t6eWhubW90MDBnYTNlbzdhdTRtb3BkbyJ9.uR4BNyaxVosPVFt8ePxW1g';
-//     const map1 = new mapboxgl.Map({
-//         container: 'map1',
-//         style: 'mapbox://styles/mapbox/streets-v11',
-//         center: [id_housing.longitude, id_housing.latitude], // starting position [lng, lat]
-//         zoom: 10 // starting zoom
-//     });
-//     const markerLocationID = new mapboxgl.Marker({
-//         color: "#1bbd36"
-//     })
-//     const minPopup = new mapboxgl.Popup()
-//     minPopup.setHTML('<div class="popup-content">' + '<h4>' + id_housing.housing_address + '</h4><p>Rooms: ' + id_housing.housing_rooms + '</p>' +
-//         '<p>Price: ' + id_housing.housing_price + '€</p>' +
-//         '<img class="popup-image" src=" ' + id_housing.img_housing + '"/>' + 
-//         '</div>')
-//     markerLocationID.setPopup(minPopup)
-//         .setLngLat([id_housing.longitude, id_housing.latitude])
-//         .addTo(map1);
-// }
+function mapBox(id_housing) {
+    mapboxgl.accessToken = 'pk.eyJ1IjoiMjBqdWFuMTUiLCJhIjoiY2t6eWhubW90MDBnYTNlbzdhdTRtb3BkbyJ9.uR4BNyaxVosPVFt8ePxW1g';
+    const map1 = new mapboxgl.Map({
+        container: 'map1',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [id_housing.longitude, id_housing.latitude], // starting position [lng, lat]
+        zoom: 10 // starting zoom
+    });
+    const markerLocationID = new mapboxgl.Marker({
+        color: "#1bbd36"
+    })
+    const minPopup = new mapboxgl.Popup()
+    minPopup.setHTML('<div class="popup-content">' + '<h4>' + id_housing.housing_address + '</h4><p>Rooms: ' + id_housing.housing_rooms + '</p>' +
+        '<p>Price: ' + id_housing.housing_price + '€</p>' +
+        '<img class="popup-image" src=" ' + id_housing.img_housing + '"/>' + 
+        '</div>')
+    markerLocationID.setPopup(minPopup)
+        .setLngLat([id_housing.longitude, id_housing.latitude])
+        .addTo(map1);
+}
 
 // function pagination(filters__shop) {
 //     var filters = JSON.parse(localStorage.getItem('filters_home'));
@@ -1020,6 +1021,6 @@ $(document).ready(function () {
     loadHousings();
     // print_filters();
     // filter_button();
-    // clicks();
+    clicks();
     // click_likes();
 });

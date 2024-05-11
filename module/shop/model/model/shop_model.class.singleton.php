@@ -20,5 +20,10 @@
             // return 'Entro a shop_model --> get_all_housings'; 
             return $this -> bll -> get_all_housings_BLL($args);
         }
+
+        public function get_details_housing($args) {
+            // return 'Entro a shop_model --> get_details_housing'; 
+            return $this -> bll -> get_details_housing_BLL($args);
+        }
     }
 ?>

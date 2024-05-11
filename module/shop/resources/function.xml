@@ -8,4 +8,8 @@
         <name>all_housings</name>
         <uri>all_housings</uri>
     </function>
+    <function>
+        <name>details_housing</name>
+        <uri>details_housing</uri>
+    </function>
 </functions>
