@@ -35,5 +35,10 @@
             // return 'Entro a shop_model --> get_filters_shop'; 
             return $this -> bll -> get_filters_shop_BLL($args);
         }
+
+        public function get_print_dynamic_filters_shop() {
+            // return 'Entro a shop_model --> get_print_dynamic_filters_shop'; 
+            return $this -> bll -> get_print_dynamic_filters_shop_BLL();
+        }
     }
 ?>

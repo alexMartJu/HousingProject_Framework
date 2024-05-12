@@ -13,7 +13,7 @@ function loadHousings() {
         var filters__shop = JSON.parse(verificate_filters_shop);
         console.log("Datos de filters_shop:", filters__shop);
         ajaxForSearch('?module=shop&op=filters_shop', 'POST', 'JSON', {'filters__shop':filters__shop, 'offset': offset, 'items_page': items_page});
-        // filter_button();
+        filter_button();
         // pagination(filters__shop);
     } else {
         ajaxForSearch('?module=shop&op=all_housings', 'POST', 'JSON', {'offset': offset, 'items_page': items_page});
@@ -298,320 +298,321 @@ function loadDetails(id_housing) {
 
 }
 
-// function print_filters() {
-//     ajaxPromise('module/shop/controller/controller_shop.php?op=print_dynamic_filters_shop', 'GET', 'JSON')
-//     .then(function (data) {
-//         $('<div class="div_filters"></div>').appendTo('.filters')
-//         .html(`
-//             <div>
-//                 <a href="#modalSuccess"><button type="button" data-filter="city">Housing City</button></a>
-//                 <div id="modalSuccess" class="modal">
-//                     <div class="modal-content">
-//                         <div class="modal-header header-success">
-//                             <span class="modal-header-title">Housing City</span>
-//                             <a href="#/" class="header-btn-close">&#215;</a>
-//                         </div> <!-- .modal-header -->
-//                         <div class="radio-container">
-//                             <div class="column">
-//                                 <!-- Radios para la primera columna -->
-//                             </div>
-//                             <div class="column1">
-//                                 <!-- Radios para la primera columna -->
-//                             </div>
-//                         </div>
-//                     </div> <!-- .modal-content -->
-//                 </div>
-//             </div>
-//             <div>
-//                 <a href="#modalType"><button type="button" data-filter="type">Housing Type</button></a>
-//                 <div id="modalType" class="modal">
-//                     <div class="modal-content">
-//                         <div class="modal-header header-success">
-//                             <span class="modal-header-title">Housing Type</span>
-//                             <a href="#/" class="header-btn-close">&#215;</a>
-//                         </div> <!-- .modal-header -->
-//                         <div class="radio_container_type">
-//                             <div class="columna">
-//                                 <!-- Radios para la primera columna -->
-//                             </div>
-//                         </div>
-//                     </div> <!-- .modal-content -->
-//                 </div>
-//             </div>
-//             <select class="filter_operation" name="select_operation" id="select_operation"> 
-//                 <option disabled selected style="display:none;">Housing Operation</option>
+function print_filters() {
+    ajaxPromise('?module=shop&op=print_dynamic_filters_shop', 'GET', 'JSON')
+    .then(function (data) {
+        console.log("Datos recibidos de print_filters:", data);
+        $('<div class="div_filters"></div>').appendTo('.filters')
+        .html(`
+            <div>
+                <a href="#modalSuccess"><button type="button" data-filter="city">Housing City</button></a>
+                <div id="modalSuccess" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header header-success">
+                            <span class="modal-header-title">Housing City</span>
+                            <a href="#/" class="header-btn-close">&#215;</a>
+                        </div> <!-- .modal-header -->
+                        <div class="radio-container">
+                            <div class="column">
+                                <!-- Radios para la primera columna -->
+                            </div>
+                            <div class="column1">
+                                <!-- Radios para la primera columna -->
+                            </div>
+                        </div>
+                    </div> <!-- .modal-content -->
+                </div>
+            </div>
+            <div>
+                <a href="#modalType"><button type="button" data-filter="type">Housing Type</button></a>
+                <div id="modalType" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header header-success">
+                            <span class="modal-header-title">Housing Type</span>
+                            <a href="#/" class="header-btn-close">&#215;</a>
+                        </div> <!-- .modal-header -->
+                        <div class="radio_container_type">
+                            <div class="columna">
+                                <!-- Radios para la primera columna -->
+                            </div>
+                        </div>
+                    </div> <!-- .modal-content -->
+                </div>
+            </div>
+            <select class="filter_operation" name="select_operation" id="select_operation"> 
+                <option disabled selected style="display:none;">Housing Operation</option>
                 
-//             </select>
-//             <select class="filter_category" name="select_category" id="select_category"> 
-//                 <option disabled selected style="display:none;">Housing Category</option>
+            </select>
+            <select class="filter_category" name="select_category" id="select_category"> 
+                <option disabled selected style="display:none;">Housing Category</option>
                 
-//             </select> 
-//             <select class="filter_extras" name="select_extras" id="select_extras"> 
-//                 <option disabled selected style="display:none;">Extras</option>
+            </select> 
+            <select class="filter_extras" name="select_extras" id="select_extras"> 
+                <option disabled selected style="display:none;">Extras</option>
                 
-//             </select>
-//             <select class="filter_distinctweb" name="select_distinctweb" id="select_distinctweb"> 
-//                 <option disabled selected style="display:none;">Automation</option>
+            </select>
+            <select class="filter_distinctweb" name="select_distinctweb" id="select_distinctweb"> 
+                <option disabled selected style="display:none;">Automation</option>
                 
-//             </select>
-//             <select class="filter_orderby" name="select_orderby" id="select_orderby"> 
-//                 <option disabled selected style="display:none;">Order By</option>
-//                 <option value="Price" id="Price">Per price</option> 
-//                 <option value="M2" id="M2">Per square meters</option> 
+            </select>
+            <select class="filter_orderby" name="select_orderby" id="select_orderby"> 
+                <option disabled selected style="display:none;">Order By</option>
+                <option value="Price" id="Price">Per price</option> 
+                <option value="M2" id="M2">Per square meters</option> 
                 
-//             </select>    
-//             <button class="filter_button" id="Button_filter">Filter</button> 
-//             <button class="filter_remove" id="Remove_filter">Remove</button>`
-//         )
-//         var countColumn = 0;
-//         var countColumn1 = 0;
+            </select>    
+            <button class="filter_button" id="Button_filter">Filter</button> 
+            <button class="filter_remove" id="Remove_filter">Remove</button>`
+        )
+        var countColumn = 0;
+        var countColumn1 = 0;
 
-//         for (row in data[0][0]){
-//             // Crear un div para cada par de radio-item y colocarlos en dos columnas
-//             var $radioItem = $('<div></div>').addClass('radio-item col-md-12 mb-2');
+        for (row in data[0][0]){
+            // Crear un div para cada par de radio-item y colocarlos en dos columnas
+            var $radioItem = $('<div></div>').addClass('radio-item col-md-12 mb-2');
     
-//             // Insertar radio-item en la columna correspondiente
-//             if (countColumn <= countColumn1) {
-//                 $radioItem.appendTo('.radio-container .column');
-//                 countColumn++;
-//             } else {
-//                 $radioItem.appendTo('.radio-container .column1');
-//                 countColumn1++;
-//             }
+            // Insertar radio-item en la columna correspondiente
+            if (countColumn <= countColumn1) {
+                $radioItem.appendTo('.radio-container .column');
+                countColumn++;
+            } else {
+                $radioItem.appendTo('.radio-container .column1');
+                countColumn1++;
+            }
 
-//             // Agregar el contenido HTML al radio-item
-//             $radioItem.html(
-//                 `<input type="checkbox" id='${data[0][0][row].name_city}' value='${data[0][0][row].name_city}' class="filter_city form-check-input" name="select_city" id="select_city">
-//                 <label class="form-check-label" for='${data[0][0][row].name_city}'>${data[0][0][row].name_city}</label>`
-//             );
-//         }
-//         for (row in data[1][0]){
-//             $('<div></div>').attr('class','radio-item-type col-md-12').appendTo('.radio_container_type .columna')
-//                 .html(
-//                     `<input type="radio" id='${data[1][0][row].name_type}' value='${data[1][0][row].name_type}' class="filter_type form-check-input" name="select_type" id="select_type">
-//                     <label class="form-check-label" for='${data[1][0][row].name_type}'>${data[1][0][row].name_type}</label>`
+            // Agregar el contenido HTML al radio-item
+            $radioItem.html(
+                `<input type="checkbox" id='${data[0][0][row].name_city}' value='${data[0][0][row].name_city}' class="filter_city form-check-input" name="select_city" id="select_city">
+                <label class="form-check-label" for='${data[0][0][row].name_city}'>${data[0][0][row].name_city}</label>`
+            );
+        }
+        for (row in data[1][0]){
+            $('<div></div>').attr('class','radio-item-type col-md-12').appendTo('.radio_container_type .columna')
+                .html(
+                    `<input type="radio" id='${data[1][0][row].name_type}' value='${data[1][0][row].name_type}' class="filter_type form-check-input" name="select_type" id="select_type">
+                    <label class="form-check-label" for='${data[1][0][row].name_type}'>${data[1][0][row].name_type}</label>`
                     
-//                 );
+                );
                 
-//         }
-//         for (row in data[2][0]){
-//             $('<option></option>').val(`${data[2][0][row].name_operation}`).attr({'id': data[2][0][row].name_operation}).appendTo('#select_operation')
-//             .html(
-//                 `${data[2][0][row].name_operation}`
-//             );
-//         }
-//         for (row in data[3][0]){
-//             $('<option></option>').val(`${data[3][0][row].name_category}`).attr({'id': data[3][0][row].name_category}).appendTo('#select_category')
-//             .html(
-//                 `${data[3][0][row].name_category}`
-//             );
-//         }
-//         for (row in data[4][0]){
-//             $('<option></option>').val(`${data[4][0][row].name_extras}`).attr({'id': data[4][0][row].name_extras}).appendTo('#select_extras')
-//             .html(
-//                 `${data[4][0][row].name_extras}`
-//             );
-//         }
-//         for (row in data[5][0]){
-//             $('<option></option>').val(`${data[5][0][row].name_aut_parts}`).attr({'id': data[5][0][row].name_name_aut_parts}).appendTo('#select_distinctweb')
-//             .html(
-//                 `${data[5][0][row].name_aut_parts}`
-//             );
-//         }
-//         filter_button();
-//         $(document).on('click', '.filter_remove', function() {
-//             remove_filters();
-//         });
-//     }).catch(function () {
-//         window.location.href = "index.php?page=503";
-//         //window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=Load_Details SHOP";
-//     });
-// }
+        }
+        for (row in data[2][0]){
+            $('<option></option>').val(`${data[2][0][row].name_operation}`).attr({'id': data[2][0][row].name_operation}).appendTo('#select_operation')
+            .html(
+                `${data[2][0][row].name_operation}`
+            );
+        }
+        for (row in data[3][0]){
+            $('<option></option>').val(`${data[3][0][row].name_category}`).attr({'id': data[3][0][row].name_category}).appendTo('#select_category')
+            .html(
+                `${data[3][0][row].name_category}`
+            );
+        }
+        for (row in data[4][0]){
+            $('<option></option>').val(`${data[4][0][row].name_extras}`).attr({'id': data[4][0][row].name_extras}).appendTo('#select_extras')
+            .html(
+                `${data[4][0][row].name_extras}`
+            );
+        }
+        for (row in data[5][0]){
+            $('<option></option>').val(`${data[5][0][row].name_aut_parts}`).attr({'id': data[5][0][row].name_name_aut_parts}).appendTo('#select_distinctweb')
+            .html(
+                `${data[5][0][row].name_aut_parts}`
+            );
+        }
+        filter_button();
+        $(document).on('click', '.filter_remove', function() {
+            remove_filters();
+        });
+    }).catch(function () {
+        window.location.href = "index.php?page=503";
+        //window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=Load_Details SHOP";
+    });
+}
 
-// function filter_button() {
-//     $(function() {
-//         // Obtener los valores almacenados o un array vacío si no hay ninguno
-//         var filter_city = JSON.parse(localStorage.getItem('filter_city')) || [];
+function filter_button() {
+    $(function() {
+        // Obtener los valores almacenados o un array vacío si no hay ninguno
+        var filter_city = JSON.parse(localStorage.getItem('filter_city')) || [];
     
-//         $('.filter_city').change(function() {
-//             var selectedValue = this.value;
+        $('.filter_city').change(function() {
+            var selectedValue = this.value;
             
-//             // Verificar si el valor ya está presente en el array
-//             var index = filter_city.indexOf(selectedValue);
-//             if (index === -1) {
-//                 filter_city.push(selectedValue); // Agregar el valor si no está presente
-//             } else {
-//                 filter_city.splice(index, 1); // Eliminar el valor si ya está presente
-//             }
+            // Verificar si el valor ya está presente en el array
+            var index = filter_city.indexOf(selectedValue);
+            if (index === -1) {
+                filter_city.push(selectedValue); // Agregar el valor si no está presente
+            } else {
+                filter_city.splice(index, 1); // Eliminar el valor si ya está presente
+            }
             
-//             localStorage.setItem('filter_city', JSON.stringify(filter_city)); // Guardar el array actualizado en el localStorage
-//         });
+            localStorage.setItem('filter_city', JSON.stringify(filter_city)); // Guardar el array actualizado en el localStorage
+        });
     
-//         // Aplicar los valores almacenados al elemento select
-//         if (filter_city.length > 0) {
-//             $('.filter_city').val(filter_city);
-//         }
-//     });
-//     $(function() {
-//         // Manejar el cambio de radio buttons y almacenar el valor seleccionado en localStorage
-//         $('.filter_type').change(function() {
-//             if ($(this).is(':checked')) { // Verificar si el radio button está marcado
-//                 localStorage.setItem('filter_type', $(this).val()); // Almacenar el valor seleccionado en localStorage
-//             }
-//         });
-//         // Establecer el radio button seleccionado al cargar la página
-//         if (localStorage.getItem('filter_type')) {
-//             var filterType = localStorage.getItem('filter_type'); // Obtener el valor almacenado en localStorage
-//             // Buscar el radio button cuyo valor coincide con el valor almacenado y marcarlo como seleccionado
-//             $('.filter_type').filter(`[value='${filterType}']`).prop('checked', true);
-//         }
-//     });
-//     $(function() {
-//         $('.filter_operation').change(function() {
-//             localStorage.setItem('filter_operation', this.value);
-//         });
-//         if (localStorage.getItem('filter_operation')) {
-//             $('.filter_operation').val(localStorage.getItem('filter_operation'));
-//         }
-//     });
-//     $(function() {
-//         $('.filter_category').change(function() {
-//             localStorage.setItem('filter_category', this.value);
-//         });
-//         if (localStorage.getItem('filter_category')) {
-//             $('.filter_category').val(localStorage.getItem('filter_category'));
-//         }
-//     });
-//     $(function() {
-//         $('.filter_extras').change(function() {
-//             localStorage.setItem('filter_extras', this.value);
-//         });
-//         if (localStorage.getItem('filter_extras')) {
-//             $('.filter_extras').val(localStorage.getItem('filter_extras'));
-//         }
-//     });
-//     $(function() {
-//         $('.filter_distinctweb').change(function() {
-//             localStorage.setItem('filter_distinctweb', this.value);
-//         });
-//         if (localStorage.getItem('filter_distinctweb')) {
-//             $('.filter_distinctweb').val(localStorage.getItem('filter_distinctweb'));
-//         }
-//     });
+        // Aplicar los valores almacenados al elemento select
+        if (filter_city.length > 0) {
+            $('.filter_city').val(filter_city);
+        }
+    });
+    $(function() {
+        // Manejar el cambio de radio buttons y almacenar el valor seleccionado en localStorage
+        $('.filter_type').change(function() {
+            if ($(this).is(':checked')) { // Verificar si el radio button está marcado
+                localStorage.setItem('filter_type', $(this).val()); // Almacenar el valor seleccionado en localStorage
+            }
+        });
+        // Establecer el radio button seleccionado al cargar la página
+        if (localStorage.getItem('filter_type')) {
+            var filterType = localStorage.getItem('filter_type'); // Obtener el valor almacenado en localStorage
+            // Buscar el radio button cuyo valor coincide con el valor almacenado y marcarlo como seleccionado
+            $('.filter_type').filter(`[value='${filterType}']`).prop('checked', true);
+        }
+    });
+    $(function() {
+        $('.filter_operation').change(function() {
+            localStorage.setItem('filter_operation', this.value);
+        });
+        if (localStorage.getItem('filter_operation')) {
+            $('.filter_operation').val(localStorage.getItem('filter_operation'));
+        }
+    });
+    $(function() {
+        $('.filter_category').change(function() {
+            localStorage.setItem('filter_category', this.value);
+        });
+        if (localStorage.getItem('filter_category')) {
+            $('.filter_category').val(localStorage.getItem('filter_category'));
+        }
+    });
+    $(function() {
+        $('.filter_extras').change(function() {
+            localStorage.setItem('filter_extras', this.value);
+        });
+        if (localStorage.getItem('filter_extras')) {
+            $('.filter_extras').val(localStorage.getItem('filter_extras'));
+        }
+    });
+    $(function() {
+        $('.filter_distinctweb').change(function() {
+            localStorage.setItem('filter_distinctweb', this.value);
+        });
+        if (localStorage.getItem('filter_distinctweb')) {
+            $('.filter_distinctweb').val(localStorage.getItem('filter_distinctweb'));
+        }
+    });
 
-//     $(function() {
-//         $('.filter_orderby').change(function() {
-//             localStorage.setItem('filter_orderby', this.value);
-//         });
-//         if (localStorage.getItem('filter_orderby')) {
-//             $('.filter_orderby').val(localStorage.getItem('filter_orderby'));
-//         }
-//     });
-//     $(document).on('click', '.filter_button', function() {
-//         var filters_shop = [];
+    $(function() {
+        $('.filter_orderby').change(function() {
+            localStorage.setItem('filter_orderby', this.value);
+        });
+        if (localStorage.getItem('filter_orderby')) {
+            $('.filter_orderby').val(localStorage.getItem('filter_orderby'));
+        }
+    });
+    $(document).on('click', '.filter_button', function() {
+        var filters_shop = [];
 
-//         localStorage.removeItem('filters');
-//         localStorage.removeItem('filters_search');
+        localStorage.removeItem('filters');
+        localStorage.removeItem('filters_search');
 
-//         if (localStorage.getItem('filter_city')) {
-//             filter_city = JSON.parse(localStorage.getItem('filter_city'));
-//             if (filter_city.length > 0) {
-//                 filters_shop.push(['name_city', filter_city])
-//             } else {
-//                 localStorage.remove('filter_city');
-//                 localStorage.remove('filters_shop');
-//             }
-//             // filters_shop.push(['name_city', filter_city])
-//         }
-//         // if (localStorage.getItem('filter_type')) {
-//         //     filters_shop.push(['name_type', localStorage.getItem('filter_type')])
-//         // }
+        if (localStorage.getItem('filter_city')) {
+            filter_city = JSON.parse(localStorage.getItem('filter_city'));
+            if (filter_city.length > 0) {
+                filters_shop.push(['name_city', filter_city])
+            } else {
+                localStorage.remove('filter_city');
+                localStorage.remove('filters_shop');
+            }
+            // filters_shop.push(['name_city', filter_city])
+        }
+        // if (localStorage.getItem('filter_type')) {
+        //     filters_shop.push(['name_type', localStorage.getItem('filter_type')])
+        // }
 
-//         // Obtener el valor del radio button seleccionado
-//         var selectedType = $('.filter_type:checked').val(); // Buscar el radio button que esté marcado y obtener su valor
-//         // Verificar si se ha seleccionado algún radio button
-//         if (selectedType) { // Comprobar si se ha seleccionado algún radio button
-//             filters_shop.push(['name_type', selectedType]); // Agregar el nombre del filtro y su valor al arreglo de filtros que se aplicarán
-//         }
-//         if (localStorage.getItem('filter_operation')) {
-//             filters_shop.push(['name_operation', localStorage.getItem('filter_operation')])
-//         }
-//         if (localStorage.getItem('filter_category')) {
-//             filters_shop.push(['name_category', localStorage.getItem('filter_category')])
-//         }
-//         if (localStorage.getItem('filter_extras')) {
-//             filters_shop.push(['name_extras', localStorage.getItem('filter_extras')])
-//         }
-//         if (localStorage.getItem('filter_distinctweb')) {
-//             filters_shop.push(['name_aut_parts', localStorage.getItem('filter_distinctweb')])
-//         }
-//         if (localStorage.getItem('filter_orderby')) {
-//             filters_shop.push(['name_orderby', localStorage.getItem('filter_orderby')])
-//         }
-//         console.log(filters_shop);
-//         if (filters_shop.length != 0) {
-//             localStorage.setItem('filters_shop', JSON.stringify(filters_shop));
-//             location.reload();
-//         } else {
-//             localStorage.removeItem('filters_shop');
-//             location.reload();
-//         }
-//     });
-//     highlightFilters();
-// }
+        // Obtener el valor del radio button seleccionado
+        var selectedType = $('.filter_type:checked').val(); // Buscar el radio button que esté marcado y obtener su valor
+        // Verificar si se ha seleccionado algún radio button
+        if (selectedType) { // Comprobar si se ha seleccionado algún radio button
+            filters_shop.push(['name_type', selectedType]); // Agregar el nombre del filtro y su valor al arreglo de filtros que se aplicarán
+        }
+        if (localStorage.getItem('filter_operation')) {
+            filters_shop.push(['name_operation', localStorage.getItem('filter_operation')])
+        }
+        if (localStorage.getItem('filter_category')) {
+            filters_shop.push(['name_category', localStorage.getItem('filter_category')])
+        }
+        if (localStorage.getItem('filter_extras')) {
+            filters_shop.push(['name_extras', localStorage.getItem('filter_extras')])
+        }
+        if (localStorage.getItem('filter_distinctweb')) {
+            filters_shop.push(['name_aut_parts', localStorage.getItem('filter_distinctweb')])
+        }
+        if (localStorage.getItem('filter_orderby')) {
+            filters_shop.push(['name_orderby', localStorage.getItem('filter_orderby')])
+        }
+        console.log(filters_shop);
+        if (filters_shop.length != 0) {
+            localStorage.setItem('filters_shop', JSON.stringify(filters_shop));
+            location.reload();
+        } else {
+            localStorage.removeItem('filters_shop');
+            location.reload();
+        }
+    });
+    highlightFilters();
+}
 
-// function highlightFilters() {
-//     if(localStorage.getItem('filters_shop')) {
-//         var all_filters = JSON.parse(localStorage.getItem('filters_shop'));
-//     }
+function highlightFilters() {
+    if(localStorage.getItem('filters_shop')) {
+        var all_filters = JSON.parse(localStorage.getItem('filters_shop'));
+    }
 
-//     for (row in all_filters) {
-//         if (all_filters[row][0] === 'name_city') {
-//             // $('#select_city').val(all_filters[row][1]).addClass('highlighted');
-//             $('[data-filter="city"]').addClass('highlighted_modal');
-//         }
-//         if (all_filters[row][0] === 'name_type') {
-//             $('[data-filter="type"]').addClass('highlighted_modal');
-//             // $('#select_type').val(all_filters[row][1]).addClass('highlighted');
-//             // Marcar el radio button correspondiente en lugar de establecer el valor
-//             // $('input[name="select_type"][value="' + all_filters[row][1] + '"]').prop('checked', true).addClass('highlighted');
-//         }
-//         if (all_filters[row][0] === 'name_operation') {
-//             $('#select_operation').val(all_filters[row][1]).addClass('highlighted');
-//         }
-//         if (all_filters[row][0] === 'name_category') {
-//             $('#select_category').val(all_filters[row][1]).addClass('highlighted');
-//         }
-//         if (all_filters[row][0] === 'name_extras') {
-//             $('#select_extras').val(all_filters[row][1]).addClass('highlighted');
-//         }
-//         if (all_filters[row][0] === 'name_aut_parts') {
-//             $('#select_distinctweb').val(all_filters[row][1]).addClass('highlighted');
-//         }
-//         if (all_filters[row][0] === 'name_orderby') {
-//             $('#select_orderby').val(all_filters[row][1]).addClass('highlighted');
-//         }
-//     }
-// }
+    for (row in all_filters) {
+        if (all_filters[row][0] === 'name_city') {
+            // $('#select_city').val(all_filters[row][1]).addClass('highlighted');
+            $('[data-filter="city"]').addClass('highlighted_modal');
+        }
+        if (all_filters[row][0] === 'name_type') {
+            $('[data-filter="type"]').addClass('highlighted_modal');
+            // $('#select_type').val(all_filters[row][1]).addClass('highlighted');
+            // Marcar el radio button correspondiente en lugar de establecer el valor
+            // $('input[name="select_type"][value="' + all_filters[row][1] + '"]').prop('checked', true).addClass('highlighted');
+        }
+        if (all_filters[row][0] === 'name_operation') {
+            $('#select_operation').val(all_filters[row][1]).addClass('highlighted');
+        }
+        if (all_filters[row][0] === 'name_category') {
+            $('#select_category').val(all_filters[row][1]).addClass('highlighted');
+        }
+        if (all_filters[row][0] === 'name_extras') {
+            $('#select_extras').val(all_filters[row][1]).addClass('highlighted');
+        }
+        if (all_filters[row][0] === 'name_aut_parts') {
+            $('#select_distinctweb').val(all_filters[row][1]).addClass('highlighted');
+        }
+        if (all_filters[row][0] === 'name_orderby') {
+            $('#select_orderby').val(all_filters[row][1]).addClass('highlighted');
+        }
+    }
+}
 
-// function remove_filters() {
-//     localStorage.removeItem('filter_city');
-//     localStorage.removeItem('filter_type');
-//     localStorage.removeItem('filter_operation');
-//     localStorage.removeItem('filter_category');
-//     localStorage.removeItem('filter_extras');
-//     localStorage.removeItem('filter_distinctweb');
-//     localStorage.removeItem('filter_orderby');
-//     localStorage.removeItem('filters_shop');
-//     $('#select_city').removeClass('highlighted_modal');
-//     $('#select_type').removeClass('highlighted_modal');
-//     $('#select_operation').removeClass('highlighted');
-//     $('#select_category').removeClass('highlighted');
-//     $('#select_extras').removeClass('highlighted');
-//     $('#select_distinctweb').removeClass('highlighted');
-//     $('#select_orderby').removeClass('highlighted');
-//     location.reload();
-// }
+function remove_filters() {
+    localStorage.removeItem('filter_city');
+    localStorage.removeItem('filter_type');
+    localStorage.removeItem('filter_operation');
+    localStorage.removeItem('filter_category');
+    localStorage.removeItem('filter_extras');
+    localStorage.removeItem('filter_distinctweb');
+    localStorage.removeItem('filter_orderby');
+    localStorage.removeItem('filters_shop');
+    $('#select_city').removeClass('highlighted_modal');
+    $('#select_type').removeClass('highlighted_modal');
+    $('#select_operation').removeClass('highlighted');
+    $('#select_category').removeClass('highlighted');
+    $('#select_extras').removeClass('highlighted');
+    $('#select_distinctweb').removeClass('highlighted');
+    $('#select_orderby').removeClass('highlighted');
+    location.reload();
+}
 
 function mapBox_all(data) {
     mapboxgl.accessToken = 'pk.eyJ1IjoiMjBqdWFuMTUiLCJhIjoiY2t6eWhubW90MDBnYTNlbzdhdTRtb3BkbyJ9.uR4BNyaxVosPVFt8ePxW1g';
@@ -1019,8 +1020,8 @@ function mapBox(id_housing) {
 
 $(document).ready(function () { 
     loadHousings();
-    // print_filters();
-    // filter_button();
+    print_filters();
+    filter_button();
     clicks();
     // click_likes();
 });

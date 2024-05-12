@@ -97,5 +97,52 @@
 				return "error";
 			}
 		}
+
+		public function get_print_dynamic_filters_shop_BLL() {
+            // return 'Entro a shop_bll --> get_print_dynamic_filters_shop_BLL';
+			try {
+				$Date_cities = $this -> dao -> print_dynamic_filter_city($this -> db);
+			} catch (Exception $e) {
+				return "error";
+			}
+			try {
+				$Date_types = $this -> dao -> print_dynamic_filter_type($this -> db);
+			} catch (Exception $e) {
+				return "error";
+			}
+			try {
+				$Date_operations = $this -> dao -> print_dynamic_filter_operation($this -> db);
+			} catch (Exception $e) {
+				return "error";
+			}
+			try {
+				$Date_categories = $this -> dao -> print_dynamic_filter_category($this -> db);
+			} catch (Exception $e) {
+				return "error";
+			}
+			try {
+				$Date_extras = $this -> dao -> print_dynamic_filter_extras($this -> db);
+			} catch (Exception $e) {
+				return "error";
+			}
+			try {
+				$Date_distinctweb = $this -> dao -> print_dynamic_filter_distinctweb($this -> db);
+			} catch (Exception $e) {
+				return "error";
+			}
+	  
+			if (!empty($Date_cities || $Date_types || $Date_operations || $Date_categories || $Date_extras || $Date_distinctweb)) {
+				$rdo = array();
+				$rdo[0][] = $Date_cities;
+				$rdo[1][] = $Date_types;
+				$rdo[2][] = $Date_operations;
+				$rdo[3][] = $Date_categories;
+				$rdo[4][] = $Date_extras;
+				$rdo[5][] = $Date_distinctweb;
+				return $rdo;
+			} else {
+				return "error";
+			}
+		}
 	}
 ?>

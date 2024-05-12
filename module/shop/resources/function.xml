@@ -20,4 +20,8 @@
         <name>filters_shop</name>
         <uri>filters_shop</uri>
     </function>
+    <function>
+        <name>print_dynamic_filters_shop</name>
+        <uri>print_dynamic_filters_shop</uri>
+    </function>
 </functions>

@@ -171,5 +171,71 @@
             return $db -> listar_array($stmt);
             
         }
+
+        public function print_dynamic_filter_city($db) {
+            // return 'Entro a shop_dao --> print_dynamic_filter_city';
+            $sql = "SELECT id_city, name_city
+            FROM city
+            ORDER BY id_city";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar($stmt);
+            
+        }
+
+        public function print_dynamic_filter_type($db) {
+            // return 'Entro a shop_dao --> print_dynamic_filter_type';
+            $sql = "SELECT id_type, name_type
+            FROM h_type
+            ORDER BY id_type";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar($stmt);
+            
+        }
+
+        public function print_dynamic_filter_operation($db) {
+            // return 'Entro a shop_dao --> print_dynamic_filter_operation';
+            $sql = "SELECT id_operation, name_operation
+            FROM operation
+            ORDER BY id_operation";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar($stmt);
+            
+        }
+
+        public function print_dynamic_filter_category($db) {
+            // return 'Entro a shop_dao --> print_dynamic_filter_category';
+            $sql = "SELECT id_category, name_category
+            FROM category
+            ORDER BY id_category";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar($stmt);
+            
+        }
+
+        public function print_dynamic_filter_extras($db) {
+            // return 'Entro a shop_dao --> print_dynamic_filter_extras';
+            $sql = "SELECT id_extras, name_extras
+            FROM extras
+            ORDER BY id_extras";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar($stmt);
+            
+        }
+
+        public function print_dynamic_filter_distinctweb($db) {
+            // return 'Entro a shop_dao --> print_dynamic_filter_distinctweb';
+            $sql = "SELECT id_aut_parts, name_aut_parts
+            FROM automation_parts
+            ORDER BY id_aut_parts";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar($stmt);
+            
+        }
     }
 ?>
