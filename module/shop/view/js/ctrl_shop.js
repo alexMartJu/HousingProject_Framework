@@ -11,8 +11,8 @@ function loadHousings() {
         ajaxForSearch('?module=shop&op=filters_home', 'POST', 'JSON', {'filters':filters, 'offset': offset, 'items_page': items_page});
     } else if (verificate_filters_shop != false){
         var filters__shop = JSON.parse(verificate_filters_shop);
-        console.log("filter_SHOP " + filters__shop);
-        ajaxForSearch('module/shop/controller/controller_shop.php?op=filters_shop', 'POST', 'JSON', {'filters__shop':filters__shop, 'offset': offset, 'items_page': items_page});
+        console.log("Datos de filters_shop:", filters__shop);
+        ajaxForSearch('?module=shop&op=filters_shop', 'POST', 'JSON', {'filters__shop':filters__shop, 'offset': offset, 'items_page': items_page});
         // filter_button();
         // pagination(filters__shop);
     } else {

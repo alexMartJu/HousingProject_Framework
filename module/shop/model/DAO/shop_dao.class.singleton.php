@@ -123,5 +123,53 @@
             return $db -> listar_array($stmt);
             
         }
+
+        public function select_filters_shop($db, $filters, $offset, $items_page) {
+
+            $filter = "";
+            $order = "";
+            $whereClauseAdded = false; // Variable para controlar si ya se ha añadido una cláusula WHERE
+
+            // Recorremos los filtros
+            for ($i = 0; $i < count($filters); $i++) {
+                // Manejamos el filtro 'name_city'
+                if ($filters[$i][0] == 'name_city') {
+                    $filter .= ($whereClauseAdded ? " AND " : " WHERE ") . $filters[$i][0] . " IN ('" . implode("','", $filters[$i][1]) . "')";
+                    $whereClauseAdded = true; // Se añadió una cláusula WHERE
+                }
+                // Manejamos el filtro 'name_orderby'
+                elseif ($filters[$i][0] == 'name_orderby') {
+                    $order = "ORDER BY " . ($filters[$i][1] == 'Price' ? "h.housing_price ASC" : "h.housing_M2 ASC");
+                }
+                // Manejamos otros filtros
+                else {
+                    $filter .= ($whereClauseAdded ? " AND " : " WHERE ") . $filters[$i][0] . "= '" . $filters[$i][1] . "'";
+                    $whereClauseAdded = true; // Se añadió una cláusula WHERE
+                }
+            }
+
+            // Construimos la consulta SQL
+            $sql = "SELECT h.*, t.name_type, c.name_city, o.name_operation,
+            (SELECT GROUP_CONCAT(i.img_housings SEPARATOR ';') 
+            FROM img_housings i 
+            WHERE i.id_housing = h.id_housing) AS img_housings
+            FROM `housings` h
+            INNER JOIN `h_type` t ON h.id_type = t.id_type
+            INNER JOIN `city` c ON h.id_city = c.id_city
+            INNER JOIN `operation` o ON h.id_operation = o.id_operation
+            INNER JOIN `housing_category` hc ON h.id_housing = hc.id_housing
+            INNER JOIN `category` cat ON hc.id_category = cat.id_category
+            INNER JOIN `housing_extras` he ON h.id_housing = he.id_housing
+            INNER JOIN `extras` e ON he.id_extras = e.id_extras
+            INNER JOIN `housing_automation_parts` h_aut_p ON h.id_housing = h_aut_p.id_housing
+            INNER JOIN `automation_parts` aut_p ON h_aut_p.id_aut_parts = aut_p.id_aut_parts
+            $filter
+            GROUP BY h.id_housing $order
+            LIMIT $offset, $items_page";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar_array($stmt);
+            
+        }
     }
 ?>

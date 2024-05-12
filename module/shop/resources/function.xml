@@ -16,4 +16,8 @@
         <name>filters_home</name>
         <uri>filters_home</uri>
     </function>
+    <function>
+        <name>filters_shop</name>
+        <uri>filters_shop</uri>
+    </function>
 </functions>

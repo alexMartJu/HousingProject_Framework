@@ -82,5 +82,20 @@
 				return "error";
 			}
 		}
+
+		public function get_filters_shop_BLL($args) {
+            // return 'Entro a shop_bll --> get_filters_shop_BLL';
+			try {
+				$Dates_Housings = $this -> dao ->select_filters_shop($this -> db, $args[0], $args[1], $args[2]);
+			} catch (Exception $e) {
+				return "error";
+			}
+					
+			if (!empty($Dates_Housings)) {
+				return $Dates_Housings;
+			} else {
+				return "error";
+			}
+		}
 	}
 ?>

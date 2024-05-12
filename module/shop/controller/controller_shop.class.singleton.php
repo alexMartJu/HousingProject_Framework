@@ -31,5 +31,10 @@
             // echo 'Entro al controller_shop --> filters_home';
             echo json_encode(common::load_model('shop_model', 'get_filters_home', [$_POST['filters'], $_POST['offset'], $_POST['items_page']]));
         }
+
+        function filters_shop() {
+            // echo 'Entro al controller_shop --> filters_shop';
+            echo json_encode(common::load_model('shop_model', 'get_filters_shop', [$_POST['filters__shop'], $_POST['offset'], $_POST['items_page']]));
+        }
     }
 ?>

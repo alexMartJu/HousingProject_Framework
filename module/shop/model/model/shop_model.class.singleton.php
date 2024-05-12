@@ -30,5 +30,10 @@
             // return 'Entro a shop_model --> get_filters_home'; 
             return $this -> bll -> get_filters_home_BLL($args);
         }
+
+        public function get_filters_shop($args) {
+            // return 'Entro a shop_model --> get_filters_shop'; 
+            return $this -> bll -> get_filters_shop_BLL($args);
+        }
     }
 ?>
