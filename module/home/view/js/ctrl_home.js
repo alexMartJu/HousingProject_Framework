@@ -389,192 +389,192 @@ function loadLastSearch() {
 }
 
 
-// function clicks(){
+function clicks(){
 
-//     $(document).on("click",'div.carousel_aut_parts', function (){
-//         var filters_home = [];
-//         filters_home.push({"aut_parts":[this.getAttribute('id')]});
-//         console.log("hola1 id=" + this.getAttribute('id'));
-//         localStorage.removeItem('filters_home');
-//         localStorage.setItem('filters_home', JSON.stringify(filters_home)); 
+    $(document).on("click",'div.carousel_aut_parts', function (){
+        var filters_home = [];
+        filters_home.push({"aut_parts":[this.getAttribute('id')]});
+        console.log("hola1 id=" + this.getAttribute('id'));
+        localStorage.removeItem('filters_home');
+        localStorage.setItem('filters_home', JSON.stringify(filters_home)); 
 
-//         // Borramos filtros de shop indviduales para no ocasionar problemas cuando
-//         // busquemos con el search despues de pulsar esto
-//         localStorage.removeItem('filter_city');
-//         localStorage.removeItem('filter_type');
-//         localStorage.removeItem('filter_operation');
-//         localStorage.removeItem('filter_category');
-//         localStorage.removeItem('filter_extras');
-//         localStorage.removeItem('filter_distinctweb');
-//         localStorage.removeItem('filter_orderby');
-//         localStorage.removeItem('filters_shop');
-//         // -Fin borrado-
+        // Borramos filtros de shop indviduales para no ocasionar problemas cuando
+        // busquemos con el search despues de pulsar esto
+        localStorage.removeItem('filter_city');
+        localStorage.removeItem('filter_type');
+        localStorage.removeItem('filter_operation');
+        localStorage.removeItem('filter_category');
+        localStorage.removeItem('filter_extras');
+        localStorage.removeItem('filter_distinctweb');
+        localStorage.removeItem('filter_orderby');
+        localStorage.removeItem('filters_shop');
+        // -Fin borrado-
 
-//         // -Hacer que se marquen los filters_shop correspondientes *1-
-//         localStorage.setItem('filter_distinctweb', $(this).find('h2 span').text()); // Guardamos el nombre de la parte automatizada
-//         if (localStorage.getItem('filter_distinctweb')) {
-//             $('.filter_distinctweb').val(localStorage.getItem('filter_distinctweb'));
-//         }
-//         // Obtenemos el nombre de la parte automatizada y luego creamos el formato que deseamos para filters_shop
-//         var nameAutParts = localStorage.getItem('filter_distinctweb'); 
-//         var search = [["name_aut_parts", nameAutParts]]; // Creamos el formato [["name_aut_parts", "nameAutParts"]]
-//         // Guardo search en localStorage
-//         localStorage.setItem('filters_shop', JSON.stringify(search)); // Esto guarda el formato [["name_aut_parts", "nameAutParts"]] en localStorage
-//         // -Finalización marcado filters_shop *1-
+        // -Hacer que se marquen los filters_shop correspondientes *1-
+        localStorage.setItem('filter_distinctweb', $(this).find('h2 span').text()); // Guardamos el nombre de la parte automatizada
+        if (localStorage.getItem('filter_distinctweb')) {
+            $('.filter_distinctweb').val(localStorage.getItem('filter_distinctweb'));
+        }
+        // Obtenemos el nombre de la parte automatizada y luego creamos el formato que deseamos para filters_shop
+        var nameAutParts = localStorage.getItem('filter_distinctweb'); 
+        var search = [["name_aut_parts", nameAutParts]]; // Creamos el formato [["name_aut_parts", "nameAutParts"]]
+        // Guardo search en localStorage
+        localStorage.setItem('filters_shop', JSON.stringify(search)); // Esto guarda el formato [["name_aut_parts", "nameAutParts"]] en localStorage
+        // -Finalización marcado filters_shop *1-
         
-//         setTimeout(function(){ 
-//             window.location.href = 'index.php?page=controller_shop&op=list';
-//         }, 1000);  
-//     });
+        setTimeout(function(){ 
+            window.location.href = '?module=shop';
+        }, 1000);  
+    });
 
-//     $(document).on("click",'div.carousel_type', function (){
-//         var filters_home = [];
-//         filters_home.push({"type":[this.getAttribute('id')]});
-//         console.log("hola1 id=" + this.getAttribute('id'));
-//         localStorage.removeItem('filters_home');
-//         localStorage.setItem('filters_home', JSON.stringify(filters_home)); 
+    $(document).on("click",'div.carousel_type', function (){
+        var filters_home = [];
+        filters_home.push({"type":[this.getAttribute('id')]});
+        console.log("hola1 id=" + this.getAttribute('id'));
+        localStorage.removeItem('filters_home');
+        localStorage.setItem('filters_home', JSON.stringify(filters_home)); 
 
-//         // Borramos filtros de shop indviduales para no ocasionar problemas cuando
-//         // busquemos con el search despues de pulsar esto
-//         localStorage.removeItem('filter_city');
-//         localStorage.removeItem('filter_type');
-//         localStorage.removeItem('filter_operation');
-//         localStorage.removeItem('filter_category');
-//         localStorage.removeItem('filter_extras');
-//         localStorage.removeItem('filter_distinctweb');
-//         localStorage.removeItem('filter_orderby');
-//         localStorage.removeItem('filters_shop');
-//         // -Fin borrado-
+        // Borramos filtros de shop indviduales para no ocasionar problemas cuando
+        // busquemos con el search despues de pulsar esto
+        localStorage.removeItem('filter_city');
+        localStorage.removeItem('filter_type');
+        localStorage.removeItem('filter_operation');
+        localStorage.removeItem('filter_category');
+        localStorage.removeItem('filter_extras');
+        localStorage.removeItem('filter_distinctweb');
+        localStorage.removeItem('filter_orderby');
+        localStorage.removeItem('filters_shop');
+        // -Fin borrado-
 
-//         // -Hacer que se marquen los filters_shop correspondientes *2-
-//         localStorage.setItem('filter_type', $(this).find('.member-info h4').text()); // Guardamos el nombre del tipo de vivienda
-//         if (localStorage.getItem('filter_type')) {
-//             var filterType = localStorage.getItem('filter_type'); // Obtener el valor almacenado en localStorage
-//                 // Buscar el radio button cuyo valor coincide con el valor almacenado y marcarlo como seleccionado
-//                 $('.filter_type').filter(`[value='${filterType}']`).prop('checked', true);
-//         }
-//         // Obtenemos el nombre del tipo de vivienda y luego creamos el formato que deseamos para filters_shop
-//         var nameType = localStorage.getItem('filter_type'); 
-//         var search = [["name_type", nameType]]; // Creamos el formato [["name_type", "nameType"]]
-//         // Guardo search en localStorage
-//         localStorage.setItem('filters_shop', JSON.stringify(search)); // Esto guarda el formato [["name_type", "nameType"]] en localStorage
-//         // -Finalización marcado filters_shop *2-
+        // -Hacer que se marquen los filters_shop correspondientes *2-
+        localStorage.setItem('filter_type', $(this).find('.member-info h4').text()); // Guardamos el nombre del tipo de vivienda
+        if (localStorage.getItem('filter_type')) {
+            var filterType = localStorage.getItem('filter_type'); // Obtener el valor almacenado en localStorage
+                // Buscar el radio button cuyo valor coincide con el valor almacenado y marcarlo como seleccionado
+                $('.filter_type').filter(`[value='${filterType}']`).prop('checked', true);
+        }
+        // Obtenemos el nombre del tipo de vivienda y luego creamos el formato que deseamos para filters_shop
+        var nameType = localStorage.getItem('filter_type'); 
+        var search = [["name_type", nameType]]; // Creamos el formato [["name_type", "nameType"]]
+        // Guardo search en localStorage
+        localStorage.setItem('filters_shop', JSON.stringify(search)); // Esto guarda el formato [["name_type", "nameType"]] en localStorage
+        // -Finalización marcado filters_shop *2-
 
-//         setTimeout(function(){ 
-//           window.location.href = 'index.php?page=controller_shop&op=list';
-//         }, 1000);  
-//     });
+        setTimeout(function(){ 
+          window.location.href = '?module=shop';
+        }, 1000);  
+    });
 
-//     $(document).on("click",'div.carousel_categories', function (){
-//         var filters_home = [];
-//         filters_home.push({"category":[this.getAttribute('id')]});
-//         localStorage.removeItem('filters_home');
-//         console.log("hola2 id=" + this.getAttribute('id'));
-//         localStorage.setItem('filters_home', JSON.stringify(filters_home)); 
+    $(document).on("click",'div.carousel_categories', function (){
+        var filters_home = [];
+        filters_home.push({"category":[this.getAttribute('id')]});
+        localStorage.removeItem('filters_home');
+        console.log("hola2 id=" + this.getAttribute('id'));
+        localStorage.setItem('filters_home', JSON.stringify(filters_home)); 
 
-//         // Borramos filtros de shop indviduales para no ocasionar problemas cuando
-//         // busquemos con el search despues de pulsar esto
-//         localStorage.removeItem('filter_city');
-//         localStorage.removeItem('filter_type');
-//         localStorage.removeItem('filter_operation');
-//         localStorage.removeItem('filter_category');
-//         localStorage.removeItem('filter_extras');
-//         localStorage.removeItem('filter_distinctweb');
-//         localStorage.removeItem('filter_orderby');
-//         localStorage.removeItem('filters_shop');
-//         // -Fin borrado-
+        // Borramos filtros de shop indviduales para no ocasionar problemas cuando
+        // busquemos con el search despues de pulsar esto
+        localStorage.removeItem('filter_city');
+        localStorage.removeItem('filter_type');
+        localStorage.removeItem('filter_operation');
+        localStorage.removeItem('filter_category');
+        localStorage.removeItem('filter_extras');
+        localStorage.removeItem('filter_distinctweb');
+        localStorage.removeItem('filter_orderby');
+        localStorage.removeItem('filters_shop');
+        // -Fin borrado-
 
-//         // -Hacer que se marquen los filters_shop correspondientes *3-
-//         localStorage.setItem('filter_category', $(this).find('.member-info h4').text()); // Guardamos el nombre de la categoria de la vivienda
-//         if (localStorage.getItem('filter_category')) {
-//             $('.filter_category').val(localStorage.getItem('filter_category'));
-//         }
-//         // Obtenemos el nombre de la categoria de la vivienda y luego creamos el formato que deseamos para filters_shop
-//         var nameCategory = localStorage.getItem('filter_category'); 
-//         var search = [["name_category", nameCategory]]; // Creamos el formato [["name_category", "nameCategory"]]
-//         // Guardo search en localStorage
-//         localStorage.setItem('filters_shop', JSON.stringify(search)); // Esto guarda el formato [["name_category", "nameCategory"]] en localStorage
-//         // -Finalización marcado filters_shop *3-
+        // -Hacer que se marquen los filters_shop correspondientes *3-
+        localStorage.setItem('filter_category', $(this).find('.member-info h4').text()); // Guardamos el nombre de la categoria de la vivienda
+        if (localStorage.getItem('filter_category')) {
+            $('.filter_category').val(localStorage.getItem('filter_category'));
+        }
+        // Obtenemos el nombre de la categoria de la vivienda y luego creamos el formato que deseamos para filters_shop
+        var nameCategory = localStorage.getItem('filter_category'); 
+        var search = [["name_category", nameCategory]]; // Creamos el formato [["name_category", "nameCategory"]]
+        // Guardo search en localStorage
+        localStorage.setItem('filters_shop', JSON.stringify(search)); // Esto guarda el formato [["name_category", "nameCategory"]] en localStorage
+        // -Finalización marcado filters_shop *3-
 
-//         setTimeout(function(){ 
-//           window.location.href = 'index.php?page=controller_shop&op=list';
-//         }, 1000);  
-//     }); 
+        setTimeout(function(){ 
+          window.location.href = '?module=shop';
+        }, 1000);  
+    }); 
 
-//     $(document).on("click",'div.carousel_operations', function (){
-//         var filters_home = [];
-//         filters_home.push({"operation":[this.getAttribute('id')]});
-//         console.log("hola3 id=" + this.getAttribute('id'));
-//         localStorage.removeItem('filters_home');
-//         localStorage.setItem('filters_home', JSON.stringify(filters_home)); 
+    $(document).on("click",'div.carousel_operations', function (){
+        var filters_home = [];
+        filters_home.push({"operation":[this.getAttribute('id')]});
+        console.log("hola3 id=" + this.getAttribute('id'));
+        localStorage.removeItem('filters_home');
+        localStorage.setItem('filters_home', JSON.stringify(filters_home)); 
 
-//         // Borramos filtros de shop indviduales para no ocasionar problemas cuando
-//         // busquemos con el search despues de pulsar esto
-//         localStorage.removeItem('filter_city');
-//         localStorage.removeItem('filter_type');
-//         localStorage.removeItem('filter_operation');
-//         localStorage.removeItem('filter_category');
-//         localStorage.removeItem('filter_extras');
-//         localStorage.removeItem('filter_distinctweb');
-//         localStorage.removeItem('filter_orderby');
-//         localStorage.removeItem('filters_shop');
-//         // -Fin borrado-
+        // Borramos filtros de shop indviduales para no ocasionar problemas cuando
+        // busquemos con el search despues de pulsar esto
+        localStorage.removeItem('filter_city');
+        localStorage.removeItem('filter_type');
+        localStorage.removeItem('filter_operation');
+        localStorage.removeItem('filter_category');
+        localStorage.removeItem('filter_extras');
+        localStorage.removeItem('filter_distinctweb');
+        localStorage.removeItem('filter_orderby');
+        localStorage.removeItem('filters_shop');
+        // -Fin borrado-
 
-//         // -Hacer que se marquen los filters_shop correspondientes *4-
-//         localStorage.setItem('filter_operation', $(this).find('.member-info h4').text()); // Guardamos el nombre de la operación de la vivienda
-//         if (localStorage.getItem('filter_operation')) {
-//             $('.filter_operation').val(localStorage.getItem('filter_operation'));
-//         }
-//         // Obtenemos el nombre de la operación de la vivienda y luego creamos el formato que deseamos para filters_shop
-//         var nameOperation = localStorage.getItem('filter_operation'); 
-//         var search = [["name_operation", nameOperation]]; // Creamos el formato [["name_operation", "nameOperation"]]
-//         // Guardo search en localStorage
-//         localStorage.setItem('filters_shop', JSON.stringify(search)); // Esto guarda el formato [["name_operation", "nameOperation"]] en localStorage
-//         // -Finalización marcado filters_shop *4-
+        // -Hacer que se marquen los filters_shop correspondientes *4-
+        localStorage.setItem('filter_operation', $(this).find('.member-info h4').text()); // Guardamos el nombre de la operación de la vivienda
+        if (localStorage.getItem('filter_operation')) {
+            $('.filter_operation').val(localStorage.getItem('filter_operation'));
+        }
+        // Obtenemos el nombre de la operación de la vivienda y luego creamos el formato que deseamos para filters_shop
+        var nameOperation = localStorage.getItem('filter_operation'); 
+        var search = [["name_operation", nameOperation]]; // Creamos el formato [["name_operation", "nameOperation"]]
+        // Guardo search en localStorage
+        localStorage.setItem('filters_shop', JSON.stringify(search)); // Esto guarda el formato [["name_operation", "nameOperation"]] en localStorage
+        // -Finalización marcado filters_shop *4-
 
-//         setTimeout(function(){ 
-//           window.location.href = 'index.php?page=controller_shop&op=list';
-//         }, 1000);  
-//     });
+        setTimeout(function(){ 
+          window.location.href = '?module=shop';
+        }, 1000);  
+    });
 
-//     $(document).on("click",'div.carousel_cities', function (){
-//         var filters_home = [];
-//         filters_home.push({"city":[this.getAttribute('id')]});
-//         console.log("hola4 id=" + this.getAttribute('id'));
-//         localStorage.removeItem('filters_home');
-//         localStorage.setItem('filters_home', JSON.stringify(filters_home)); 
+    $(document).on("click",'div.carousel_cities', function (){
+        var filters_home = [];
+        filters_home.push({"city":[this.getAttribute('id')]});
+        console.log("hola4 id=" + this.getAttribute('id'));
+        localStorage.removeItem('filters_home');
+        localStorage.setItem('filters_home', JSON.stringify(filters_home)); 
 
-//         // Borramos filtros de shop indviduales para no ocasionar problemas cuando
-//         // busquemos con el search despues de pulsar esto
-//         localStorage.removeItem('filter_city');
-//         localStorage.removeItem('filter_type');
-//         localStorage.removeItem('filter_operation');
-//         localStorage.removeItem('filter_category');
-//         localStorage.removeItem('filter_extras');
-//         localStorage.removeItem('filter_distinctweb');
-//         localStorage.removeItem('filter_orderby');
-//         localStorage.removeItem('filters_shop');
-//         // -Fin borrado-
+        // Borramos filtros de shop indviduales para no ocasionar problemas cuando
+        // busquemos con el search despues de pulsar esto
+        localStorage.removeItem('filter_city');
+        localStorage.removeItem('filter_type');
+        localStorage.removeItem('filter_operation');
+        localStorage.removeItem('filter_category');
+        localStorage.removeItem('filter_extras');
+        localStorage.removeItem('filter_distinctweb');
+        localStorage.removeItem('filter_orderby');
+        localStorage.removeItem('filters_shop');
+        // -Fin borrado-
 
-//         // -Hacer que se marquen los filters_shop correspondientes *5-
-//         var cityName = $(this).find('.member-info h4').text();
-//         localStorage.setItem('filter_city', JSON.stringify([cityName])); // Convertimos el nombre de la ciudad en un arreglo JSON
-//         if (localStorage.getItem('filter_city')) {
-//             $('.filter_city').val(cityName); // Seteamos el valor del campo .filter_city con el nombre de la ciudad directamente
-//         }
-//         // Obtenemos el nombre de la ciudad y luego creamos el formato que deseas para filters_shop
-//         var nameCity = localStorage.getItem('filter_city'); 
-//         var search = [["name_city", JSON.parse(nameCity)]]; // Convertimos el nombre de la ciudad guardado en localStorage de nuevo a un arreglo
-//         // Guardo search en localStorage
-//         localStorage.setItem('filters_shop', JSON.stringify(search)); // Esto guarda el formato [["name_city", ["nameCity"]]] en localStorage
-//         // -Finalización marcado filters_shop *5-
+        // -Hacer que se marquen los filters_shop correspondientes *5-
+        var cityName = $(this).find('.member-info h4').text();
+        localStorage.setItem('filter_city', JSON.stringify([cityName])); // Convertimos el nombre de la ciudad en un arreglo JSON
+        if (localStorage.getItem('filter_city')) {
+            $('.filter_city').val(cityName); // Seteamos el valor del campo .filter_city con el nombre de la ciudad directamente
+        }
+        // Obtenemos el nombre de la ciudad y luego creamos el formato que deseas para filters_shop
+        var nameCity = localStorage.getItem('filter_city'); 
+        var search = [["name_city", JSON.parse(nameCity)]]; // Convertimos el nombre de la ciudad guardado en localStorage de nuevo a un arreglo
+        // Guardo search en localStorage
+        localStorage.setItem('filters_shop', JSON.stringify(search)); // Esto guarda el formato [["name_city", ["nameCity"]]] en localStorage
+        // -Finalización marcado filters_shop *5-
 
 
-//         setTimeout(function(){ 
-//           window.location.href = 'index.php?page=controller_shop&op=list';
-//         }, 1000);  
-//     });
-// } 
+        setTimeout(function(){ 
+          window.location.href = '?module=shop';
+        }, 1000);  
+    });
+} 
 
 $(document).ready(function() {
     carousel_AutomationParts()
@@ -585,5 +585,5 @@ $(document).ready(function() {
     loadRecommendations();
     loadMostVisited();
     loadLastSearch();
-    // clicks();
+    clicks();
 });

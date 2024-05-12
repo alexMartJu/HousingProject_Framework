@@ -12,4 +12,8 @@
         <name>details_housing</name>
         <uri>details_housing</uri>
     </function>
+    <function>
+        <name>filters_home</name>
+        <uri>filters_home</uri>
+    </function>
 </functions>

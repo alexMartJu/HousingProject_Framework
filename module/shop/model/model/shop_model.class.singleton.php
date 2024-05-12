@@ -25,5 +25,10 @@
             // return 'Entro a shop_model --> get_details_housing'; 
             return $this -> bll -> get_details_housing_BLL($args);
         }
+
+        public function get_filters_home($args) {
+            // return 'Entro a shop_model --> get_filters_home'; 
+            return $this -> bll -> get_filters_home_BLL($args);
+        }
     }
 ?>

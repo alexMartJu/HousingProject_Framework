@@ -76,5 +76,52 @@
             return $db->ejecutar($sql);
             
         }
+
+        public function select_filters_home($db, $filters, $offset, $items_page) {
+
+            $filter = "";
+		    if (isset ($filters[0]['aut_parts'])) { //NEW
+			    $filter_aut_parts = $filters[0]['aut_parts'][0];
+			    $filter .= " AND h.id_housing = h_aut_p.id_housing
+						    AND h_aut_p.id_aut_parts = aut_p.id_aut_parts
+						    WHERE aut_p.id_aut_parts = $filter_aut_parts";
+		    }
+		    if (isset ($filters[0]['type'])) {
+			    $filter_type = $filters[0]['type'][0];
+			    $filter .= " WHERE t.id_type = '$filter_type'";
+		    }
+		    if (isset ($filters[0]['category'])) {
+			    $filter_category = $filters[0]['category'][0];
+			    $filter .= " AND h.id_housing = hc.id_housing
+						    AND cat.id_category = hc.id_category
+						    WHERE cat.id_category = '$filter_category'";
+		    }
+		    if (isset ($filters[0]['operation'])) {
+			    $filter_operation = $filters[0]['operation'][0];
+			    $filter .= " WHERE o.id_operation = '$filter_operation'";
+		    }
+		    if (isset ($filters[0]['city'])) {
+			    $filter_city = $filters[0]['city'][0];
+			    $filter .= " WHERE c.id_city = '$filter_city'";
+		    }
+
+            $sql = "SELECT h.*, t.name_type, c.name_city, GROUP_CONCAT(i.img_housings SEPARATOR ';') AS img_housings
+            FROM `housings` h
+            INNER JOIN `h_type` t ON h.id_type = t.id_type
+            INNER JOIN `city` c ON h.id_city = c.id_city
+            INNER JOIN `operation` o ON h.id_operation = o.id_operation
+            INNER JOIN `img_housings` i ON h.id_housing = i.id_housing
+            INNER JOIN `housing_category` hc ON h.id_housing = hc.id_housing
+            INNER JOIN `category` cat ON hc.id_category = cat.id_category
+            INNER JOIN `housing_automation_parts` h_aut_p ON h.id_housing = h_aut_p.id_housing
+            INNER JOIN `automation_parts` aut_p ON h_aut_p.id_aut_parts = aut_p.id_aut_parts
+            $filter
+            GROUP BY h.id_housing
+            LIMIT $offset, $items_page";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar_array($stmt);
+            
+        }
     }
 ?>

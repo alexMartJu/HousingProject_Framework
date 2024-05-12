@@ -7,8 +7,8 @@ function loadHousings() {
         // pagination();
         localStorage.removeItem('filters_home');
         var filters = JSON.parse(verificate_filters);
-        console.log("filter_home " + filters);
-        ajaxForSearch('module/shop/controller/controller_shop.php?op=filters_home', 'POST', 'JSON', {'filters':filters, 'offset': offset, 'items_page': items_page});
+        console.log("Datos de filters_home:", filters);
+        ajaxForSearch('?module=shop&op=filters_home', 'POST', 'JSON', {'filters':filters, 'offset': offset, 'items_page': items_page});
     } else if (verificate_filters_shop != false){
         var filters__shop = JSON.parse(verificate_filters_shop);
         console.log("filter_SHOP " + filters__shop);

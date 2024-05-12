@@ -26,5 +26,10 @@
             // echo 'Entro al controller_shop --> all_housings';
             echo json_encode(common::load_model('shop_model', 'get_details_housing', $_POST['id']));
         }
+
+        function filters_home() {
+            // echo 'Entro al controller_shop --> filters_home';
+            echo json_encode(common::load_model('shop_model', 'get_filters_home', [$_POST['filters'], $_POST['offset'], $_POST['items_page']]));
+        }
     }
 ?>
