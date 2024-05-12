@@ -336,5 +336,45 @@
             return $db -> listar($stmt);
             
         }
+
+        public function count_more_housings_related($db, $housing_type, $current_housing_id) {
+            // return 'Entro a shop_dao --> count_more_housings_related';
+            $sql = "SELECT COUNT(*) AS n_prod
+            FROM housings h 
+            WHERE h.id_type = '$housing_type'
+            AND h.id_housing <> '$current_housing_id'";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar($stmt);
+            
+        }
+
+        public function select_housings_related($db, $housing_type, $current_housing_id , $offset_housing, $items) {
+            // return 'Entro a shop_dao --> select_housings_related';
+            $sql = "SELECT * 
+            FROM housings h, h_type ht  
+            WHERE h.id_type = ht.id_type 
+            AND h.id_type = '$housing_type'
+            AND h.id_housing <> '$current_housing_id'
+            LIMIT $offset_housing, $items";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar($stmt);
+            
+        }
+
+        public function select_housings_related_extras($db, $housing_type, $current_housing_id, $current_extras_id, $offset_housing, $items) {
+            // return 'Entro a shop_dao --> select_housings_related';
+            $sql = "SELECT * 
+            FROM housings h, extras e, housing_extras he  
+            WHERE h.id_housing = he.id_housing 
+            AND he.id_extras = e.id_extras
+            AND e.id_extras = '$current_extras_id'
+            AND h.id_housing <> '$current_housing_id'";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar($stmt);
+            
+        }
     }
 ?>

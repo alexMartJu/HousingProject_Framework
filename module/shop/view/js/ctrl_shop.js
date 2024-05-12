@@ -289,7 +289,7 @@ function loadDetails(id_housing) {
                 // load_likes_details(data[0].id_housing);
                 mapBox(data[0]);
                 console.log("id extras " + data[2][0][row].id_extras);
-                // more_husings_related(data[0].id_type, data[0].id_housing, data[2][0][row].id_extras);
+                more_husings_related(data[0].id_type, data[0].id_housing, data[2][0][row].id_extras);
         }).catch(function () {
             // console.log('estoy aqui');
             window.location.href = "index.php?page=503";
@@ -735,166 +735,166 @@ function pagination(filters__shop) {
         })
 }
 
-// function housings_related(offset_housing = 0, housing_type, current_housing_id, current_extras_id, total_items) {
-//     let items = 3;
-//     // let offset_housing = offset_housing;
-//     // let housing_type = housing_type;
-//     let total_item = total_items;
-//     let elementsAdded_offset_0 = 0;
-//     let elementsAdded_offset_more3 = 0;
-//     console.log("Housign TYPE" + housing_type);
+function housings_related(offset_housing = 0, housing_type, current_housing_id, current_extras_id, total_items) {
+    let items = 3;
+    // let offset_housing = offset_housing;
+    // let housing_type = housing_type;
+    let total_item = total_items;
+    let elementsAdded_offset_0 = 0;
+    let elementsAdded_offset_more3 = 0;
+    console.log("Housign TYPE" + housing_type);
 
-//     ajaxPromise("module/shop/controller/controller_shop.php?op=housings_related", 'POST', 'JSON', { 'housing_type': housing_type, 'current_housing_id': current_housing_id, 'current_extras_id': current_extras_id,'offset_housing': offset_housing, 'items': items })
-//         .then(function(data) {
-//             console.log("datalength " + data);
-//             if (offset_housing == 0) {
-//                 for (row in data[0]) {
-//                     if (data[0][row].id_housing != undefined) {
-//                         $('<div></div>').attr({ 'id': data[0][row].id_housing, 'class': 'more_info_list col-lg-3 col-md-6 align-items-stretch housing-item' }).appendTo('.results')
-//                             .html(
-//                                 "<div class='member' data-aos='fade-up'>" +
-//                                 "<div class='member-img'>" +
-//                                 "<img src=" + data[0][row].img_housing + " class='img-fluid' alt=''>" +
-//                                 "</div>" +
-//                                 "<div class='member-info'>" +
-//                                 "<h4>" + data[0][row].housing_price + "</h4>" +
-//                                 "</div>" +
-//                                 "</div>" +
-//                                 "</div>"
-//                             )
-//                             elementsAdded_offset_0++;
-//                     }
-//                 }
-//                 console.log("elemnts" + elementsAdded_offset_0);
-//                 if (elementsAdded_offset_0 > 0) {
-//                     console.log("estoy aqui");
-//                     for (row in data[1][0]) {
-//                         console.log("voy haciendo1 " + data[1][0][row].id_housing);
-//                         if (data[1][0][row].id_housing != undefined) {
-//                             if (elementsAdded_offset_0 < 3) {
-//                                 console.log("voy haciendo");
-//                                 console.log("elementsaaaaaa" + elementsAdded_offset_0);
-//                                 $('<div></div>').attr({ 'id': data[1][0][row].id_housing, 'class': 'more_info_list col-lg-3 col-md-6 align-items-stretch housing-item' }).appendTo('.results')
-//                                     .html(
-//                                         "<div class='member' data-aos='fade-up'>" +
-//                                         "<div class='member-img'>" +
-//                                         "<img src=" + data[1][0][row].img_housing + " class='img-fluid' alt=''>" +
-//                                         "</div>" +
-//                                         "<div class='member-info'>" +
-//                                         "<h4>" + data[1][0][row].housing_price + "</h4>" +
-//                                         "</div>" +
-//                                         "</div>" +
-//                                         "</div>"
+    ajaxPromise("?module=shop&op=housings_related", 'POST', 'JSON', { 'housing_type': housing_type, 'current_housing_id': current_housing_id, 'current_extras_id': current_extras_id,'offset_housing': offset_housing, 'items': items })
+        .then(function(data) {
+            console.log("datalength " + data);
+            if (offset_housing == 0) {
+                for (row in data[0]) {
+                    if (data[0][row].id_housing != undefined) {
+                        $('<div></div>').attr({ 'id': data[0][row].id_housing, 'class': 'more_info_list col-lg-3 col-md-6 align-items-stretch housing-item' }).appendTo('.results')
+                            .html(
+                                "<div class='member' data-aos='fade-up'>" +
+                                "<div class='member-img'>" +
+                                "<img src=" + data[0][row].img_housing + " class='img-fluid' alt=''>" +
+                                "</div>" +
+                                "<div class='member-info'>" +
+                                "<h4>" + data[0][row].housing_price + "</h4>" +
+                                "</div>" +
+                                "</div>" +
+                                "</div>"
+                            )
+                            elementsAdded_offset_0++;
+                    }
+                }
+                console.log("elemnts" + elementsAdded_offset_0);
+                if (elementsAdded_offset_0 > 0) {
+                    console.log("estoy aqui");
+                    for (row in data[1][0]) {
+                        console.log("voy haciendo1 " + data[1][0][row].id_housing);
+                        if (data[1][0][row].id_housing != undefined) {
+                            if (elementsAdded_offset_0 < 3) {
+                                console.log("voy haciendo");
+                                console.log("elementsaaaaaa" + elementsAdded_offset_0);
+                                $('<div></div>').attr({ 'id': data[1][0][row].id_housing, 'class': 'more_info_list col-lg-3 col-md-6 align-items-stretch housing-item' }).appendTo('.results')
+                                    .html(
+                                        "<div class='member' data-aos='fade-up'>" +
+                                        "<div class='member-img'>" +
+                                        "<img src=" + data[1][0][row].img_housing + " class='img-fluid' alt=''>" +
+                                        "</div>" +
+                                        "<div class='member-info'>" +
+                                        "<h4>" + data[1][0][row].housing_price + "</h4>" +
+                                        "</div>" +
+                                        "</div>" +
+                                        "</div>"
     
-//                                     )
-//                                     elementsAdded_offset_0++;
-//                             }
+                                    )
+                                    elementsAdded_offset_0++;
+                            }
                             
-//                         }
-//                     }
-//                 }
-//                 var total_housings = total_item - 3;
-//                 if (total_housings <= offset_housing) {
-//                     $('.more_housing__button').empty();
-//                     // $('<div></div>').attr({ 'id': 'more_housing__button', 'class': 'more_housing__button' }).appendTo('.results')
-//                     //     .html(
-//                     //         "</br><button class='btn-notexist' id='btn-notexist'></button>"
-//                     //     )
-//                 } else {
-//                     $('.more_housing__button').empty();
-//                     // $('<div></div>').attr({ 'id': 'more_housing__button', 'class': 'more_housing__button' }).appendTo('.title_content')
-//                     $('<div></div>').attr({ 'id': 'more_housing__button', 'class': 'more_housing__button' }).appendTo('.results')
-//                         .html(
-//                             '<button class="load_more_button" id="load_more_button">LOAD MORE</button>'
-//                         )
-//                 }
-//             }
-//             console.log("offset" + offset_housing);
-//             if (offset_housing >= 3) {
-//                 for (row in data[0]) {
-//                     if (data[0][row].id_housing != undefined) {
-//                         console.log(data);
-//                         $('<div></div>').attr({ 'id': data[0][row].id_housing, 'class': 'more_info_list col-lg-3 col-md-6 align-items-stretch housing-item' }).appendTo('.results')
-//                             .html(
-//                                 "<div class='member' data-aos='fade-up'>" +
-//                                 "<div class='member-img'>" +
-//                                 "<img src=" + data[0][row].img_housing + " class='img-fluid' alt=''>" +
-//                                 "</div>" +
-//                                 "<div class='member-info'>" +
-//                                 "<h4>" + data[0][row].housing_price + "</h4>" +
-//                                 "</div>" +
-//                                 "</div>" +
-//                                 "</div>"
+                        }
+                    }
+                }
+                var total_housings = total_item - 3;
+                if (total_housings <= offset_housing) {
+                    $('.more_housing__button').empty();
+                    // $('<div></div>').attr({ 'id': 'more_housing__button', 'class': 'more_housing__button' }).appendTo('.results')
+                    //     .html(
+                    //         "</br><button class='btn-notexist' id='btn-notexist'></button>"
+                    //     )
+                } else {
+                    $('.more_housing__button').empty();
+                    // $('<div></div>').attr({ 'id': 'more_housing__button', 'class': 'more_housing__button' }).appendTo('.title_content')
+                    $('<div></div>').attr({ 'id': 'more_housing__button', 'class': 'more_housing__button' }).appendTo('.results')
+                        .html(
+                            '<button class="load_more_button" id="load_more_button">LOAD MORE</button>'
+                        )
+                }
+            }
+            console.log("offset" + offset_housing);
+            if (offset_housing >= 3) {
+                for (row in data[0]) {
+                    if (data[0][row].id_housing != undefined) {
+                        console.log(data);
+                        $('<div></div>').attr({ 'id': data[0][row].id_housing, 'class': 'more_info_list col-lg-3 col-md-6 align-items-stretch housing-item' }).appendTo('.results')
+                            .html(
+                                "<div class='member' data-aos='fade-up'>" +
+                                "<div class='member-img'>" +
+                                "<img src=" + data[0][row].img_housing + " class='img-fluid' alt=''>" +
+                                "</div>" +
+                                "<div class='member-info'>" +
+                                "<h4>" + data[0][row].housing_price + "</h4>" +
+                                "</div>" +
+                                "</div>" +
+                                "</div>"
 
-//                             )
-//                             elementsAdded_offset_more3++;
-//                     }
-//                 }
-//                 console.log("elemnts" + elementsAdded_offset_more3);
-//                 if (elementsAdded_offset_more3 > 0) {
-//                     console.log("estoy aqui");
-//                     for (row in data[1][0]) {
-//                         console.log("voy haciendo1 " + data[1][0][row].id_housing);
-//                         if (data[1][0][row].id_housing != undefined) {
-//                             if (elementsAdded_offset_more3 < 3) {
-//                                 console.log("voy haciendo");
-//                                 console.log("elementsaaaaaa" + elementsAdded_offset_more3);
-//                                 $('<div></div>').attr({ 'id': data[1][0][row].id_housing, 'class': 'more_info_list col-lg-3 col-md-6 align-items-stretch housing-item' }).appendTo('.results')
-//                                     .html(
-//                                         "<div class='member' data-aos='fade-up'>" +
-//                                         "<div class='member-img'>" +
-//                                         "<img src=" + data[1][0][row].img_housing + " class='img-fluid' alt=''>" +
-//                                         "</div>" +
-//                                         "<div class='member-info'>" +
-//                                         "<h4>" + data[1][0][row].housing_price + "</h4>" +
-//                                         "</div>" +
-//                                         "</div>" +
-//                                         "</div>"
+                            )
+                            elementsAdded_offset_more3++;
+                    }
+                }
+                console.log("elemnts" + elementsAdded_offset_more3);
+                if (elementsAdded_offset_more3 > 0) {
+                    console.log("estoy aqui");
+                    for (row in data[1][0]) {
+                        console.log("voy haciendo1 " + data[1][0][row].id_housing);
+                        if (data[1][0][row].id_housing != undefined) {
+                            if (elementsAdded_offset_more3 < 3) {
+                                console.log("voy haciendo");
+                                console.log("elementsaaaaaa" + elementsAdded_offset_more3);
+                                $('<div></div>').attr({ 'id': data[1][0][row].id_housing, 'class': 'more_info_list col-lg-3 col-md-6 align-items-stretch housing-item' }).appendTo('.results')
+                                    .html(
+                                        "<div class='member' data-aos='fade-up'>" +
+                                        "<div class='member-img'>" +
+                                        "<img src=" + data[1][0][row].img_housing + " class='img-fluid' alt=''>" +
+                                        "</div>" +
+                                        "<div class='member-info'>" +
+                                        "<h4>" + data[1][0][row].housing_price + "</h4>" +
+                                        "</div>" +
+                                        "</div>" +
+                                        "</div>"
     
-//                                     )
-//                                     elementsAdded_offset_more3++;
-//                             }
+                                    )
+                                    elementsAdded_offset_more3++;
+                            }
                             
-//                         }
-//                     }
-//                 }
-//                 var total_housings = total_item - 3;
-//                 if (total_housings <= offset_housing) {
-//                     $('.more_housing__button').empty();
-//                     // $('<div></div>').attr({ 'id': 'more_housing__button', 'class': 'more_housing__button' }).appendTo('.results')
-//                     //     .html(
-//                     //         "</br><button class='btn-notexist' id='btn-notexist'></button>"
-//                     //     )
-//                 } else {
-//                     $('.more_housing__button').empty();
-//                     // $('<div></div>').attr({ 'id': 'more_housing__button', 'class': 'more_housing__button' }).appendTo('.title_content')
-//                     $('<div></div>').attr({ 'id': 'more_housing__button', 'class': 'more_housing__button' }).appendTo('.results')
-//                         .html(
-//                             '<button class="load_more_button" id="load_more_button">LOAD MORE</button>'
-//                         )
-//                 }
-//             }
-//         }).catch(function() {
-//             console.log("error housings_related");
-//         });
-// }
+                        }
+                    }
+                }
+                var total_housings = total_item - 3;
+                if (total_housings <= offset_housing) {
+                    $('.more_housing__button').empty();
+                    // $('<div></div>').attr({ 'id': 'more_housing__button', 'class': 'more_housing__button' }).appendTo('.results')
+                    //     .html(
+                    //         "</br><button class='btn-notexist' id='btn-notexist'></button>"
+                    //     )
+                } else {
+                    $('.more_housing__button').empty();
+                    // $('<div></div>').attr({ 'id': 'more_housing__button', 'class': 'more_housing__button' }).appendTo('.title_content')
+                    $('<div></div>').attr({ 'id': 'more_housing__button', 'class': 'more_housing__button' }).appendTo('.results')
+                        .html(
+                            '<button class="load_more_button" id="load_more_button">LOAD MORE</button>'
+                        )
+                }
+            }
+        }).catch(function() {
+            console.log("error housings_related");
+        });
+}
 
-// function more_husings_related(housing_type, current_housing_id, current_extras_id) {
-//     var housing_type = housing_type;
-//     var offset = 0;
-//     ajaxPromise('module/shop/controller/controller_shop.php?op=count_housings_related', 'POST', 'JSON', { 'housing_type': housing_type, 'current_housing_id': current_housing_id })
-//         .then(function(data) {
-//             var total_items = data[0].n_prod;
-//             housings_related(0, housing_type, current_housing_id, current_extras_id, total_items);
-//             $(document).on("click", '.load_more_button', function() {
-//                 offset = offset + 3;
-//                 $('.more_housing__button').empty();
-//                 housings_related(offset, housing_type, current_housing_id, current_extras_id, total_items);
-//             });
-//         }).catch(function() {
-//             console.log('error total_items');
-//         });
-// }
+function more_husings_related(housing_type, current_housing_id, current_extras_id) {
+    var housing_type = housing_type;
+    var offset = 0;
+    ajaxPromise('?module=shop&op=count_housings_related', 'POST', 'JSON', { 'housing_type': housing_type, 'current_housing_id': current_housing_id })
+        .then(function(data) {
+            var total_items = data[0].n_prod;
+            housings_related(0, housing_type, current_housing_id, current_extras_id, total_items);
+            $(document).on("click", '.load_more_button', function() {
+                offset = offset + 3;
+                $('.more_housing__button').empty();
+                housings_related(offset, housing_type, current_housing_id, current_extras_id, total_items);
+            });
+        }).catch(function() {
+            console.log('error total_items');
+        });
+}
 
 // function load_likes_list() {
 //     console.log("Entro load_likes_list");

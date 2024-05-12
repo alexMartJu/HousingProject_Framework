@@ -36,4 +36,12 @@
         <name>count_all</name>
         <uri>count_all</uri>
     </function>
+    <function>
+        <name>count_housings_related</name>
+        <uri>count_housings_related</uri>
+    </function>
+    <function>
+        <name>housings_related</name>
+        <uri>housings_related</uri>
+    </function>
 </functions>

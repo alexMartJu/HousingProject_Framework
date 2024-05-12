@@ -56,5 +56,15 @@
             // echo 'Entro al controller_shop --> count_all';
             echo json_encode(common::load_model('shop_model', 'get_count_all'));
         }
+
+        function count_housings_related() {
+            // echo 'Entro al controller_shop --> count_housings_related';
+            echo json_encode(common::load_model('shop_model', 'get_count_housings_related', [$_POST['housing_type'], $_POST['current_housing_id']]));
+        }
+
+        function housings_related() {
+            // echo 'Entro al controller_shop --> housings_related';
+            echo json_encode(common::load_model('shop_model', 'get_housings_related', [$_POST['housing_type'], $_POST['current_housing_id'], $_POST['current_extras_id'], $_POST['offset_housing'], $_POST['items']]));
+        }
     }
 ?>

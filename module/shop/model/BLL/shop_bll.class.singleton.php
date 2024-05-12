@@ -189,5 +189,45 @@
 				return "error";
 			}
 		}
+
+		public function get_count_housings_related_BLL($args) {
+            // return 'Entro a shop_bll --> get_count_housings_related_BLL';
+			try {
+				$rdo = $this -> dao -> count_more_housings_related($this -> db, $args[0], $args[1]);
+			} catch (Exception $e) {
+				return "error";
+			}
+			if (!$rdo) {
+				return "error";
+			} else {
+				$dinfo = array();
+				foreach ($rdo as $row) {
+					array_push($dinfo, $row);
+				}
+				return $dinfo;
+			}
+		}
+
+		public function get_housings_related_BLL($args) {
+            // return 'Entro a shop_bll --> get_housings_related_BLL';
+			try {
+                $rdo = $this -> dao -> select_housings_related($this -> db, $args[0], $args[1], $args[3], $args[4]);
+            } catch (Exception $e) {
+                return "error";
+            }
+            try {
+                $rdo1 = $this -> dao -> select_housings_related_extras($this -> db, $args[0], $args[1], $args[2], $args[3], $args[4]);
+            } catch (Exception $e) {
+                return "error";
+            }
+            if (!$rdo || !$rdo1) {
+                return "error";
+            } else {
+                $dinfo = array();
+                $dinfo[0]= $rdo;
+                $dinfo[1][] = $rdo1;
+                return $dinfo;
+            }
+		}
 	}
 ?>

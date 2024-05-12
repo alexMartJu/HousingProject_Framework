@@ -55,5 +55,15 @@
             // return 'Entro a shop_model --> get_count_all'; 
             return $this -> bll -> get_count_all_BLL();
         }
+
+        public function get_count_housings_related($args) {
+            // return 'Entro a shop_model --> get_count_housings_related'; 
+            return $this -> bll -> get_count_housings_related_BLL($args);
+        }
+
+        public function get_housings_related($args) {
+            // return 'Entro a shop_model --> get_housings_related'; 
+            return $this -> bll -> get_housings_related_BLL($args);
+        }
     }
 ?>
