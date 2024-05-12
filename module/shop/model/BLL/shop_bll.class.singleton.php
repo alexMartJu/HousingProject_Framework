@@ -144,5 +144,50 @@
 				return "error";
 			}
 		}
+
+		public function get_count_filters_home_BLL($args) {
+            // return 'Entro a shop_bll --> get_count_filters_home_BLL';
+			try {
+				$Dates_CountFiltersHome = $this -> dao -> count_filters_home($this -> db, $args);
+			} catch (Exception $e) {
+				return "error";
+			}
+				
+			if (!empty($Dates_CountFiltersHome)) {
+				return $Dates_CountFiltersHome;
+			} else {
+				return "error";
+			}
+		}
+
+		public function get_count_filters_shop_BLL($args) {
+            // return 'Entro a shop_bll --> get_count_filters_shop_BLL';
+			try {
+				$Dates_CountFiltersShop = $this -> dao -> count_filters_shop($this -> db, $args);
+			} catch (Exception $e) {
+				return "error";
+			}
+					
+			if (!empty($Dates_CountFiltersShop)) {
+				return $Dates_CountFiltersShop;
+			} else {
+				return "error";
+			}
+		}
+
+		public function get_count_all_BLL() {
+            // return 'Entro a shop_bll --> get_count_all_BLL';
+			try {
+				$Dates_CountAll = $this -> dao -> count_all($this -> db);
+			} catch (Exception $e) {
+				return "error";
+			}
+						
+			if (!empty($Dates_CountAll)) {
+				return $Dates_CountAll;
+			} else {
+				return "error";
+			}
+		}
 	}
 ?>

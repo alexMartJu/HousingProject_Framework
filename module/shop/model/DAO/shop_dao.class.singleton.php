@@ -237,5 +237,104 @@
             return $db -> listar($stmt);
             
         }
+
+        public function count_filters_home($db, $filters) {
+            // return 'Entro a shop_dao --> count_filters_home';
+            $filter = "";
+            if (isset ($filters[0]['aut_parts'])) { //NEW
+                $filter_aut_parts = $filters[0]['aut_parts'][0];
+                $filter .= " AND h.id_housing = h_aut_p.id_housing
+                            AND h_aut_p.id_aut_parts = aut_p.id_aut_parts
+                            WHERE aut_p.id_aut_parts = $filter_aut_parts";
+            }
+            if (isset ($filters[0]['type'])) {
+                $filter_type = $filters[0]['type'][0];
+                $filter .= " WHERE t.id_type = '$filter_type'";
+            }
+            if (isset ($filters[0]['category'])) {
+                $filter_category = $filters[0]['category'][0];
+                $filter .= " AND h.id_housing = hc.id_housing
+                            AND cat.id_category = hc.id_category
+                            WHERE cat.id_category = '$filter_category'";
+            }
+            if (isset ($filters[0]['operation'])) {
+                $filter_operation = $filters[0]['operation'][0];
+                $filter .= " WHERE o.id_operation = '$filter_operation'";
+            }
+            if (isset ($filters[0]['city'])) {
+                $filter_city = $filters[0]['city'][0];
+                $filter .= " WHERE c.id_city = '$filter_city'";
+            }
+
+            $sql = "SELECT COUNT(DISTINCT h.id_housing) contador
+            FROM `housings` h
+            INNER JOIN `h_type` t ON h.id_type = t.id_type
+            INNER JOIN `city` c ON h.id_city = c.id_city
+            INNER JOIN `operation` o ON h.id_operation = o.id_operation
+            INNER JOIN `img_housings` i ON h.id_housing = i.id_housing
+            INNER JOIN `housing_category` hc ON h.id_housing = hc.id_housing
+            INNER JOIN `category` cat ON hc.id_category = cat.id_category
+            INNER JOIN `housing_automation_parts` h_aut_p ON h.id_housing = h_aut_p.id_housing
+            INNER JOIN `automation_parts` aut_p ON h_aut_p.id_aut_parts = aut_p.id_aut_parts
+            $filter";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar($stmt);
+            
+        }
+
+        public function count_filters_shop($db, $filters__shop) {
+            // return 'Entro a shop_dao --> count_filters_shop';
+            $filter = "";
+            $order = "";
+            $whereClauseAdded = false; // Variable para controlar si ya se ha añadido una cláusula WHERE
+
+            // Recorremos los filtros
+            for ($i = 0; $i < count($filters__shop); $i++) {
+                // Manejamos el filtro 'name_city'
+                if ($filters__shop[$i][0] == 'name_city') {
+                    $filter .= ($whereClauseAdded ? " AND " : " WHERE ") . $filters__shop[$i][0] . " IN ('" . implode("','", $filters__shop[$i][1]) . "')";
+                    $whereClauseAdded = true; // Se añadió una cláusula WHERE
+                }
+                // Manejamos el filtro 'name_orderby'
+                elseif ($filters__shop[$i][0] == 'name_orderby') {
+                    $order = "ORDER BY " . ($filters__shop[$i][1] == 'Price' ? "h.housing_price ASC" : "h.housing_M2 ASC");
+                }
+                // Manejamos otros filtros
+                else {
+                    $filter .= ($whereClauseAdded ? " AND " : " WHERE ") . $filters__shop[$i][0] . "= '" . $filters__shop[$i][1] . "'";
+                    $whereClauseAdded = true; // Se añadió una cláusula WHERE
+                }
+            }
+
+            // Construimos la consulta SQL
+            $sql = "SELECT COUNT(DISTINCT h.id_housing) contador
+            FROM `housings` h
+            INNER JOIN `h_type` t ON h.id_type = t.id_type
+            INNER JOIN `city` c ON h.id_city = c.id_city
+            INNER JOIN `operation` o ON h.id_operation = o.id_operation
+            INNER JOIN `housing_category` hc ON h.id_housing = hc.id_housing
+            INNER JOIN `category` cat ON hc.id_category = cat.id_category
+            INNER JOIN `housing_extras` he ON h.id_housing = he.id_housing
+            INNER JOIN `extras` e ON he.id_extras = e.id_extras
+            INNER JOIN `housing_automation_parts` h_aut_p ON h.id_housing = h_aut_p.id_housing
+            INNER JOIN `automation_parts` aut_p ON h_aut_p.id_aut_parts = aut_p.id_aut_parts
+            $filter
+            $order";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar($stmt);
+            
+        }
+
+        public function count_all($db) {
+            // return 'Entro a shop_dao --> count_all';
+            $sql = "SELECT COUNT(*) contador
+            FROM housings";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar($stmt);
+            
+        }
     }
 ?>

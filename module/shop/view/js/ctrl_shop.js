@@ -4,7 +4,7 @@ function loadHousings() {
     var offset = 0; 
     var items_page = 3; 
     if(verificate_filters != false) {
-        // pagination();
+        pagination();
         localStorage.removeItem('filters_home');
         var filters = JSON.parse(verificate_filters);
         console.log("Datos de filters_home:", filters);
@@ -14,10 +14,10 @@ function loadHousings() {
         console.log("Datos de filters_shop:", filters__shop);
         ajaxForSearch('?module=shop&op=filters_shop', 'POST', 'JSON', {'filters__shop':filters__shop, 'offset': offset, 'items_page': items_page});
         filter_button();
-        // pagination(filters__shop);
+        pagination(filters__shop);
     } else {
         ajaxForSearch('?module=shop&op=all_housings', 'POST', 'JSON', {'offset': offset, 'items_page': items_page});
-        // pagination(filters__shop);
+        pagination(filters__shop);
     }
 }
 
@@ -686,68 +686,54 @@ function mapBox(id_housing) {
         .addTo(map1);
 }
 
-// function pagination(filters__shop) {
-//     var filters = JSON.parse(localStorage.getItem('filters_home'));
-//     // var filters_shop = JSON.parse(localStorage.getItem('filters_shop'));
-//     var filters__shop = filters__shop;
-//     console.log(filters);
-//     console.log(filters__shop);
-//     if (filters != null) {
-//         var url = "module/shop/controller/controller_shop.php?op=count_filters_home";
-//         console.log("url1");
-//     } else if (filters__shop != undefined) {
-//         var url = "module/shop/controller/controller_shop.php?op=count_filters_shop";
-//         console.log("url2");
-//     } else {
-//         var url = "module/shop/controller/controller_shop.php?op=count_all";
-//         console.log("url3");
-//     }
-//     ajaxPromise(url, 'POST', 'JSON', { 'filters__shop': filters__shop, 'filters': filters })
-//         .then(function(data) {
-//             console.log(data); // Imprime el contenido del objeto data en la consola
-//             var offset = data[0].contador;
-//             console.log("offset " + offset);
-//             var items_page = 3;
-//             if (offset >= items_page) {
-//                 total_pages = Math.ceil(offset / items_page);
-//             } else {
-//                 total_pages = 1;
-//             }
-//             $('#pagination').empty();
-//             for (var i = 1; i <= total_pages; i++) {
-//                 $('#pagination').append('<button class="btn-pager" id="page_' + i + '">' + i + '</button>');
-//             }
+function pagination(filters__shop) {
+    var filters = JSON.parse(localStorage.getItem('filters_home'));
+    // var filters_shop = JSON.parse(localStorage.getItem('filters_shop'));
+    var filters__shop = filters__shop;
+    console.log(filters);
+    console.log(filters__shop);
+    if (filters != null) {
+        var url = "?module=shop&op=count_filters_home";
+        console.log("url1");
+    } else if (filters__shop != undefined) {
+        var url = "?module=shop&op=count_filters_shop";
+        console.log("url2");
+    } else {
+        var url = "?module=shop&op=count_all";
+        console.log("url3");
+    }
+    ajaxPromise(url, 'POST', 'JSON', { 'filters__shop': filters__shop, 'filters': filters })
+        .then(function(data) {
+            console.log(data); // Imprime el contenido del objeto data en la consola
+            var offset = data[0].contador;
+            console.log("offset " + offset);
+            var items_page = 3;
+            if (offset >= items_page) {
+                total_pages = Math.ceil(offset / items_page);
+            } else {
+                total_pages = 1;
+            }
+            $('#pagination').empty();
+            for (var i = 1; i <= total_pages; i++) {
+                $('#pagination').append('<button class="btn-pager" id="page_' + i + '">' + i + '</button>');
+            }
             
-//             // Agregar evento clic a los botones de paginación
-//             $('#pagination').on('click', 'button', function() {
-//                 var page = parseInt($(this).attr('id').split('_')[1]); // Obtener el número de página del id del botón
-//                 offset = items_page * (page - 1);
-//                 if (filters__shop != undefined) {
-//                     ajaxForSearch("module/shop/controller/controller_shop.php?op=filters_shop", 'POST', 'JSON', {'filters__shop': filters__shop,'offset': offset, 'items_page': items_page});
-//                 } else if (filters != null){
-//                     console.log("grafcet ");
-//                     ajaxForSearch("module/shop/controller/controller_shop.php?op=filters_home", 'POST', 'JSON', {'filters': filters,'offset': offset, 'items_page': items_page});
-//                 } else {
-//                     ajaxForSearch('module/shop/controller/controller_shop.php?op=all_housings', 'POST', 'JSON', {'offset': offset, 'items_page': items_page});
-//                 }
-//                 // $('html').animate({ scrollTop: $(".wrap") });
-//             });
-//             // $('#pagination').bootpag({
-//             //     total: total_pages,
-//             //     page: localStorage.getItem('move') ? JSON.parse(localStorage.getItem('move'))[1] / 3 + 1 : 1,
-//             //     maxVisible: total_pages
-//             // }).on('page', function(event, page) {
-//             //     offset = 3 * (page - 1);
-//             //     if (filters_shop != undefined) {
-//             //         ajaxForSearch("module/shop/controller/controller_shop.php?op=filters_shop", filters_shop, offset, 3);
-//             //     } else {
-//             //         ajaxForSearch("module/shop/controller/controller_shop.php?op=all_housings", undefined, offset, 3);
-//             //     }
-//             //     $('html, body').animate({ scrollTop: $(".wrap") });
-//             // });
-
-//         })
-// }
+            // Agregar evento clic a los botones de paginación
+            $('#pagination').on('click', 'button', function() {
+                var page = parseInt($(this).attr('id').split('_')[1]); // Obtener el número de página del id del botón
+                offset = items_page * (page - 1);
+                if (filters__shop != undefined) {
+                    ajaxForSearch("?module=shop&op=filters_shop", 'POST', 'JSON', {'filters__shop': filters__shop,'offset': offset, 'items_page': items_page});
+                } else if (filters != null){
+                    console.log("grafcet ");
+                    ajaxForSearch("?module=shop&op=filters_home", 'POST', 'JSON', {'filters': filters,'offset': offset, 'items_page': items_page});
+                } else {
+                    ajaxForSearch('?module=shop&op=all_housings', 'POST', 'JSON', {'offset': offset, 'items_page': items_page});
+                }
+                // $('html').animate({ scrollTop: $(".wrap") });
+            });
+        })
+}
 
 // function housings_related(offset_housing = 0, housing_type, current_housing_id, current_extras_id, total_items) {
 //     let items = 3;

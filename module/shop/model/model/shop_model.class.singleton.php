@@ -40,5 +40,20 @@
             // return 'Entro a shop_model --> get_print_dynamic_filters_shop'; 
             return $this -> bll -> get_print_dynamic_filters_shop_BLL();
         }
+
+        public function get_count_filters_home($args) {
+            // return 'Entro a shop_model --> get_count_filters_home'; 
+            return $this -> bll -> get_count_filters_home_BLL($args);
+        }
+
+        public function get_count_filters_shop($args) {
+            // return 'Entro a shop_model --> get_count_filters_shop'; 
+            return $this -> bll -> get_count_filters_shop_BLL($args);
+        }
+
+        public function get_count_all() {
+            // return 'Entro a shop_model --> get_count_all'; 
+            return $this -> bll -> get_count_all_BLL();
+        }
     }
 ?>

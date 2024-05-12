@@ -41,5 +41,20 @@
             // echo 'Entro al controller_shop --> print_dynamic_filters_shop';
             echo json_encode(common::load_model('shop_model', 'get_print_dynamic_filters_shop'));
         }
+
+        function count_filters_home() {
+            // echo 'Entro al controller_shop --> count_filters_home';
+            echo json_encode(common::load_model('shop_model', 'get_count_filters_home', $_POST['filters']));
+        }
+
+        function count_filters_shop() {
+            // echo 'Entro al controller_shop --> count_filters_shop';
+            echo json_encode(common::load_model('shop_model', 'get_count_filters_shop', $_POST['filters__shop']));
+        }
+
+        function count_all() {
+            // echo 'Entro al controller_shop --> count_all';
+            echo json_encode(common::load_model('shop_model', 'get_count_all'));
+        }
     }
 ?>

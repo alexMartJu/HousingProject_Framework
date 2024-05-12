@@ -24,4 +24,16 @@
         <name>print_dynamic_filters_shop</name>
         <uri>print_dynamic_filters_shop</uri>
     </function>
+    <function>
+        <name>count_filters_home</name>
+        <uri>count_filters_home</uri>
+    </function>
+    <function>
+        <name>count_filters_shop</name>
+        <uri>count_filters_shop</uri>
+    </function>
+    <function>
+        <name>count_all</name>
+        <uri>count_all</uri>
+    </function>
 </functions>
