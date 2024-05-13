@@ -8,4 +8,8 @@
         <name>shop</name>
         <uri>shop</uri>
     </module>
+    <module>
+        <name>search</name>
+        <uri>search</uri>
+    </module>
 </modules>
