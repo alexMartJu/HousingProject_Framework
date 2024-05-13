@@ -423,7 +423,7 @@ function clicks(){
         // -Finalización marcado filters_shop *1-
         
         setTimeout(function(){ 
-            window.location.href = '?module=shop';
+            window.location.href = friendlyURL('?module=shop');
         }, 1000);  
     });
 
@@ -461,7 +461,7 @@ function clicks(){
         // -Finalización marcado filters_shop *2-
 
         setTimeout(function(){ 
-          window.location.href = '?module=shop';
+          window.location.href = friendlyURL('?module=shop');
         }, 1000);  
     });
 
@@ -497,7 +497,7 @@ function clicks(){
         // -Finalización marcado filters_shop *3-
 
         setTimeout(function(){ 
-          window.location.href = '?module=shop';
+          window.location.href = friendlyURL('?module=shop');
         }, 1000);  
     }); 
 
@@ -533,7 +533,7 @@ function clicks(){
         // -Finalización marcado filters_shop *4-
 
         setTimeout(function(){ 
-          window.location.href = '?module=shop';
+          window.location.href = friendlyURL('?module=shop');
         }, 1000);  
     });
 
@@ -571,7 +571,7 @@ function clicks(){
 
 
         setTimeout(function(){ 
-          window.location.href = '?module=shop';
+          window.location.href = friendlyURL('?module=shop');
         }, 1000);  
     });
 } 

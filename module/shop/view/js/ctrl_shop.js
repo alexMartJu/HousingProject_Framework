@@ -8,15 +8,18 @@ function loadHousings() {
         localStorage.removeItem('filters_home');
         var filters = JSON.parse(verificate_filters);
         console.log("Datos de filters_home:", filters);
-        ajaxForSearch('?module=shop&op=filters_home', 'POST', 'JSON', {'filters':filters, 'offset': offset, 'items_page': items_page});
+        // ajaxForSearch('?module=shop&op=filters_home', 'POST', 'JSON', {'filters':filters, 'offset': offset, 'items_page': items_page});
+        ajaxForSearch(friendlyURL('?module=shop'), 'POST', 'JSON', {'filters':filters, 'offset': offset, 'items_page': items_page, 'op' : 'filters_home'});
     } else if (verificate_filters_shop != false){
         var filters__shop = JSON.parse(verificate_filters_shop);
         console.log("Datos de filters_shop:", filters__shop);
-        ajaxForSearch('?module=shop&op=filters_shop', 'POST', 'JSON', {'filters__shop':filters__shop, 'offset': offset, 'items_page': items_page});
+        // ajaxForSearch('?module=shop&op=filters_shop', 'POST', 'JSON', {'filters__shop':filters__shop, 'offset': offset, 'items_page': items_page});
+        ajaxForSearch(friendlyURL('?module=shop'), 'POST', 'JSON', {'filters__shop':filters__shop, 'offset': offset, 'items_page': items_page, 'op' : 'filters_shop'});
         filter_button();
         pagination(filters__shop);
     } else {
-        ajaxForSearch('?module=shop&op=all_housings', 'POST', 'JSON', {'offset': offset, 'items_page': items_page});
+        // ajaxForSearch('?module=shop&op=all_housings', 'POST', 'JSON', {'offset': offset, 'items_page': items_page});
+        ajaxForSearch(friendlyURL('?module=shop'), 'POST', 'JSON', {'offset': offset, 'items_page': items_page, 'op' : 'all_housings'});
         pagination(filters__shop);
     }
 }
@@ -121,7 +124,8 @@ function clicks() {
 }
 
 function loadDetails(id_housing) {
-    ajaxPromise('?module=shop&op=details_housing', 'POST', 'JSON', {'id': id_housing})
+    // ajaxPromise('?module=shop&op=details_housing', 'POST', 'JSON', {'id': id_housing})
+    ajaxPromise(friendlyURL('?module=shop'), 'POST', 'JSON', {'id': id_housing, 'op':'details_housing'})
         .then(function (data) {
             console.log("Datos recibidos de loadDetails:", data);
             // Obtener el arreglo actual de búsquedas desde el localStorage
@@ -299,7 +303,8 @@ function loadDetails(id_housing) {
 }
 
 function print_filters() {
-    ajaxPromise('?module=shop&op=print_dynamic_filters_shop', 'GET', 'JSON')
+    // ajaxPromise('?module=shop&op=print_dynamic_filters_shop', 'GET', 'JSON')
+    ajaxPromise(friendlyURL('?module=shop'), 'POST', 'JSON', {'op':'print_dynamic_filters_shop'})
     .then(function (data) {
         console.log("Datos recibidos de print_filters:", data);
         $('<div class="div_filters"></div>').appendTo('.filters')
@@ -693,13 +698,16 @@ function pagination(filters__shop) {
     console.log(filters);
     console.log(filters__shop);
     if (filters != null) {
-        var url = "?module=shop&op=count_filters_home";
+        // var url = "?module=shop&op=count_filters_home";
+        var url = friendlyURL("?module=shop&op=count_filters_home");
         console.log("url1");
     } else if (filters__shop != undefined) {
-        var url = "?module=shop&op=count_filters_shop";
+        // var url = "?module=shop&op=count_filters_shop";
+        var url = friendlyURL("?module=shop&op=count_filters_shop");
         console.log("url2");
     } else {
-        var url = "?module=shop&op=count_all";
+        // var url = "?module=shop&op=count_all";
+        var url = friendlyURL("?module=shop&op=count_all");
         console.log("url3");
     }
     ajaxPromise(url, 'POST', 'JSON', { 'filters__shop': filters__shop, 'filters': filters })
@@ -723,12 +731,15 @@ function pagination(filters__shop) {
                 var page = parseInt($(this).attr('id').split('_')[1]); // Obtener el número de página del id del botón
                 offset = items_page * (page - 1);
                 if (filters__shop != undefined) {
-                    ajaxForSearch("?module=shop&op=filters_shop", 'POST', 'JSON', {'filters__shop': filters__shop,'offset': offset, 'items_page': items_page});
+                    // ajaxForSearch("?module=shop&op=filters_shop", 'POST', 'JSON', {'filters__shop': filters__shop,'offset': offset, 'items_page': items_page});
+                    ajaxForSearch(friendlyURL("?module=shop"), 'POST', 'JSON', {'filters__shop': filters__shop,'offset': offset, 'items_page': items_page, 'op':'filters_shop'});
                 } else if (filters != null){
                     console.log("grafcet ");
-                    ajaxForSearch("?module=shop&op=filters_home", 'POST', 'JSON', {'filters': filters,'offset': offset, 'items_page': items_page});
+                    // ajaxForSearch("?module=shop&op=filters_home", 'POST', 'JSON', {'filters': filters,'offset': offset, 'items_page': items_page});
+                    ajaxForSearch(friendlyURL("?module=shop"), 'POST', 'JSON', {'filters': filters,'offset': offset, 'items_page': items_page, 'op':'filters_home'});
                 } else {
-                    ajaxForSearch('?module=shop&op=all_housings', 'POST', 'JSON', {'offset': offset, 'items_page': items_page});
+                    // ajaxForSearch('?module=shop&op=all_housings', 'POST', 'JSON', {'offset': offset, 'items_page': items_page});
+                    ajaxForSearch(friendlyURL('?module=shop'), 'POST', 'JSON', {'offset': offset, 'items_page': items_page, 'op':'all_housings'});
                 }
                 // $('html').animate({ scrollTop: $(".wrap") });
             });
@@ -744,7 +755,8 @@ function housings_related(offset_housing = 0, housing_type, current_housing_id, 
     let elementsAdded_offset_more3 = 0;
     console.log("Housign TYPE" + housing_type);
 
-    ajaxPromise("?module=shop&op=housings_related", 'POST', 'JSON', { 'housing_type': housing_type, 'current_housing_id': current_housing_id, 'current_extras_id': current_extras_id,'offset_housing': offset_housing, 'items': items })
+    // ajaxPromise("?module=shop&op=housings_related", 'POST', 'JSON', { 'housing_type': housing_type, 'current_housing_id': current_housing_id, 'current_extras_id': current_extras_id,'offset_housing': offset_housing, 'items': items })
+    ajaxPromise(friendlyURL("?module=shop"), 'POST', 'JSON', { 'housing_type': housing_type, 'current_housing_id': current_housing_id, 'current_extras_id': current_extras_id,'offset_housing': offset_housing, 'items': items, 'op': 'housings_related'})
         .then(function(data) {
             console.log("datalength " + data);
             if (offset_housing == 0) {
@@ -882,7 +894,8 @@ function housings_related(offset_housing = 0, housing_type, current_housing_id, 
 function more_husings_related(housing_type, current_housing_id, current_extras_id) {
     var housing_type = housing_type;
     var offset = 0;
-    ajaxPromise('?module=shop&op=count_housings_related', 'POST', 'JSON', { 'housing_type': housing_type, 'current_housing_id': current_housing_id })
+    // ajaxPromise('?module=shop&op=count_housings_related', 'POST', 'JSON', { 'housing_type': housing_type, 'current_housing_id': current_housing_id })
+    ajaxPromise(friendlyURL('?module=shop'), 'POST', 'JSON', { 'housing_type': housing_type, 'current_housing_id': current_housing_id, 'op': 'count_housings_related'})
         .then(function(data) {
             var total_items = data[0].n_prod;
             housings_related(0, housing_type, current_housing_id, current_extras_id, total_items);
