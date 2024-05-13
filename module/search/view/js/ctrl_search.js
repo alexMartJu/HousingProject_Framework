@@ -2,10 +2,10 @@ function load_types() {
     ajaxPromise('?module=search&op=search_type', 'POST', 'JSON')
         .then(function (data) {
             console.log("Datos recibidos de search_load_types:", data);
-            // $('<option>Type</option>').attr('selected', true).attr('disabled', true).appendTo('.search_type')
-            // for (row in data) {
-            //     $('<option value="' + data[row].name_type + '">' + data[row].name_type + '</option>').appendTo('.search_type')
-            // }
+            $('<option>Type</option>').attr('selected', true).attr('disabled', true).appendTo('.search_type')
+            for (row in data) {
+                $('<option value="' + data[row].name_type + '">' + data[row].name_type + '</option>').appendTo('.search_type')
+            }
         }).catch(function () {
             window.location.href = "index.php?page=503";
             // window.location.href = "index.php?modules=exception&op=503&error=fail_load_brands&type=503";

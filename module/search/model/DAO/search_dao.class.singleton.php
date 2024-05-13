@@ -13,8 +13,13 @@
             return self::$_instance;
         }
 
-        public function search_type() {
-            return 'Entro a search_dao --> search_type';
+        public function search_type($db) {
+            // return 'Entro a search_dao --> search_type';
+            $sql = "SELECT * 
+            FROM h_type";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar($stmt);
         }
     }
 ?>
