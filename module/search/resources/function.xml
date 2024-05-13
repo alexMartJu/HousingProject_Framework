@@ -4,4 +4,12 @@
         <name>search_type</name>
         <uri>search_type</uri>
     </function>
+    <function>
+        <name>search_category_null</name>
+        <uri>search_category_null</uri>
+    </function>
+    <function>
+        <name>search_category</name>
+        <uri>search_category</uri>
+    </function>
 </functions>

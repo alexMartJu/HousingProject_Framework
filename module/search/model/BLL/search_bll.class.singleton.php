@@ -27,5 +27,27 @@
                 return "error";
             }
 		}
+
+        public function get_search_category_null_BLL() {
+			// return 'Entro a search_bll --> get_search_category_null_BLL';
+            $selSlide = $this -> dao -> search_category_null($this -> db);
+            if (!empty($selSlide)) {
+                return $selSlide;
+            }
+            else {
+                return "error";
+            }
+		}
+
+        public function get_search_category_BLL($args) {
+			// return 'Entro a search_bll --> get_search_category_BLL';
+            $selSlide = $this -> dao -> search_category($this -> db, $args);        
+            if (!empty($selSlide)) {
+                return $selSlide;
+            }
+            else {
+                return "error";
+            }
+		}
 	}
 ?>

@@ -20,5 +20,15 @@
             // return 'Entro a search_model --> get_search_type'; 
             return $this -> bll -> get_search_type_BLL();
         }
+
+        public function get_search_category_null() {
+            // return 'Entro a search_model --> get_search_category_null'; 
+            return $this -> bll -> get_search_category_null_BLL();
+        }
+
+        public function get_search_category($args) {
+            // return 'Entro a search_model --> get_search_category'; 
+            return $this -> bll -> get_search_category_BLL($args);
+        }
     }
 ?>

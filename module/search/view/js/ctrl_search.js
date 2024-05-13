@@ -12,47 +12,50 @@ function load_types() {
         });
 }
 
-// function load_category(h_type) {
-//     $('.search_category').empty();
+function load_category(h_type) {
+    $('.search_category').empty();
 
-//     if (h_type == undefined) {
-//         ajaxPromise('module/search/controller/controller_search.php?op=search_category_null', 'POST', 'JSON')
-//             .then(function (data) {
-//                 $('<option>Category</option>').attr('selected', true).attr('disabled', true).appendTo('.search_category')
-//                 for (row in data) {
-//                     $('<option value="' + data[row].name_category + '">' + data[row].name_category + '</option>').appendTo('.search_category')
-//                 }
-//             }).catch(function () {
-//                 window.location.href = "index.php?page=503";
-//                 // window.location.href = "index.php?modules=exception&op=503&error=fail_load_category&type=503";
-//             });
-//     }
-//     else {
-//         ajaxPromise('module/search/controller/controller_search.php?op=search_category', 'POST', 'JSON', h_type)
-//             .then(function (data) {
-//                 for (row in data) {
-//                     $('<option value="' + data[row].name_category + '">' + data[row].name_category + '</option>').appendTo('.search_category')
-//                 }
-//             }).catch(function () {
-//                 window.location.href = "index.php?page=503";
-//                 // window.location.href = "index.php?modules=exception&op=503&error=fail_loas_category_2&type=503";
-//             });
-//     }
-// }
+    if (h_type == undefined) {
+        // ajaxPromise('module/search/controller/controller_search.php?op=search_category_null', 'POST', 'JSON')
+        ajaxPromise('?module=search&op=search_category_null', 'POST', 'JSON')
+            .then(function (data) {
+                $('<option>Category</option>').attr('selected', true).attr('disabled', true).appendTo('.search_category')
+                for (row in data) {
+                    $('<option value="' + data[row].name_category + '">' + data[row].name_category + '</option>').appendTo('.search_category')
+                }
+            }).catch(function () {
+                window.location.href = "index.php?page=503";
+                // window.location.href = "index.php?modules=exception&op=503&error=fail_load_category&type=503";
+            });
+    }
+    else {
+        // ajaxPromise('module/search/controller/controller_search.php?op=search_category', 'POST', 'JSON', h_type)
+        // ajaxPromise('?module=search&op=search_category', 'POST', 'JSON', h_type, {'op': 'search_category'})
+        ajaxPromise('?module=search&op=search_category', 'POST', 'JSON', h_type)
+            .then(function (data) {
+                for (row in data) {
+                    $('<option value="' + data[row].name_category + '">' + data[row].name_category + '</option>').appendTo('.search_category')
+                }
+            }).catch(function () {
+                window.location.href = "index.php?page=503";
+                // window.location.href = "index.php?modules=exception&op=503&error=fail_loas_category_2&type=503";
+            });
+    }
+}
 
 function launch_search() {
     load_types();
-    // load_category();
-    // $(document).on('change', '.search_type', function () {
-    //     let h_type = $(this).val();
-    //     console.log("hola " + h_type);
-    //     // let h_type = $(event.target).val();
-    //     if (h_type === 0) {
-    //         load_category();
-    //     } else {
-    //         load_category({ h_type });
-    //     }
-    // });
+    load_category();
+    $(document).on('change', '.search_type', function () {
+        let h_type = $(this).val();
+        console.log("hola " + h_type);
+        // let h_type = $(event.target).val();
+        if (h_type === 0) {
+            load_category();
+        } else {
+            load_category({ h_type });
+        }
+    });
 }
 
 // function autocomplete() {

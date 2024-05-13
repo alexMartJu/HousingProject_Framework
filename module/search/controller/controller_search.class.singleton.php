@@ -16,5 +16,15 @@
             // echo 'Entro al controller_search --> search_type';
             echo json_encode(common::load_model('search_model', 'get_search_type'));
         }
+
+        function search_category_null() {
+            // echo 'Entro al controller_search --> search_category_null';
+            echo json_encode(common::load_model('search_model', 'get_search_category_null'));
+        }
+
+        function search_category() {
+            // echo 'Entro al controller_search --> search_category';
+            echo json_encode(common::load_model('search_model', 'get_search_category', $_POST['h_type']));
+        }
     }
 ?>
