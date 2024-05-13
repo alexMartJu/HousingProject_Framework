@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <functions>
-
+    <function>
+        <name>search_type</name>
+        <uri>search_type</uri>
+    </function>
 </functions>
