@@ -5,6 +5,7 @@
         static $_instance;
         
         function __construct() {
+            $this -> bll = search_bll::getInstance();
         }
 
         public static function getInstance() {
@@ -16,7 +17,8 @@
         }
 
         public function get_search_type() {
-            return 'Entro a search_model --> get_search_type'; 
+            // return 'Entro a search_model --> get_search_type'; 
+            return $this -> bll -> get_search_type_BLL();
         }
     }
 ?>
