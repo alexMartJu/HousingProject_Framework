@@ -1,2 +1,4 @@
 **.ini
 /.htaccess
+utils/vendor/
+utils/composer.lock
