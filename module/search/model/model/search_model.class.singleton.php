@@ -30,5 +30,10 @@
             // return 'Entro a search_model --> get_search_category'; 
             return $this -> bll -> get_search_category_BLL($args);
         }
+
+        public function get_autocomplete($args) {
+            // return 'Entro a search_model --> get_autocomplete'; 
+            return $this -> bll -> get_autocomplete_BLL($args);
+        }
     }
 ?>

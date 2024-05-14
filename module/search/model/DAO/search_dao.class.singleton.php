@@ -44,5 +44,40 @@
             $stmt = $db -> ejecutar($sql);
             return $db -> listar($stmt);
         }
+
+        public function select_autocomplete($db, $complete, $h_type, $category) {
+            // return 'Entro a search_dao --> select_autocomplete';
+            if (!empty($h_type) && empty($category)){
+                $sql="SELECT h.*,c.name_city
+                FROM housings h
+                JOIN city c ON h.id_city = c.id_city
+                JOIN h_type ht ON h.id_type = ht.id_type
+                WHERE ht.name_type = '$h_type' AND c.name_city LIKE '$complete%'";
+            }else if(!empty($h_type) && !empty($category)){
+                $sql="SELECT h.*,c.name_city
+                FROM housings h
+                INNER JOIN housing_category hc ON h.id_housing = hc.id_housing
+                INNER JOIN category ca ON hc.id_category = ca.id_category
+                INNER JOIN city c ON h.id_city = c.id_city
+                INNER JOIN h_type ht ON h.id_type = ht.id_type
+                WHERE ca.name_category = '$category' AND ht.name_type = '$h_type' AND c.name_city LIKE '$complete%'";
+            }else if(empty($h_type) && !empty($category)){
+                $sql="SELECT h.*,c.name_city
+                FROM housings h
+                INNER JOIN housing_category hc ON h.id_housing = hc.id_housing
+                INNER JOIN category ca ON hc.id_category = ca.id_category
+                INNER JOIN city c ON h.id_city = c.id_city
+                WHERE ca.name_category = '$category' AND c.name_city LIKE '$complete%'";
+            }else {
+                $sql="SELECT h.*,c.name_city
+                FROM housings h
+                INNER JOIN city c ON h.id_city = c.id_city
+                WHERE c.name_city LIKE '$complete%'";
+            
+            }
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar($stmt);
+        }
     }
 ?>

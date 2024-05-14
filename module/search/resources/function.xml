@@ -12,4 +12,8 @@
         <name>search_category</name>
         <uri>search_category</uri>
     </function>
+    <function>
+        <name>autocomplete</name>
+        <uri>autocomplete</uri>
+    </function>
 </functions>

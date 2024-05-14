@@ -26,5 +26,10 @@
             // echo 'Entro al controller_search --> search_category';
             echo json_encode(common::load_model('search_model', 'get_search_category', $_POST['h_type']));
         }
+
+        function autocomplete() {
+            // echo 'Entro al controller_search --> autocomplete';
+            echo json_encode(common::load_model('search_model', 'get_autocomplete', [$_POST['complete'], $_POST['h_type'] , $_POST['category']]));
+        }
     }
 ?>

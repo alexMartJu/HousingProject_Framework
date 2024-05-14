@@ -49,5 +49,24 @@
                 return "error";
             }
 		}
+
+        public function get_autocomplete_BLL($args) {
+			// return 'Entro a search_bll --> get_autocomplete_BLL';
+            try{
+                $rdo = $this -> dao -> select_autocomplete($this -> db, $args[0], $args[1], $args[2]);
+                
+            }catch (Exception $e){
+                return "catch";
+            }
+            if(!$rdo){
+                return "rdo!!!";
+            }else{
+                $dinfo = array();
+                foreach ($rdo as $row) {
+                    array_push($dinfo, $row);
+                }
+                return $dinfo;
+            }
+		}
 	}
 ?>
