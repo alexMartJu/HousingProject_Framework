@@ -73,7 +73,8 @@ function load_menu() {
     } else {
         console.log("No hay token disponible");
         $('.logout_login-button').empty();
-        $('<button class="btn-login-reg" onclick="window.location.href=\'index.php?page=controller_login&op=login-register_view\'">Login/Register</button>').appendTo('.login-register-button');
+        // $('<button class="btn-login-reg" onclick="window.location.href=\'index.php?page=controller_login&op=login-register_view\'">Login/Register</button>').appendTo('.login-register-button');
+        $('<button class="btn-login-reg" onclick="window.location.href=\'' + friendlyURL("?module=login") + '\'">Login/Register</button>').appendTo('.login-register-button');
     }
 }
 
