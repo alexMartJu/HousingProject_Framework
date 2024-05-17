@@ -8,4 +8,8 @@
         <name>register</name>
         <uri>register</uri>
     </function>
+    <function>
+        <name>verify_email</name>
+        <uri>verify_email</uri>
+    </function>
 </functions>

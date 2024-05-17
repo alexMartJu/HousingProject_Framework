@@ -56,5 +56,14 @@
             // Si se insertó el usuario correctamente, devuelve ok
             return "ok";	   
 		}
+
+        public function get_verify_email_BLL($args) {
+			if($this -> dao -> select_verify_email()){
+				$this -> dao -> update_verify_email();
+				return 'verify';
+			} else {
+				return 'fail';
+			}
+		}
 	}
 ?>

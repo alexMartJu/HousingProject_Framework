@@ -21,5 +21,10 @@
             // echo 'Entro al controller_login --> register';
             echo json_encode(common::load_model('login_model', 'get_register', [$_POST['username_reg'], $_POST['email_reg'], $_POST['password1_reg']]));
         }
+
+        function verify_email() {
+            // echo 'Entro al controller_login --> verify_email';
+            echo json_encode(common::load_model('login_model', 'get_verify_email', $_POST['token_email']));
+        }
     }
 ?>

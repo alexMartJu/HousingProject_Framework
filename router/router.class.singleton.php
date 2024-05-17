@@ -33,8 +33,14 @@
                 $this->uriFunction = ($_POST['op'] === "") ? 'view' : $_POST['op'];
                 // error_log("Valor de op en POST: " . $this->uriFunction);
             } elseif(isset($_GET['op'])) {
-                $this->uriFunction = ($_GET['op'] === "") ? 'view' : $_GET['op'];
-                // error_log("Valor de op en GET: " . $this->uriFunction);
+                if($_GET['op'] === 'verify') {
+                    $this->uriFunction = 'view';
+                    $this->uriFunction = ($_GET['op'] === "") ? 'view' : $_GET['op'];
+                    // error_log("Valor de op en GET: " . $this->uriFunction);
+                } else {
+                    $this->uriFunction = ($_GET['op'] === "") ? 'view' : $_GET['op'];
+                    // error_log("Valor de op en GET: " . $this->uriFunction);
+                }
             } else {
                 $this->uriFunction = 'view';
             }

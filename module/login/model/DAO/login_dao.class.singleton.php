@@ -24,5 +24,13 @@
         public function insert_user() {
             return 'Entro a login_dao --> insert_user';
         }
+
+        public function select_verify_email() {
+            return 'Entro a login_dao --> select_verify_email';
+        }
+
+        public function update_verify_email() {
+            return 'Entro a login_dao --> update_verify_email';
+        }
     }
 ?>
