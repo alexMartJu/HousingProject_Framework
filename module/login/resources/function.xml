@@ -4,4 +4,8 @@
         <name>view</name>
         <uri>view</uri>
     </function>
+    <function>
+        <name>register</name>
+        <uri>register</uri>
+    </function>
 </functions>

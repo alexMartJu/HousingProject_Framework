@@ -80,7 +80,7 @@ function login() {
 
 // ------------------- REGISTER ------------------------ //
 function click_register(){
-	$("#register").keypress(function(e) {
+	$("#register__form").keypress(function(e) {
         var code = (e.keyCode ? e.keyCode : e.which);
         if (code == 13) {
             e.preventDefault(); //e.preventDefault() para el formulario y da orden de hacer register().
@@ -171,7 +171,7 @@ function validate_register() {
 }
 
 function register() {
-    if (validate_register() != 0) {
+    // if (validate_register() != 0) {
         console.log("Entro validate register");
         
         var username_reg = document.getElementById('username_reg').value;
@@ -183,51 +183,51 @@ function register() {
         console.log("pass1" + password1_reg);
         console.log("pass2" + password2_reg);
 
-        ajaxPromise('module/login/controller/controller_login.php?op=register', 'POST', 'JSON', {'email_reg': email_reg, 'username_reg': username_reg, 'password1_reg': password1_reg})
+        ajaxPromise('?module=login&op=register', 'POST', 'JSON', {'email_reg': email_reg, 'username_reg': username_reg, 'password1_reg': password1_reg})
             .then(function(data) {
-                console.log("registerdata" + data);
+                console.log("Datos obtenidos en Register: ", data);
                 console.log("Entro then");
-                if (data == "error_email") {
-                    console.log("Register: Error email.");
-                    document.getElementById('error_email_reg').innerHTML = "The email is already in use, make sure you do not already have an account."
-                } else if (data == "error_username") {
-                    console.log("Register: Error username.");
-                    document.getElementById('error_username_reg').innerHTML = "The user is already in use, try another one."
-                } else if (data == "error_user") {
-                    console.log("Register: Error user.");
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Registration Failed',
-                        text: 'There was an error during registration. Please try again later.',
-                        showConfirmButton: false,
-                        timer: 5000
-                      }).then(function() {
-                          // Redireccionar después de un registro exitoso
-                          window.location.href = "index.php?page=controller_login&op=login-register_view";
-                      });
-                } else {
-                    console.log("Register: ok.");
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Registration Successful',
-                        text: 'Welcome to Housing Project, ' + username_reg + '!',
-                        showConfirmButton: false,
-                        timer: 5000
-                      }).then(function() {
-                          // Redireccionar después de un registro exitoso
-                          window.location.href = "index.php?page=controller_login&op=login-register_view";
-                      });
+                // if (data == "error_email") {
+                //     console.log("Register: Error email.");
+                //     document.getElementById('error_email_reg').innerHTML = "The email is already in use, make sure you do not already have an account."
+                // } else if (data == "error_username") {
+                //     console.log("Register: Error username.");
+                //     document.getElementById('error_username_reg').innerHTML = "The user is already in use, try another one."
+                // } else if (data == "error_user") {
+                //     console.log("Register: Error user.");
+                //     Swal.fire({
+                //         icon: 'error',
+                //         title: 'Registration Failed',
+                //         text: 'There was an error during registration. Please try again later.',
+                //         showConfirmButton: false,
+                //         timer: 5000
+                //       }).then(function() {
+                //           // Redireccionar después de un registro exitoso
+                //           window.location.href = "index.php?page=controller_login&op=login-register_view";
+                //       });
+                // } else {
+                //     console.log("Register: ok.");
+                //     Swal.fire({
+                //         icon: 'success',
+                //         title: 'Registration Successful',
+                //         text: 'Welcome to Housing Project, ' + username_reg + '!',
+                //         showConfirmButton: false,
+                //         timer: 5000
+                //       }).then(function() {
+                //           // Redireccionar después de un registro exitoso
+                //           window.location.href = "index.php?page=controller_login&op=login-register_view";
+                //       });
                     
-                }
+                // }
             }).catch(function(textStatus) {
                 if (console && console.log) {
                     console.log("La solicitud ha fallado: " + textStatus);
                 }
             });
-    }
+    // }
 }
 
 $(document).ready(function(){
+    click_register();
     // click_login();
-    // click_register();
 });
