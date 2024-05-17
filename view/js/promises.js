@@ -110,16 +110,23 @@ function logout() {
 //================LOAD_CONTENT================
 function load_content() {
     let path = window.location.pathname.split('/');
-    
+    console.log("path ", path);
     if(path[5] === 'recover'){
         window.location.href = friendlyURL("?module=login&op=recover_view");
         localStorage.setItem("token_email", path[6]);
-    }else if (path[5] === 'verify') {
-        ajaxPromise(friendlyURL("?module=login&op=verify_email"), 'POST', 'JSON', {token_email: path[6]})
+    }else if (path[4] === 'verify') {
+        ajaxPromise(friendlyURL("?module=login"), 'POST', 'JSON', {token_email: path[5], 'op':'verify_email'})
         .then(function(data) {
-            toastr.options.timeOut = 3000;
-            toastr.success('Email verified');
-            setTimeout('window.location.href = friendlyURL("?module=home&op=view")', 1000);
+            Swal.fire({
+                icon: 'success',
+                title: 'Email Verified.Registration Successful',
+                text: 'Welcome to Housing Project!',
+                timer: 3000, // Mostrar la alerta durante 3 segundos
+                showConfirmButton: false, // Ocultar el botón de confirmación
+              }).then((result) => {
+                // Después de que la alerta se cierre automáticamente
+                window.location.href = friendlyURL("?module=login&op=view");
+              });
         })
         .catch(function() {
           console.log('Error: verify email error');
@@ -135,5 +142,5 @@ function load_content() {
 $(document).ready(function() {
     load_menu();
     click_logout();
-    // load_content()
+    load_content()
 });

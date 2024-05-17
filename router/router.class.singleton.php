@@ -35,8 +35,6 @@
             } elseif(isset($_GET['op'])) {
                 if($_GET['op'] === 'verify') {
                     $this->uriFunction = 'view';
-                    $this->uriFunction = ($_GET['op'] === "") ? 'view' : $_GET['op'];
-                    // error_log("Valor de op en GET: " . $this->uriFunction);
                 } else {
                     $this->uriFunction = ($_GET['op'] === "") ? 'view' : $_GET['op'];
                     // error_log("Valor de op en GET: " . $this->uriFunction);
