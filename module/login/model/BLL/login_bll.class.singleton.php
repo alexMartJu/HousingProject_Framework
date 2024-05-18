@@ -75,5 +75,49 @@
 				return 'fail';
 			}
 		}
+
+        public function get_login_BLL($args) {
+            // return 'Entro a login_bll --> get_login_BLL';
+			try {
+                // Obtener el usuario de la base de datos
+                $rdo = $this -> dao ->select_user($this -> db, $args[0]);
+            
+                // Verificar si el usuario no existe
+                if (empty($rdo)) {
+                    return "error_user";
+                } else {
+                    // Verificar la contraseña
+                    if (password_verify($args[1], $rdo[0]['password'])) {
+                        // Verificar si el usuario está activado
+                        if ($rdo[0]['activate'] == 1) {
+                            // Crear los tokens de acceso y actualización
+                            $access_token = middleware::create_access_token($rdo[0]["username"]);
+                            $refresh_token = middleware::create_refresh_token($rdo[0]["username"]);
+                            // Almacenar los tokens en un array
+                            $token['access_token'] = $access_token;
+                            $token['refresh_token'] = $refresh_token;
+                            // Guardar el usuario y el tiempo en la sesión
+                            $_SESSION['username'] = $rdo[0]['username'];
+                            $_SESSION['tiempo'] = time();
+                            session_regenerate_id(); // Regenerar el ID de la sesión por seguridad
+                            // Retornar los tokens en formato JSON
+                            return $token;
+                        } else if ($rdo[0]['activate'] == 0) {
+                            // El usuario no está activado
+                            return "activate_error";
+                        }
+                    } else {
+                        // La contraseña no es correcta
+                        return "error_passwd";
+                    }
+                }
+            } catch (Exception $e) {
+                // Captura cualquier excepción y retorna un error genérico
+                return "error";
+            }
+            
+		}
+
+
 	}
 ?>

@@ -48,13 +48,21 @@ function login() {
         console.log("username_log" + username_log);
         console.log("email_log" + passwd_log);
 
-        ajaxPromise('module/login/controller/controller_login.php?op=login', 'POST', 'JSON', {'username_log': username_log, 'passwd_log': passwd_log})
+        ajaxPromise(friendlyURL('?module=login'), 'POST', 'JSON', {'username_log': username_log, 'passwd_log': passwd_log, 'op':'login'})
             .then(function(data) {
-                console.log("He entrado");
+                console.log("Datos obtenidos en Login: ", data);
                 if (data == "error_user") {
                     document.getElementById('error_username_log').innerHTML = "The user does not exist, make sure you have typed it correctly."
                 } else if (data == "error_passwd") {
                     document.getElementById('error_passwd_log').innerHTML = "The password is incorrect."
+                } else if (data == "activate_error") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'You must verify the email',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
                 } else {
                     localStorage.setItem("access_token", data.access_token);
                     localStorage.setItem("refresh_token", data.refresh_token);
@@ -67,7 +75,7 @@ function login() {
                         timer: 2500
                     }).then(function() {
                         // Redirect after successful login
-                        window.location.href = "index.php?page=controller_shop&op=list";
+                        window.location.href = friendlyURL("?module=shop"); //¿poner view?
                     });
                 }
             }).catch(function(textStatus) {
@@ -203,7 +211,7 @@ function register() {
                         timer: 5000
                       }).then(function() {
                           // Redireccionar después de un registro exitoso
-                          window.location.href = friendlyURL("?module=login&op=view");
+                          window.location.href = friendlyURL("?module=login");
                       });
                 } else {
                     console.log("Register: ok.");
@@ -215,7 +223,7 @@ function register() {
                         timer: 5000
                       }).then(function() {
                           // Redireccionar después de un registro exitoso
-                          window.location.href = friendlyURL("?module=login&op=view");
+                          window.location.href = friendlyURL("?module=login");
                       });
                     
                 }
@@ -229,5 +237,5 @@ function register() {
 
 $(document).ready(function(){
     click_register();
-    // click_login();
+    click_login();
 });

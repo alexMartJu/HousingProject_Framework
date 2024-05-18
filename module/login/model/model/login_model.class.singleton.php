@@ -25,5 +25,10 @@
             // return 'Entro a login_model --> get_verify_email';
             return $this -> bll -> get_verify_email_BLL($args);
         }
+
+        public function get_login($args) {
+            // return 'Entro a login_model --> get_login';
+            return $this -> bll -> get_login_BLL($args);
+        }
     }
 ?>

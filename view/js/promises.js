@@ -125,13 +125,13 @@ function load_content() {
                 showConfirmButton: false, // Ocultar el botón de confirmación
               }).then((result) => {
                 // Después de que la alerta se cierre automáticamente
-                window.location.href = friendlyURL("?module=login&op=view");
+                window.location.href = friendlyURL("?module=login");
               });
         })
         .catch(function() {
           console.log('Error: verify email error');
         });
-    }else if (path[4] === 'view') {
+    }else if (path[3] === 'login') {
         $(".login-wrap").show();
         $(".forget_html").hide();
     }else if (path[4] === 'recover_view') {

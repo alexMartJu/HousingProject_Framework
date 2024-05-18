@@ -53,5 +53,14 @@
 
             return $stmt = $db->ejecutar($sql);
         }
+
+        public function select_user($db, $username_log) {
+            // return 'Entro a login_dao --> update_verify_email';
+
+            $sql = "SELECT `username`, `password`, `email`, `type_user`, `avatar`, `activate` FROM `users` WHERE username='$username_log'";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar($stmt);
+        }
     }
 ?>
