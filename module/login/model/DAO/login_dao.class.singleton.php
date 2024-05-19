@@ -87,5 +87,12 @@
 
             return $stmt = $db->ejecutar($sql);
         }
+
+        public function select_data_user($db, $username){
+            $sql = "SELECT * FROM users WHERE username='$username'";
+
+            $stmt = $db->ejecutar($sql);
+            return $db->listar_object($stmt);
+        }
     }
 ?>

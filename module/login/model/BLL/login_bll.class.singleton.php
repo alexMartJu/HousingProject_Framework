@@ -149,5 +149,21 @@
 			}
 			return 'fail';
 		}
+
+        public function get_logout_BLL() {
+            // return 'Entro a login_bll --> get_logout_BLL';
+			unset($_SESSION['username']);
+            unset($_SESSION['tiempo']);
+            session_destroy();
+
+            return 'Done';
+		}
+
+        public function get_data_user_BLL($args) {
+            // return 'Entro a login_bll --> get_data_user_BLL';
+			$json = middleware::decode_access_token($args);
+            $rdo = $this -> dao -> select_data_user($this->db, $json['username']);
+            return $rdo;
+		}
 	}
 ?>

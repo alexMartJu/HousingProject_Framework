@@ -42,7 +42,7 @@ function load_menu() {
     var access_token = localStorage.getItem('access_token');
     var refresh_token = localStorage.getItem('refresh_token');
     if (access_token && refresh_token) {
-        ajaxPromise('module/login/controller/controller_login.php?op=data_user', 'POST', 'JSON', { 'access_token': access_token })
+        ajaxPromise(friendlyURL("?module=login"), 'POST', 'JSON', { 'access_token': access_token, 'op': 'data_user'})
             .then(function(data) {
                 if (data.type_user == "client") {
                     console.log("Client loged");
@@ -97,11 +97,11 @@ function click_logout() {
 
 //================LOGOUT================
 function logout() {
-    ajaxPromise('module/login/controller/controller_login.php?op=logout', 'POST', 'JSON')
+    ajaxPromise(friendlyURL("?module=login"), 'POST', 'JSON', { 'op': 'logout'})
         .then(function(data) {
             localStorage.removeItem('access_token');
             localStorage.removeItem('refresh_token');
-            window.location.href = "index.php?page=controller_home&op=list";
+            window.location.href = friendlyURL("?module=home");
         }).catch(function() {
             console.log('Something has occured');
         });

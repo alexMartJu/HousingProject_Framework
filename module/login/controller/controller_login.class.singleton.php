@@ -50,6 +50,16 @@
         function new_password() {
             // echo 'Entro al controller_login --> new_password';
             echo json_encode(common::load_model('login_model', 'get_new_password', [$_POST['token_email'], $_POST['password']]));
-        }  
+        }
+        
+        function logout() {
+            // echo 'Entro al controller_login --> logout';
+            echo json_encode(common::load_model('login_model', 'get_logout'));
+        }
+        
+        function data_user() {
+            // echo 'Entro al controller_login --> data_user';
+            echo json_encode(common::load_model('login_model', 'get_data_user', $_POST['access_token']));
+        }
     }
 ?>

@@ -45,5 +45,15 @@
             // return 'Entro a login_model --> get_new_password';
             return $this -> bll -> get_new_password_BLL($args);
         }
+
+        public function get_logout() {
+            // return 'Entro a login_model --> get_logout';
+            return $this -> bll -> get_logout_BLL();
+        }
+
+        public function get_data_user($args) {
+            // return 'Entro a login_model --> get_data_user';
+            return $this -> bll -> get_data_user_BLL($args);
+        }
     }
 ?>

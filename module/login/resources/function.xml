@@ -32,4 +32,12 @@
         <name>new_password</name>
         <uri>new_password</uri>
     </function>
+    <function>
+        <name>logout</name>
+        <uri>logout</uri>
+    </function>
+    <function>
+        <name>data_user</name>
+        <uri>data_user</uri>
+    </function>
 </functions>
