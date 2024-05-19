@@ -33,7 +33,7 @@
                 $this->uriFunction = ($_POST['op'] === "") ? 'view' : $_POST['op'];
                 // error_log("Valor de op en POST: " . $this->uriFunction);
             } elseif(isset($_GET['op'])) {
-                if($_GET['op'] === 'verify') {
+                if($_GET['op'] === 'verify' || $_GET['op'] === 'recover') {
                     $this->uriFunction = 'view';
                 } else {
                     $this->uriFunction = ($_GET['op'] === "") ? 'view' : $_GET['op'];

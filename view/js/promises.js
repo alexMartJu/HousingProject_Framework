@@ -111,10 +111,12 @@ function logout() {
 function load_content() {
     let path = window.location.pathname.split('/');
     console.log("path ", path);
-    if(path[5] === 'recover'){
+    if(path[4] === 'recover'){
+        console.log("recover");
         window.location.href = friendlyURL("?module=login&op=recover_view");
-        localStorage.setItem("token_email", path[6]);
+        localStorage.setItem("token_email", path[5]);
     }else if (path[4] === 'verify') {
+        console.log("verify");
         ajaxPromise(friendlyURL("?module=login"), 'POST', 'JSON', {token_email: path[5], 'op':'verify_email'})
         .then(function(data) {
             Swal.fire({
@@ -131,11 +133,13 @@ function load_content() {
         .catch(function() {
           console.log('Error: verify email error');
         });
+    }else if (path[4] === 'recover_view') {
+        console.log("recover_view ");
+        load_form_new_password();
     }else if (path[3] === 'login') {
+        console.log("login ");
         $(".login-wrap").show();
         $(".forget_html").hide();
-    }else if (path[4] === 'recover_view') {
-        load_form_new_password();
     }
 }
 

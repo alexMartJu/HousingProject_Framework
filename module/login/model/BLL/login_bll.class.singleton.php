@@ -118,6 +118,36 @@
             
 		}
 
+        public function get_send_recover_email_BBL($args) {
+			$user = $this -> dao -> select_email_recover_password($this->db, $args);
+			$token = common::generate_Token_secure(20);
 
+			if (!empty($user)) {
+				$this -> dao -> update_email_recover_password($this->db, $args, $token);
+                $message = ['type' => 'recover', 
+                            'token' => $token, 
+                            'toEmail' => $args];
+                $email = json_decode(mail::send_email($message), true);
+                return 'done';
+            }else{
+                return 'error';
+            }
+		}
+
+
+		public function get_verify_token_BLL($args) {
+			if($this -> dao -> select_verify_email($this->db, $args)){
+				return 'verify';
+			}
+			return 'fail';
+		}
+
+		public function get_new_password_BLL($args) {
+			$hashed_pass = password_hash($args[1], PASSWORD_DEFAULT, ['cost' => 12]);
+			if($this -> dao -> update_new_passwoord($this->db, $args[0], $hashed_pass)){
+				return 'done';
+			}
+			return 'fail';
+		}
 	}
 ?>

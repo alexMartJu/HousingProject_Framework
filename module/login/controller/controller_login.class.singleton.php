@@ -17,6 +17,11 @@
             common::load_view('top_page_login.html', VIEW_PATH_LOGIN . 'login_register.html');
         }
 
+        function recover_view() {
+            // echo 'Entro al controller_login --> recover_view';
+            common::load_view('top_page_login.html', VIEW_PATH_LOGIN . 'recover_pass.html');
+        }
+
         function register() {
             // echo 'Entro al controller_login --> register';
             echo json_encode(common::load_model('login_model', 'get_register', [$_POST['username_reg'], $_POST['email_reg'], $_POST['password1_reg']]));
@@ -31,5 +36,20 @@
             // echo 'Entro al controller_login --> login';
             echo json_encode(common::load_model('login_model', 'get_login', [$_POST['username_log'], $_POST['passwd_log']]));
         }
+
+        function send_recover_email() {
+            // echo 'Entro al controller_login --> send_recover_email';
+            echo json_encode(common::load_model('login_model', 'get_send_recover_email', $_POST['email_forg']));
+        }
+
+        function verify_token() {
+            // echo 'Entro al controller_login --> verify_token';
+            echo json_encode(common::load_model('login_model', 'get_verify_token', $_POST['token_email']));
+        }
+
+        function new_password() {
+            // echo 'Entro al controller_login --> new_password';
+            echo json_encode(common::load_model('login_model', 'get_new_password', [$_POST['token_email'], $_POST['password']]));
+        }  
     }
 ?>

@@ -30,5 +30,20 @@
             // return 'Entro a login_model --> get_login';
             return $this -> bll -> get_login_BLL($args);
         }
+
+        public function get_send_recover_email($args) {
+            // return 'Entro a login_model --> get_send_recover_email';
+            return $this -> bll -> get_send_recover_email_BBL($args);
+        }
+    
+        public function get_verify_token($args) {
+            // return 'Entro a login_model --> get_verify_token';
+            return $this -> bll -> get_verify_token_BLL($args);
+        }
+    
+        public function get_new_password($args) {
+            // return 'Entro a login_model --> get_new_password';
+            return $this -> bll -> get_new_password_BLL($args);
+        }
     }
 ?>

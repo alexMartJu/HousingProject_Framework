@@ -11,7 +11,13 @@ function click_login(){
     $('#login').on('click', function(e) {
         e.preventDefault();
         login();
-    }); 
+    });
+    
+    //Clicar si se ha olvidado contraseña
+    $('#forget_pass').on('click', function(e) {
+        e.preventDefault();
+        load_form_recover_password();
+    });
 }
 
 function validate_login() {
@@ -226,6 +232,171 @@ function register() {
                           window.location.href = friendlyURL("?module=login");
                       });
                     
+                }
+            }).catch(function(textStatus) {
+                if (console && console.log) {
+                    console.log("La solicitud ha fallado: " + textStatus);
+                }
+            });
+    }
+}
+
+// ------------------- RECOVER PASSWORD ------------------------ //
+function load_form_recover_password(){
+    $(".login-wrap").hide();
+    $(".forget_html").show();
+    $('html, body').animate({scrollTop: $(".forget_html")});
+    click_recover_password();
+}
+
+function click_recover_password(){
+    $(".forget_html").keypress(function(e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if(code==13){
+        	e.preventDefault();
+            send_recover_password();
+        }
+    });
+
+    $('#button_recover').on('click', function(e) {
+        e.preventDefault();
+        send_recover_password();
+    }); 
+}
+
+function validate_recover_password(){
+    var mail_exp = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
+    var error = false;
+
+    if(document.getElementById('email_forg').value.length === 0){
+		document.getElementById('error_email_forg').innerHTML = "You have to write an email";
+		error = true;
+	}else{
+        if(!mail_exp.test(document.getElementById('email_forg').value)){
+            document.getElementById('error_email_forg').innerHTML = "The email format is invalid"; 
+            error = true;
+        }else{
+            document.getElementById('error_email_forg').innerHTML = "";
+        }
+    }
+	
+    if(error == true){
+        return 0;
+    }
+}
+
+function send_recover_password(){
+    if(validate_recover_password() != 0){
+        var email_forg = document.getElementById('email_forg').value;
+        ajaxPromise(friendlyURL('?module=login'), 'POST', 'JSON', {'email_forg': email_forg, 'op':'send_recover_email'})
+            .then(function(data) {
+                console.log("Datos obtenidos en send_recover_password: ", data);
+                if(data == "error"){		
+                    $("#error_email_forg").html("The email doesn't exist");
+                } else{
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Email Sended',
+                        text: 'Please check your email to recover your password',
+                        showConfirmButton: false,
+                        timer: 3000
+                    }).then(function() {
+                        window.location.href = friendlyURL("?module=login"); 
+                    });
+                }
+            }).catch(function(textStatus) {
+                if (console && console.log) {
+                    console.log("La solicitud ha fallado: " + textStatus);
+                }
+            });
+    }
+}
+
+function load_form_new_password(){
+    token_email = localStorage.getItem('token_email');
+    localStorage.removeItem('token_email');
+    ajaxPromise(friendlyURL('?module=login'), 'POST', 'JSON', {'token_email': token_email, 'op':'verify_token'})
+            .then(function(data) {
+                console.log("Datos obtenidos en load_form_new_password: ", data);
+                if(data == "verify"){
+                    click_new_password(token_email); 
+                }else {
+                    console.log("error");
+                }
+            }).catch(function(textStatus) {
+                if (console && console.log) {
+                    console.log("La solicitud ha fallado: " + textStatus);
+                }
+            });
+}
+
+function click_new_password(token_email){
+    $(".recover_html").keypress(function(e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if(code==13){
+        	e.preventDefault();
+            send_new_password(token_email);
+        }
+    });
+
+    $('#button_set_pass').on('click', function(e) {
+        e.preventDefault();
+        send_new_password(token_email);
+    }); 
+}
+
+function validate_new_password(){
+    var error = false;
+
+    if(document.getElementById('pass_rec').value.length === 0){
+		document.getElementById('error_password_rec').innerHTML = "You have to write a password";
+		error = true;
+	}else{
+        if(document.getElementById('pass_rec').value.length < 8){
+            document.getElementById('error_password_rec').innerHTML = "The password must be longer than 8 characters";
+            error = true;
+        }else{
+            document.getElementById('error_password_rec').innerHTML = "";
+        }
+    }
+
+    if(document.getElementById('pass_rec_2').value != document.getElementById('pass_rec').value){
+		document.getElementById('error_password_rec_2').innerHTML = "Passwords don't match";
+		error = true;
+	}else{
+        document.getElementById('error_password_rec_2').innerHTML = "";
+    }
+
+    if(error == true){
+        return 0;
+    }
+}
+
+function send_new_password(token_email){
+    if(validate_new_password() != 0){
+        password= $('#pass_rec').val();
+        console.log("password ", password);
+        ajaxPromise(friendlyURL('?module=login'), 'POST', 'JSON', {'token_email': token_email, 'password' : password, 'op':'new_password'})
+            .then(function(data) {
+                console.log("Datos obtenidos en send_new_password: ", data);
+                if(data == "done"){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Change Password',
+                        text: 'New password changed',
+                        showConfirmButton: false,
+                        timer: 3000
+                    }).then(function() {
+                        window.location.href = friendlyURL("?module=login");
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error seting new password',
+                        showConfirmButton: false,
+                        timer: 3000
+                      });
                 }
             }).catch(function(textStatus) {
                 if (console && console.log) {

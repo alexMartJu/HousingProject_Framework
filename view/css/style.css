@@ -4584,3 +4584,139 @@ button.btn-pager {
 .span_total_likes{
   color: #1bbd36;
 }
+
+/* ------------------------------FORGET HTML(EMAIL RECOVER PASSWORD)----------------------------------------- */
+/* Estilos para el formulario de recuperación de contraseña */
+
+/* Estilos generales */
+.forget_html {
+  width: 80%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #1bbd36;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.forget_html h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333; /* Color suave */
+  font-size: 24px; /* Tamaño de fuente adecuado */
+  font-weight: 600; /* Peso de la fuente medio */
+  margin-top: 0; /* Sin margen superior adicional */
+  line-height: 1.4; /* Altura de línea para mejor legibilidad */
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Fuente profesional */
+}
+
+.forget_html .input {
+  width: calc(100% - 20px); /* El campo de entrada ocupará el 100% del ancho del contenedor */
+  padding: 10px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #1bbd36;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.forget_html .error {
+  color: red;
+  font-size: 14px;
+}
+
+/* Estilos para el botón */
+.forget_html .button_forget {
+  text-align: center;
+}
+
+.forget_html .button {
+  padding: 12px 20px;
+  background-color: #1bbd36;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.forget_html .button:hover {
+  background-color: #1b9800;
+}
+
+/* Estilos para el contenedor principal */
+.forget_html .forget {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.forget_html .email_recover {
+  width: 100%;
+}
+
+/* ------------------------------RECOVER HTML(PASSWORD RECOVER PASSWORD)----------------------------------------- */
+/* Estilos para el formulario de recuperación de contraseña */
+
+/* Estilos generales */
+.recover_html #recover_pass_form {
+  width: 80%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #1bbd36;
+  border-radius: 5px;
+}
+
+.recover_html h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333; /* Color suave */
+  font-size: 24px; /* Tamaño de fuente adecuado */
+  font-weight: 600; /* Peso de la fuente medio */
+  margin-top: 0; /* Sin margen superior adicional */
+  line-height: 1.4; /* Altura de línea para mejor legibilidad */
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Fuente profesional */
+}
+
+.recover_html .input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #1bbd36;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.recover_html .error {
+  color: red;
+}
+
+/* Estilos para el botón */
+.recover_html .button_forget {
+  text-align: center;
+}
+
+.recover_html .button {
+  padding: 10px 20px;
+  background-color: #1bbd36; /* Color especificado */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.recover_html .button:hover {
+  background-color: #1b9800; /* Color oscuro al pasar el mouse */
+}
+
+/* Estilos para el contenedor principal */
+.recover_html .recover {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
