@@ -34,6 +34,7 @@ function friendlyURL(url) {
 
 //================LOAD-HEADER================
 function load_menu() {
+    $('#navbar ul').empty();
     $('<li></li>').html('<a href="' + friendlyURL("?module=home") + '" class="active">Home</a>').appendTo('#navbar ul');
     $('<li></li>').html('<a href="' + friendlyURL("?module=shop") + '">Shop</a>').appendTo('#navbar ul');
     $('<div class="login-register-button"></div>').appendTo('#navbar ul'); 

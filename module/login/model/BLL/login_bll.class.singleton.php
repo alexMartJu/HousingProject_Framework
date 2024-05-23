@@ -165,5 +165,52 @@
             $rdo = $this -> dao -> select_data_user($this->db, $json['username']);
             return $rdo;
 		}
+
+        public function get_actividad_BLL() {
+            // return 'Entro a login_bll --> get_actividad_BLL';
+			if (!isset($_SESSION["tiempo"])) {
+                return "inactivo";
+            } else {
+                if ((time() - $_SESSION["tiempo"]) >= 1800) { //1800s=30min
+                    return "inactivo";
+                } else {
+                    return "activo";
+                }
+            }
+		}
+
+        public function get_controluser_BLL($args) {
+            // return 'Entro a login_bll --> get_controluser_BLL';
+			$dec_access_token = middleware::decode_access_token($args[0]);
+            $dec_refresh_token = middleware::decode_refresh_token($args[1]);
+
+            if ($dec_access_token['exp'] < time() && $dec_refresh_token['exp'] > time()) { 
+                //Verificamos si el token de acceso ha expirado, pero el token de actualización aún es válido. Si esta condición es verdadera, se genera un nuevo token de acceso y se comprueba si coincide con la sesión actual. 
+                $new_access_token = middleware::create_access_token($dec_access_token['username']);
+                $new_dec_access_token = middleware::decode_access_token($new_access_token);
+                if (isset($_SESSION['username']) && ($_SESSION['username']) == $new_dec_access_token['username'] && ($_SESSION['username']) == $dec_refresh_token['username']) {
+                    return $new_access_token;
+                } else {
+                    return "Wrong_User";
+                }
+            } else if (($dec_access_token['exp'] > time()) && ($dec_refresh_token['exp'] < time())) {
+                // Verificamos si el token de acceso sigue siendo válido, pero el token de actualización ha expirado.
+                return "Token_ExpirationTime";
+            } else if (($dec_access_token['exp'] < time()) && ($dec_refresh_token['exp'] < time())) {
+                // Verificamos si tanto el token de acceso como el de actualización han expirado
+                return "Token_ExpirationTime";
+            } else if (isset($_SESSION['username']) && ($_SESSION['username']) == $dec_access_token['username'] && ($_SESSION['username']) == $dec_refresh_token['username']){
+                // Verificamos si el usuario está autenticado en la sesión y si el nombre de usuario en los tokens de acceso y de actualización coincide con el nombre de usuario de la sesión.
+                return "Correct_User";
+            } else {
+                return "Wrong_User";
+            }
+		}
+
+        public function get_refresh_cookie_BLL() {
+            // return 'Entro a login_bll --> get_refresh_cookie_BLL';
+			session_regenerate_id();
+            return "Done";
+		}
 	}
 ?>

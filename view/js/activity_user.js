@@ -3,7 +3,7 @@ function protecturl() {
     var access_token = localStorage.getItem('access_token');
     var refresh_token = localStorage.getItem('refresh_token');
     if(access_token && refresh_token) {
-        ajaxPromise('module/login/controller/controller_login.php?op=controluser', 'POST', 'JSON', { 'access_token': access_token, 'refresh_token': refresh_token })
+        ajaxPromise(friendlyURL("?module=login"), 'POST', 'JSON', { 'access_token': access_token, 'refresh_token': refresh_token, 'op':'controluser' })
         .then(function(data) {
             if (data == "Correct_User") {
                 console.log("CORRECTO-->El usuario coincide con la session");
@@ -29,7 +29,7 @@ function control_activity() {
     var access_token = localStorage.getItem('access_token');
     var refresh_token = localStorage.getItem('refresh_token');
     if (access_token  && refresh_token) {
-        ajaxPromise('module/login/controller/controller_login.php?op=actividad', 'POST', 'JSON')
+        ajaxPromise(friendlyURL("?module=login"), 'POST', 'JSON', { 'op':'actividad' })
             .then(function(response) {
                 if (response == "inactivo") {
                     console.log("usuario INACTIVO");
@@ -44,14 +44,14 @@ function control_activity() {
 }
 
 function refresh_cookie() {
-    ajaxPromise('module/login/controller/controller_login.php?op=refresh_cookie', 'POST', 'JSON')
+    ajaxPromise(friendlyURL("?module=login"), 'POST', 'JSON', { 'op':'refresh_cookie' })
         .then(function(response) {
             console.log("Refresh cookie correctly");
         });
 }
 
 function logout_auto() {
-    ajaxPromise('module/login/controller/controller_login.php?op=logout', 'POST', 'JSON')
+    ajaxPromise(friendlyURL("?module=login"), 'POST', 'JSON', { 'op':'logout' })
         .then(function(data) {
             localStorage.removeItem('access_token');
             localStorage.removeItem('refresh_token');
@@ -63,7 +63,7 @@ function logout_auto() {
                 showConfirmButton: false, // Ocultar el botón de confirmación
               }).then((result) => {
                 // Después de que la alerta se cierre automáticamente
-                window.location.href = "index.php?page=controller_login&op=login-register_view";
+                window.location.href = friendlyURL("?module=login");
               });
         }).catch(function() {
             console.log('Something has occured');
@@ -72,6 +72,6 @@ function logout_auto() {
 
 $(document).ready(function() {
     protecturl();
-    setInterval(function() { control_activity() }, 60000); //10min= 600000
-    setInterval(function() { refresh_cookie() }, 60000);
+    setInterval(function() { control_activity() }, 600000); //10min= 600000
+    setInterval(function() { refresh_cookie() }, 600000);
 });

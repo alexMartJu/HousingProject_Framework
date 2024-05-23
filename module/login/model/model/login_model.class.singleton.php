@@ -55,5 +55,20 @@
             // return 'Entro a login_model --> get_data_user';
             return $this -> bll -> get_data_user_BLL($args);
         }
+
+        public function get_actividad() {
+            // return 'Entro a login_model --> get_actividad';
+            return $this -> bll -> get_actividad_BLL();
+        }
+
+        public function get_controluser($args) {
+            // return 'Entro a login_model --> get_controluser';
+            return $this -> bll -> get_controluser_BLL($args);
+        }
+
+        public function get_refresh_cookie() {
+            // return 'Entro a login_model --> get_refresh_cookie';
+            return $this -> bll -> get_refresh_cookie_BLL();
+        }
     }
 ?>

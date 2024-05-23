@@ -61,5 +61,20 @@
             // echo 'Entro al controller_login --> data_user';
             echo json_encode(common::load_model('login_model', 'get_data_user', $_POST['access_token']));
         }
+
+        function actividad() {
+            // echo 'Entro al controller_login --> actividad';
+            echo json_encode(common::load_model('login_model', 'get_actividad'));
+        }
+
+        function controluser() {
+            // echo 'Entro al controller_login --> controluser';
+            echo json_encode(common::load_model('login_model', 'get_controluser', [$_POST['access_token'], $_POST['refresh_token']]));
+        }
+
+        function refresh_cookie() {
+            // echo 'Entro al controller_login --> refresh_cookie';
+            echo json_encode(common::load_model('login_model', 'get_refresh_cookie'));
+        }
     }
 ?>
