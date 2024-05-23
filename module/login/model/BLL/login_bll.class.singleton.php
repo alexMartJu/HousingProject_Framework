@@ -22,7 +22,6 @@
             $hashed_pass = password_hash($args[2], PASSWORD_DEFAULT, ['cost' => 12]);
             $hashavatar = md5(strtolower(trim($args[1]))); 
             $avatar = "https://i.pravatar.cc/500?u=$hashavatar";
-            $token_email = common::generate_Token_secure(20);
 
             // Comprobar si el email ya existe
             try {
@@ -50,7 +49,7 @@
         
             // Insertar el nuevo usuario
             try {
-                $rdo = $this -> dao ->insert_user($this -> db, $args[0], $args[1], $args[2], $hashed_pass, $avatar, $token_email);
+                $rdo = $this -> dao ->insert_user($this -> db, $args[0], $args[1], $args[2], $hashed_pass, $avatar);
             } catch (Exception $e) {
                 return "error";
             }
@@ -59,6 +58,7 @@
             if (!$rdo) {
                 return "error_user";
             }
+            $token_email=middleware::create_email_token_register($args[0]);
             $message = [ 'type' => 'validate', 
 								'token' => $token_email, 
 								'toEmail' =>  $args[0]];
@@ -68,12 +68,23 @@
 		}
 
         public function get_verify_email_BLL($args) {
-			if($this -> dao -> select_verify_email($this -> db, $args)){
-				$this -> dao -> update_verify_email($this -> db, $args);
-				return 'verify';
-			} else {
-				return 'fail';
-			}
+            $dec_email_token = middleware::decode_email_token_register($args);
+            $username_dec = $dec_email_token['username'];
+            if($dec_email_token['exp'] > time()) {
+                if($this -> dao -> select_verify_email($this -> db, $username_dec)){
+                    $this -> dao -> update_verify_email($this -> db, $username_dec);
+                    return 'verify';
+                } else {
+                    return 'fail';
+                }
+            } else {
+                $token_email=middleware::create_email_token_register($username_dec);
+                $message = [ 'type' => 'validate', 
+								'token' => $token_email, 
+								'toEmail' =>  $args[0]];
+			    $email = json_decode(mail::send_email($message), true);
+                return 'fail';
+            }
 		}
 
         public function get_login_BLL($args) {

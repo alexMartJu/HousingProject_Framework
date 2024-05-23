@@ -368,7 +368,6 @@ CREATE TABLE `users` (
   `email` varchar(75) DEFAULT NULL,
   `type_user` varchar(50) DEFAULT NULL,
   `avatar` varchar(100) DEFAULT NULL,
-  `token_email` varchar(250) NOT NULL,
   `activate` int(1) NOT NULL
   PRIMARY KEY (`id_user`),
   UNIQUE KEY (`username`),

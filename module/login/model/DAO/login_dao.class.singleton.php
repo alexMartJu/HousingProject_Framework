@@ -29,27 +29,27 @@
             return $db -> listar_object($stmt);
         }
 
-        public function insert_user($db, $username_reg, $email_reg, $password1_reg, $hashed_pass, $avatar, $token_email) {
+        public function insert_user($db, $username_reg, $email_reg, $password1_reg, $hashed_pass, $avatar) {
             // return 'Entro a login_dao --> insert_user';
 
-            $sql = "INSERT INTO `users`(`username`, `password`, `email`, `type_user`, `avatar`, `token_email`, `activate`) 
-            VALUES ('$username_reg','$hashed_pass','$email_reg','client','$avatar','$token_email',0)";
+            $sql = "INSERT INTO `users`(`username`, `password`, `email`, `type_user`, `avatar`, `activate`) 
+            VALUES ('$username_reg','$hashed_pass','$email_reg','client','$avatar',0)";
 
             return $stmt = $db->ejecutar($sql);
         }
 
-        public function select_verify_email($db, $token_email) {
+        public function select_verify_email($db, $username_dec) {
             // return 'Entro a login_dao --> select_verify_email';
-            $sql = "SELECT token_email FROM users WHERE token_email = '$token_email'";
+            $sql = "SELECT username FROM users WHERE username = '$username_dec'";
 
             $stmt = $db->ejecutar($sql);
             return $db->listar($stmt);
         }
 
-        public function update_verify_email($db, $token_email) {
+        public function update_verify_email($db, $username_dec) {
             // return 'Entro a login_dao --> update_verify_email';
 
-            $sql = "UPDATE users SET activate = 1, token_email= '' WHERE token_email = '$token_email'";
+            $sql = "UPDATE users SET activate = 1 WHERE username = '$username_dec'";
 
             return $stmt = $db->ejecutar($sql);
         }

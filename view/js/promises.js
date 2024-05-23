@@ -120,16 +120,29 @@ function load_content() {
         console.log("verify");
         ajaxPromise(friendlyURL("?module=login"), 'POST', 'JSON', {token_email: path[5], 'op':'verify_email'})
         .then(function(data) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Email Verified.Registration Successful',
-                text: 'Welcome to Housing Project!',
-                timer: 3000, // Mostrar la alerta durante 3 segundos
-                showConfirmButton: false, // Ocultar el botón de confirmación
-              }).then((result) => {
-                // Después de que la alerta se cierre automáticamente
-                window.location.href = friendlyURL("?module=login");
-              });
+            if (data == "verify") {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Email Verified.Registration Successful',
+                    text: 'Welcome to Housing Project!',
+                    timer: 3000, // Mostrar la alerta durante 3 segundos
+                    showConfirmButton: false, // Ocultar el botón de confirmación
+                  }).then((result) => {
+                    // Después de que la alerta se cierre automáticamente
+                    window.location.href = friendlyURL("?module=login");
+                  });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Register Token Expired',
+                    text: 'The Register token expired. A new email has been sent to verify you.',
+                    showConfirmButton: false,
+                    timer: 5000
+                  }).then(function() {
+                      // Redireccionar después de un registro exitoso
+                      window.location.href = friendlyURL("?module=login");
+                  });
+            }
         })
         .catch(function() {
           console.log('Error: verify email error');
