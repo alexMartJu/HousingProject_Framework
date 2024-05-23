@@ -42,6 +42,14 @@
             } else {
                 $this->uriFunction = 'view';
             }
+            $this->resetSessionTime();
+        }
+
+        // Método para reiniciar el tiempo de sesión
+        private function resetSessionTime() {
+            if (isset($_SESSION["tiempo"]) && $this->uriModule !== 'login') {
+                $_SESSION["tiempo"] = time();
+            }
         }
     
         function routingStart() {
