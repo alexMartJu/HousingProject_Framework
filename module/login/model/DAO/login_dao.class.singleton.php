@@ -64,7 +64,7 @@
         }
 
         public function select_email_recover_password($db, $email_forg){
-			$sql = "SELECT `email` 
+			$sql = "SELECT `email`, `username`
             FROM `users` 
             WHERE email = '$email_forg' AND password NOT LIKE ('')";
 
@@ -72,18 +72,18 @@
             return $db->listar($stmt);
         }
 
-        public function update_email_recover_password($db, $email_forg, $token_email){
+        public function update_email_recover_password($db, $email_forg){
 			$sql = "UPDATE `users` 
-            SET `token_email`= '$token_email', `activate` = 0 
+            SET `activate` = 0 
             WHERE `email` = '$email_forg'";
 
             return $stmt = $db->ejecutar($sql);
         }
 
-        public function update_new_passwoord($db, $token_email, $password){
+        public function update_new_passwoord($db, $username_dec, $password){
             $sql = "UPDATE `users` 
-            SET `password`= '$password', `token_email`= '', `activate` = 1
-            WHERE `token_email` = '$token_email'";
+            SET `password`= '$password', `activate` = 1
+            WHERE `username` = '$username_dec'";
 
             return $stmt = $db->ejecutar($sql);
         }

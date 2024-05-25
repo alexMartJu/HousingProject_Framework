@@ -63,4 +63,26 @@ class middleware{
         $token = $JWT->encode($header, $payload, $secret);
         return $token;
     }
+
+    //CREACIÓN JWT TOKEN_EMAIL_RECOVER
+    public static function decode_email_token_recover($token){
+        $jwt = parse_ini_file(UTILS . "jwt.ini");
+        $secret = $jwt['JWT_SECRET_EMAIL_RECOVER'];
+    
+        $JWT = new JWT;
+        $token_dec = $JWT->decode($token, $secret);
+        $rt_token = json_decode($token_dec, TRUE);
+        return $rt_token;
+    }
+
+    public static function create_email_token_recover($username){
+        $jwt = parse_ini_file(UTILS . "jwt.ini");
+        $header = $jwt['JWT_HEADER'];
+        $secret = $jwt['JWT_SECRET_EMAIL_RECOVER'];
+        $payload = '{"iat":"' . time() . '","exp":"' . (time() + $jwt['JWT_EXP_EMAIL_RECOVER']) . '","username":"' . $username . '"}';
+    
+        $JWT = new JWT;
+        $token = $JWT->encode($header, $payload, $secret);
+        return $token;
+    }
 }

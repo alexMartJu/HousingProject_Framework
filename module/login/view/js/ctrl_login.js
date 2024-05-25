@@ -321,7 +321,17 @@ function load_form_new_password(){
                 if(data == "verify"){
                     click_new_password(token_email); 
                 }else {
-                    console.log("error");
+                    // console.log("error");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Recover Token Expired',
+                        text: 'The Recover token expired. A new email has been sent to verify you.',
+                        showConfirmButton: false,
+                        timer: 5000
+                      }).then(function() {
+                          // Redireccionar después de un registro exitoso
+                          window.location.href = friendlyURL("?module=login");
+                      });
                 }
             }).catch(function(textStatus) {
                 if (console && console.log) {

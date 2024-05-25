@@ -131,10 +131,10 @@
 
         public function get_send_recover_email_BBL($args) {
 			$user = $this -> dao -> select_email_recover_password($this->db, $args);
-			$token = common::generate_Token_secure(20);
+			$token = middleware::create_email_token_recover($user[0]["username"]);
 
 			if (!empty($user)) {
-				$this -> dao -> update_email_recover_password($this->db, $args, $token);
+				$this -> dao -> update_email_recover_password($this->db, $args);
                 $message = ['type' => 'recover', 
                             'token' => $token, 
                             'toEmail' => $args];
@@ -146,16 +146,29 @@
 		}
 
 
-		public function get_verify_token_BLL($args) {
-			if($this -> dao -> select_verify_email($this->db, $args)){
-				return 'verify';
-			}
-			return 'fail';
+        public function get_verify_token_BLL($args) {
+            $dec_recover_token = middleware::decode_email_token_recover($args);
+            $username_dec = $dec_recover_token['username'];
+            if($dec_recover_token['exp'] > time()) {
+                if($this -> dao -> select_verify_email($this->db, $username_dec)){
+                    return 'verify';
+                }
+                return 'fail';
+            } else {
+                $token=middleware::create_email_token_recover($username_dec);
+                $message = ['type' => 'recover', 
+                            'token' => $token, 
+                            'toEmail' => $args];
+                $email = json_decode(mail::send_email($message), true);
+                return 'fail';
+            }
 		}
 
-		public function get_new_password_BLL($args) {
+        public function get_new_password_BLL($args) {
 			$hashed_pass = password_hash($args[1], PASSWORD_DEFAULT, ['cost' => 12]);
-			if($this -> dao -> update_new_passwoord($this->db, $args[0], $hashed_pass)){
+            $dec_recover_token = middleware::decode_email_token_recover($args[0]);
+            $username_dec = $dec_recover_token['username'];
+			if($this -> dao -> update_new_passwoord($this->db, $username_dec, $hashed_pass)){
 				return 'done';
 			}
 			return 'fail';
