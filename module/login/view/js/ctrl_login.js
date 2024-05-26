@@ -69,6 +69,24 @@ function login() {
                         showConfirmButton: false,
                         timer: 3000
                     });
+                } else if (data == "otp_sent") {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'OTP Code Sent',
+                        text: 'We have sent an OTP code to your mobile phone.',
+                        showConfirmButton: false,
+                        timer: 2500
+                    }).then(function() {
+                        showOtpInput(username_log);
+                    });
+                } else if (data == "otp_error") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error sending OTP. Please try again later.',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
                 } else {
                     localStorage.setItem("access_token", data.access_token);
                     localStorage.setItem("refresh_token", data.refresh_token);
@@ -82,6 +100,119 @@ function login() {
                     }).then(function() {
                         // Redirect after successful login
                         window.location.href = friendlyURL("?module=shop"); //¿poner view?
+                    });
+                }
+            }).catch(function(textStatus) {
+                if (console && console.log) {
+                    console.log("La solicitud ha fallado: " + textStatus);
+                }
+            });
+    }
+}
+
+function click_otp(){
+	$("#otp_form").keypress(function(e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if (code == 13) {
+            e.preventDefault(); //e.preventDefault() para el formulario y da orden de hacer register().
+            intro_Otp();
+        }
+    });
+
+	$('#button_set_otp').on('click', function(e) {
+        e.preventDefault();
+        intro_Otp();
+    });
+}
+
+function showOtpInput(username) {
+    $(".login-wrap").hide();
+    $('.section_login').css('padding', '0px');
+    $('.section_otp').css('padding', '60px 0');
+    $('#otp_container').css('margin-top', '0px');
+    var otpContainer = document.getElementById('otp_container');
+    otpContainer.innerHTML = `
+    <div class="otp_html">
+        <form id="otp_form" method="post">
+            <h1>Introduce OTP</h1>
+            <div class="otp">
+                <div class="check_otp_username">
+                    <label for="otp_username" class="label">Username: </label>
+                    <br>
+                    <input id="otp_username" name="otp_username" type="text" class="input" value="${username}" readonly>
+                    <font color="red">
+                        <br>
+                        <span id="error_otp_username" class="error"></span>
+                    </font>
+                </div>
+                <div class="check_otp_input">
+                    <label for="otp_input" class="label">OTP Code: </label>
+                    <br>
+                    <input id="otp_input" name="otp_input" type="text" class="input">
+                    <font color="red">
+                        <br>
+                        <span id="error_otp_input" class="error"></span>
+                    </font>
+                </div>
+                <div class="button_send">
+                    <input type="button" class="button" id="button_set_otp" value="Send OTP">
+                </div>
+            </div>
+        </form>
+    </div>
+    `;
+    click_otp();
+}
+
+function validate_otp() {
+    var error = false;
+
+    if (document.getElementById('otp_input').value.length === 0) {
+        document.getElementById('error_otp_input').innerHTML = "You must enter the OTP code.";
+        error = true;
+    } else {
+        document.getElementById('error_otp_input').innerHTML = "";
+    }
+
+    if (error == true) {
+        return 0;
+    }
+}
+
+function intro_Otp() {
+    if (validate_otp() != 0) {
+        var username = document.getElementById('otp_username').value;
+        var otp = document.getElementById('otp_input').value;
+        ajaxPromise(friendlyURL('?module=login'), 'POST', 'JSON', {'username': username, 'otp': otp, 'op':'intro_Otp'})
+            .then(function(data) {
+                console.log("Datos recibidos intro_Otp: ", data);
+                if (data == "otp_valid") {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'OTP Verified',
+                        text: 'Your OTP has been verified. You can now log in.',
+                        showConfirmButton: false,
+                        timer: 2500
+                    }).then(function() {
+                        window.location.href = friendlyURL("?module=login");
+                    });
+                } else if (data == "otp_expired") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Expired OTP code',
+                        text: 'We have sent another OTP code to your mobile phone.',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                } else if (data == "otp_invalid") {
+                    document.getElementById('error_otp_input').innerHTML = "The OPT isn't correct!"
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Something wrong occured!',
+                        showConfirmButton: false,
+                        timer: 3000
                     });
                 }
             }).catch(function(textStatus) {

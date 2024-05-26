@@ -52,4 +52,8 @@
         <name>refresh_cookie</name>
         <uri>refresh_cookie</uri>
     </function>
+    <function>
+        <name>intro_Otp</name>
+        <uri>intro_Otp</uri>
+    </function>
 </functions>
