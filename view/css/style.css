@@ -4720,3 +4720,72 @@ button.btn-pager {
   justify-content: center;
   align-items: center;
 }
+
+/* ------------------------------HTML OTP----------------------------------------- */
+.otp_html #otp_form {
+  width: 350px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #1bbd36;
+  border-radius: 5px;
+}
+
+.otp_html h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Estilos para los campos de contraseña */
+.otp_html .label {
+  font-weight: bold;
+}
+
+.otp_html .input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.otp_html .error {
+  color: red;
+}
+
+/* Estilos para el botón */
+.otp_html .button_send {
+  text-align: center;
+}
+
+.otp_html .button {
+  padding: 10px 20px;
+  background-color: #1bbd36; /* Color especificado */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.otp_html .button:hover {
+  background-color: #14922b; /* Color oscuro al pasar el mouse */
+}
+
+/* Estilos para el contenedor principal */
+.otp_html .otp {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.section_login {
+  padding: 60px 0;
+  overflow: hidden;
+}
+
+.section_otp {
+  padding: 0px;
+  overflow: hidden;
+}
