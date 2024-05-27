@@ -70,5 +70,10 @@
             // return 'Entro a login_model --> get_refresh_cookie';
             return $this -> bll -> get_refresh_cookie_BLL();
         }
+
+        public function get_intro_Otp($args) {
+            // return 'Entro a login_model --> get_intro_Otp';
+            return $this -> bll -> get_intro_Otp_BLL($args);
+        }
     }
 ?>

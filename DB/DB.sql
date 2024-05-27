@@ -368,7 +368,10 @@ CREATE TABLE `users` (
   `email` varchar(75) DEFAULT NULL,
   `type_user` varchar(50) DEFAULT NULL,
   `avatar` varchar(100) DEFAULT NULL,
-  `activate` int(1) NOT NULL
+  `activate` int(1) NOT NULL,
+  `attempts_password` int UNSIGNED DEFAULT 0,
+  `otp_code` VARCHAR(6) DEFAULT NULL,
+  `otp_timestamp` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`id_user`),
   UNIQUE KEY (`username`),
   UNIQUE KEY (`email`)

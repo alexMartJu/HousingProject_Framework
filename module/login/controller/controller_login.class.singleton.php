@@ -76,5 +76,10 @@
             // echo 'Entro al controller_login --> refresh_cookie';
             echo json_encode(common::load_model('login_model', 'get_refresh_cookie'));
         }
+
+        function intro_Otp() {
+            // echo 'Entro al controller_login --> intro_Otp';
+            echo json_encode(common::load_model('login_model', 'get_intro_Otp', [$_POST['username'], $_POST['otp']]));
+        }
     }
 ?>

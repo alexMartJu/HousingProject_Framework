@@ -32,8 +32,8 @@
         public function insert_user($db, $username_reg, $email_reg, $password1_reg, $hashed_pass, $avatar) {
             // return 'Entro a login_dao --> insert_user';
 
-            $sql = "INSERT INTO `users`(`username`, `password`, `email`, `type_user`, `avatar`, `activate`) 
-            VALUES ('$username_reg','$hashed_pass','$email_reg','client','$avatar',0)";
+            $sql = "INSERT INTO `users`(`username`, `password`, `email`, `type_user`, `avatar`, `activate`, `attempts_password`, `otp_code`, `otp_timestamp`) 
+            VALUES ('$username_reg','$hashed_pass','$email_reg','client','$avatar',0,0,NULL,NULL)";
 
             return $stmt = $db->ejecutar($sql);
         }
@@ -93,6 +93,56 @@
 
             $stmt = $db->ejecutar($sql);
             return $db->listar_object($stmt);
+        }
+
+        public function increment_attempts($db, $username){
+            $sql = "UPDATE users 
+            SET attempts_password = attempts_password + 1 
+            WHERE username = '$username'";
+
+            return $stmt = $db->ejecutar($sql);
+        }
+
+        public function get_attempts($db, $username) {
+            $sql = "SELECT attempts_password AS attempts
+                    FROM users 
+                    WHERE username = '$username'";
+        
+            $stmt = $db->ejecutar($sql);
+            return $db->listar($stmt);
+        }
+
+        public function store_otp($db, $username, $token_otp){
+            $sql = "UPDATE users 
+            SET otp_code = '$token_otp', otp_timestamp = NOW(), activate = 0 
+            WHERE username = '$username'";
+
+            return $stmt = $db->ejecutar($sql);
+        }
+
+        public function reset_attempts($db, $username){
+            $sql = "UPDATE users 
+            SET attempts_password = 0 
+            WHERE username = '$username'";
+
+            return $stmt = $db->ejecutar($sql);
+        }
+
+        public function select_otp($db, $username){
+            $sql = "SELECT otp_code, otp_timestamp 
+            FROM users 
+            WHERE username = '$username'";
+
+            $stmt = $db->ejecutar($sql);
+            return $db->listar($stmt);
+        }
+
+        public function update_activate_attempts_otp($db, $username){
+            $sql = "UPDATE users 
+            SET activate = 1,  attempts_password = 0, otp_code = NULL, otp_timestamp = NULL
+            WHERE username = '$username'";
+
+            return $stmt = $db->ejecutar($sql);
         }
     }
 ?>

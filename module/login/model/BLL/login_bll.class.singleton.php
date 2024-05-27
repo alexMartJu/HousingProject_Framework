@@ -111,6 +111,9 @@
                             $_SESSION['username'] = $rdo[0]['username'];
                             $_SESSION['tiempo'] = time();
                             session_regenerate_id(); // Regenerar el ID de la sesión por seguridad
+
+                            // Restablecer los intentos fallidos
+                            $this -> dao -> reset_attempts($this -> db, $rdo[0]['username']);
                             // Retornar los tokens en formato JSON
                             return $token;
                         } else if ($rdo[0]['activate'] == 0) {
@@ -118,8 +121,30 @@
                             return "activate_error";
                         }
                     } else {
-                        // La contraseña no es correcta
-                        return "error_passwd";
+                        $this -> dao ->increment_attempts($this -> db, $rdo[0]['username']);
+                        $attempts = $this -> dao ->get_attempts($this -> db, $rdo[0]['username']);
+                        $attempt=$attempts[0]['attempts'];
+                        if ($attempt >= 3) {
+                            // Generar y enviar código OTP por UltraMsg
+                            $token_otp = common::generate_token_secure(6); // Genera un OTP de 6 caracteres
+                            $message = [
+                                'type' => 'attempts_more_3', 
+                                'token_otp' => $token_otp
+                            ];
+                            $whatsapp_otp = whatsapp_otp::send_otp($message); // Enviar OTP
+                            // Manejar la respuesta de la API
+                            if (isset($whatsapp_otp['status']) && $whatsapp_otp['status'] == "success") {
+                                // Guardar el OTP y la marca de tiempo en la base de datos
+                                $this -> dao ->store_otp($this -> db, $rdo[0]['username'], $token_otp);
+                                
+                                return "otp_sent";
+                            } else {
+                                return "otp_error";
+                            }
+                        } else {
+                            // La contraseña no es correcta
+                            return "error_passwd";
+                        }
                     }
                 }
             } catch (Exception $e) {
@@ -236,5 +261,49 @@
 			session_regenerate_id();
             return "Done";
 		}
+
+        public function get_intro_Otp_BLL($args) {
+            try {
+                // Obtener el OTP almacenado y la marca de tiempo
+                $result = $this->dao->select_otp($this->db, $args[0]);
+        
+                if ($result) {
+                    $stored_otp = $result[0]['otp_code'];
+                    $timestamp = $result[0]['otp_timestamp'];
+        
+                    // Verificar si el OTP ingresado coincide
+                    if ($stored_otp == $args[1]) {
+                        // Verificar si el OTP no ha expirado (5 minutos de validez)
+                        if ((time() - strtotime($timestamp)) <= 300) {
+                            $this->dao->update_activate_attempts_otp($this->db, $args[0]);
+                            // OTP válido
+                            return "otp_valid";
+                        } else { //otp expirado, volvemos a enviar otro
+                            $token_otp = common::generate_token_secure(6);
+                            $message = [
+                                'type' => 'attempts_more_3', 
+                                'token_otp' => $token_otp
+                            ];
+                            $whatsapp_otp = whatsapp_otp::send_otp($message);
+                            if (isset($whatsapp_otp['status']) && $whatsapp_otp['status'] == "success") {
+                                $this -> dao ->store_otp($this -> db, $args[0], $token_otp);
+                                // OTP expirado
+                                return "otp_expired";
+                            } else {
+                                return "otp_error";
+                            }
+                        }
+                    } else {
+                        // OTP inválido
+                        return "otp_invalid";
+                    }
+                } else {
+                    return "user_not_found";
+                }
+            } catch (Exception $e) {
+                // Captura cualquier excepción y retorna un error genérico
+                return "error";
+            }
+        }
 	}
 ?>
