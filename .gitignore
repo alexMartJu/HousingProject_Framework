@@ -2,3 +2,4 @@
 /.htaccess
 utils/vendor/
 utils/composer.lock
+utils/config_firebase.js

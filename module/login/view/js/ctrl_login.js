@@ -18,6 +18,14 @@ function click_login(){
         e.preventDefault();
         load_form_recover_password();
     });
+
+    $('#google').on('click', function(e) {
+        social_login('google');
+    }); 
+
+    $('#github').on('click', function(e) {
+        social_login('github');
+    });
 }
 
 function validate_login() {
@@ -110,6 +118,80 @@ function login() {
     }
 }
 
+// ------------------- SOCIAL LOGIN ------------------------ //
+function social_login(param){
+    authService = firebase_config();
+    authService.signInWithPopup(provider_config(param))
+    .then(function(result) {
+        console.log('Hemos autenticado al usuario ', result.user);
+        email_name = result.user.email;
+        let username = email_name.split('@');
+        let custom_username = username[0] + '_' + param;
+        console.log(custom_username);
+
+        social_user = {id: result.user.uid, username: custom_username, email: result.user.email, avatar: result.user.photoURL, 'op':'social_login'};
+        if (result) {
+            ajaxPromise(friendlyURL("?module=login"), 'POST', 'JSON', social_user)
+            .then(function(data) {
+                localStorage.setItem("access_token", data.access_token);
+                localStorage.setItem("refresh_token", data.refresh_token);
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Logged successfully',
+                    text: 'Welcome back!',
+                    showConfirmButton: false,
+                    timer: 2500
+                }).then(function() {
+                    window.location.href = friendlyURL("?module=home");
+                });
+            })
+            .catch(function(error) {
+                console.log('Error: Social login error', error);
+            });
+        }
+    })
+    .catch(function(error) {
+        var errorCode = error.code;
+        console.log(errorCode);
+        var errorMessage = error.message;
+        console.log(errorMessage);
+        var email = error.email;
+        console.log(email);
+        var credential = error.credential;
+        console.log(credential);
+    });
+}
+
+function firebase_config(){
+    var config = {
+        apiKey: API_KEY,
+        authDomain: AUTH_DOMAIN,
+        projectId: PROJECT_ID,
+        storageBucket: STORAGE_BUCKET,
+        messagingSenderId: MESSAGING_SENDER_ID,
+        appId: APP_ID,
+        measurementId: MEASUREMENT_ID
+    };
+    if(!firebase.apps.length){
+        firebase.initializeApp(config);
+    }else{
+        firebase.app();
+    }
+    return authService = firebase.auth();
+}
+
+function provider_config(param){
+    if(param === 'google'){
+        var provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('email');
+        return provider;
+    }else if(param === 'github'){
+        return provider = new firebase.auth.GithubAuthProvider();
+    }
+}
+
+// ------------------- OTP LOGIN ------------------------ //
 function click_otp(){
 	$("#otp_form").keypress(function(e) {
         var code = (e.keyCode ? e.keyCode : e.which);
