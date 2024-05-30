@@ -4543,12 +4543,21 @@ input[type="radio"].sign-up:checked + label {
   height: 40px; 
   border-radius: 50%; 
   margin-right: 3px; 
-  margin-left:20px;
+  /* margin-left:20px; */
   border: 1px solid #1bbd36; /* Ancho y color del borde */
+}
+
+.logout_login-button div {
+  display: flex;
+  align-items: center;
 }
 
 .span_username_logout{
   margin-right: 3px;
+  max-width: 70px; /* Ajusta este valor según tus necesidades */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .container_header {
@@ -4788,4 +4797,38 @@ button.btn-pager {
 .section_otp {
   padding: 0px;
   overflow: hidden;
+}
+
+/* ------------------------------SOCIAL LOGIN----------------------------------------- */
+.social-login {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.social-icon {
+  display: inline-block;
+  margin: 0 10px;
+  font-size: 24px;
+  color: #1bbd36;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+.social-icon.google {
+  width: 35px; /* Ajusta el ancho */
+  height: 35px; /* Ajusta la altura */
+}
+
+.social-icon.github {
+  width: 35px; /* Ajusta el ancho */
+  height: 35px; /* Ajusta la altura */
+}
+
+.social-icon.google:hover {
+  background-color: #1bbd36;
+}
+
+.social-icon.github:hover {
+  background-color: #1bbd36;
 }

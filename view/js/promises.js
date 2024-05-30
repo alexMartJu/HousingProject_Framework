@@ -62,7 +62,7 @@ function load_menu() {
                 $avatar.appendTo($container_avatar_logout);
 
                 // Crear el texto del nombre de usuario
-                var $username = $('<span class="span_username_logout">' + data.username + '</span>').addClass('username-text');
+                var $username = $('<span class="span_username_logout" title="' + data.username + '">' + data.username + '</span>').addClass('username-text');
                 $username.appendTo($container_avatar_logout);
 
                 // Crear el botón de logout y el enlace de usuario
