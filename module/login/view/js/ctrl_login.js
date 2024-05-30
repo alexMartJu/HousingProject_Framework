@@ -479,8 +479,25 @@ function click_recover_password(){
 
 function validate_recover_password(){
     var mail_exp = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
+    var username_exp = /^(?=.{5,}$)(?=.*[a-zA-Z0-9]).*$/;
     var error = false;
 
+    if (document.getElementById('username_forg').value.length === 0) {
+        document.getElementById('error_username_forg').innerHTML = "You must enter the user.";
+        error = true;
+    } else {
+        if (document.getElementById('username_forg').value.length < 5) {
+            document.getElementById('error_username_forg').innerHTML = "The username must be at least 5 characters long.";
+            error = true;
+        } else {
+            if (!username_exp.test(document.getElementById('username_forg').value)) {
+                document.getElementById('error_username_forg').innerHTML = "Special characters are not allowed.";
+                error = true;
+            } else {
+                document.getElementById('error_username_forg').innerHTML = "";
+            }
+        }
+    }
     if(document.getElementById('email_forg').value.length === 0){
 		document.getElementById('error_email_forg').innerHTML = "You have to write an email";
 		error = true;
@@ -501,11 +518,12 @@ function validate_recover_password(){
 function send_recover_password(){
     if(validate_recover_password() != 0){
         var email_forg = document.getElementById('email_forg').value;
-        ajaxPromise(friendlyURL('?module=login'), 'POST', 'JSON', {'email_forg': email_forg, 'op':'send_recover_email'})
+        var username_forg = document.getElementById('username_forg').value;
+        ajaxPromise(friendlyURL('?module=login'), 'POST', 'JSON', {'email_forg': email_forg, 'username_forg': username_forg,'op':'send_recover_email'})
             .then(function(data) {
                 console.log("Datos obtenidos en send_recover_password: ", data);
                 if(data == "error"){		
-                    $("#error_email_forg").html("The email doesn't exist");
+                    $("#error_email_forg").html("This user doesn't exist");
                 } else{
                     Swal.fire({
                         icon: 'info',
