@@ -155,11 +155,11 @@
 		}
 
         public function get_send_recover_email_BBL($args) {
-			$user = $this -> dao -> select_email_recover_password($this->db, $args);
-			$token = middleware::create_email_token_recover($user[0]["username"]);
+			$user = $this -> dao -> select_email_recover_password($this->db, $args[0], $args[1]);
 
 			if (!empty($user)) {
-				$this -> dao -> update_email_recover_password($this->db, $args);
+				$token = middleware::create_email_token_recover($user[0]["username"]);
+				$this -> dao -> update_email_recover_password($this->db, $args[0], $args[1]);
                 $message = ['type' => 'recover', 
                             'token' => $token, 
                             'toEmail' => $args];

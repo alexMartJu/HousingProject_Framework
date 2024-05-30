@@ -63,19 +63,19 @@
             return $db -> listar($stmt);
         }
 
-        public function select_email_recover_password($db, $email_forg){
+        public function select_email_recover_password($db, $email_forg, $username_forg){
 			$sql = "SELECT `email`, `username`
             FROM `users` 
-            WHERE email = '$email_forg' AND password NOT LIKE ('')";
+            WHERE email = '$email_forg' AND password NOT LIKE ('') AND username= '$username_forg' AND login_type='Local'";
 
             $stmt = $db->ejecutar($sql);
             return $db->listar($stmt);
         }
 
-        public function update_email_recover_password($db, $email_forg){
+        public function update_email_recover_password($db, $email_forg, $username_forg){
 			$sql = "UPDATE `users` 
             SET `activate` = 0 
-            WHERE `email` = '$email_forg'";
+            WHERE `email` = '$email_forg' AND username='$username_forg'";
 
             return $stmt = $db->ejecutar($sql);
         }

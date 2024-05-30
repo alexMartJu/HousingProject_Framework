@@ -39,7 +39,7 @@
 
         function send_recover_email() {
             // echo 'Entro al controller_login --> send_recover_email';
-            echo json_encode(common::load_model('login_model', 'get_send_recover_email', $_POST['email_forg']));
+            echo json_encode(common::load_model('login_model', 'get_send_recover_email', [$_POST['email_forg'], $_POST['username_forg']]));
         }
 
         function verify_token() {
