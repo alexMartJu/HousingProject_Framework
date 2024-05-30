@@ -75,5 +75,10 @@
             // return 'Entro a login_model --> get_intro_Otp';
             return $this -> bll -> get_intro_Otp_BLL($args);
         }
+
+        public function get_social_login($args) {
+            // return 'Entro a login_model --> get_social_login';
+            return $this -> bll -> get_social_login_BLL($args);
+        }
     }
 ?>

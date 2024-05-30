@@ -91,7 +91,7 @@
             // return 'Entro a login_bll --> get_login_BLL';
 			try {
                 // Obtener el usuario de la base de datos
-                $rdo = $this -> dao ->select_user($this -> db, $args[0]);
+                $rdo = $this -> dao ->select_user_nosocial($this -> db, $args[0]);
             
                 // Verificar si el usuario no existe
                 if (empty($rdo)) {
@@ -303,6 +303,48 @@
             } catch (Exception $e) {
                 // Captura cualquier excepción y retorna un error genérico
                 return "error";
+            }
+        }
+
+        public function get_social_login_BLL($args) {
+            if (!empty($this -> dao -> select_user($this->db, $args[1]))) {
+                error_log("Entro aqui");
+                $user = $this -> dao -> select_user($this->db, $args[1]);
+                $access_token = middleware::create_access_token($user[0]['username']);
+                $refresh_token = middleware::create_refresh_token($user[0]['username']);
+                // Almacenar los tokens en un array
+                $token['access_token'] = $access_token;
+                $token['refresh_token'] = $refresh_token;
+                // Guardar el usuario y el tiempo en la sesión
+                $_SESSION['username'] = $user[0]['username'];
+                $_SESSION['tiempo'] = time();
+                session_regenerate_id();
+                // return json_encode($jwt);
+                return $token;
+            } else {
+                error_log("Entro aqui2");
+                 // Derivar el proveedor social del nombre de usuario
+                if (strpos($args[1], '_google') !== false) {
+                    $login_type = 'social_google';
+                    error_log("Entro aqui2, $login_type");
+                } elseif (strpos($args[1], '_github') !== false) {
+                    $login_type = 'social_github';
+                    error_log("Entro aqui2, $login_type");
+                }
+        
+                $this -> dao -> insert_social_login($this->db, $args[1], $args[2], $args[3], $login_type);
+                $user = $this -> dao -> select_user($this->db, $args[1]);
+                $access_token = middleware::create_access_token($user[0]['username']);
+                $refresh_token = middleware::create_refresh_token($user[0]['username']);
+                // Almacenar los tokens en un array
+                $token['access_token'] = $access_token;
+                $token['refresh_token'] = $refresh_token;
+                // Guardar el usuario y el tiempo en la sesión
+                $_SESSION['username'] = $user[0]['username'];
+                $_SESSION['tiempo'] = time();
+                session_regenerate_id();
+                // return json_encode($jwt);
+                return $token;
             }
         }
 	}

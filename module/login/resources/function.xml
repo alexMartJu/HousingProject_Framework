@@ -56,4 +56,8 @@
         <name>intro_Otp</name>
         <uri>intro_Otp</uri>
     </function>
+    <function>
+        <name>social_login</name>
+        <uri>social_login</uri>
+    </function>
 </functions>

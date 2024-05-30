@@ -81,5 +81,10 @@
             // echo 'Entro al controller_login --> intro_Otp';
             echo json_encode(common::load_model('login_model', 'get_intro_Otp', [$_POST['username'], $_POST['otp']]));
         }
+
+        function social_login() {
+            // echo 'Entro al controller_login --> social_login';
+            echo json_encode(common::load_model('login_model', 'get_social_login', [$_POST['id'], $_POST['username'], $_POST['email'], $_POST['avatar']]));
+        }
     }
 ?>

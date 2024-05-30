@@ -363,7 +363,7 @@ INSERT INTO `housing_automation_parts` (`id_housing`, `id_aut_parts`) VALUES
 
 CREATE TABLE `users` (
   `id_user` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `username` varchar(25) DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
   `email` varchar(75) DEFAULT NULL,
   `type_user` varchar(50) DEFAULT NULL,
@@ -372,9 +372,9 @@ CREATE TABLE `users` (
   `attempts_password` int UNSIGNED DEFAULT 0,
   `otp_code` VARCHAR(6) DEFAULT NULL,
   `otp_timestamp` TIMESTAMP NULL DEFAULT NULL,
+  `login_type` varchar(50),
   PRIMARY KEY (`id_user`),
-  UNIQUE KEY (`username`),
-  UNIQUE KEY (`email`)
+  UNIQUE KEY (`username`)
 );
 
 --

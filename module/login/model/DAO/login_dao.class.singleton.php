@@ -32,8 +32,8 @@
         public function insert_user($db, $username_reg, $email_reg, $password1_reg, $hashed_pass, $avatar) {
             // return 'Entro a login_dao --> insert_user';
 
-            $sql = "INSERT INTO `users`(`username`, `password`, `email`, `type_user`, `avatar`, `activate`, `attempts_password`, `otp_code`, `otp_timestamp`) 
-            VALUES ('$username_reg','$hashed_pass','$email_reg','client','$avatar',0,0,NULL,NULL)";
+            $sql = "INSERT INTO `users`(`username`, `password`, `email`, `type_user`, `avatar`, `activate`, `attempts_password`, `otp_code`, `otp_timestamp`, `login_type`) 
+            VALUES ('$username_reg','$hashed_pass','$email_reg','client','$avatar',0,0,NULL,NULL,'Local')";
 
             return $stmt = $db->ejecutar($sql);
         }
@@ -143,6 +143,25 @@
             WHERE username = '$username'";
 
             return $stmt = $db->ejecutar($sql);
+        }
+
+        public function insert_social_login($db, $username, $email, $avatar, $login_type) {
+            // return 'Entro a login_dao --> insert_social_login';
+            $sql = "INSERT INTO `users`(`username`, `password`, `email`, `type_user`, `avatar`, `activate`, `attempts_password`, `otp_code`, `otp_timestamp`, `login_type`) 
+            VALUES ('$username','','$email','client','$avatar',1,0,NULL,NULL,'$login_type')";
+
+            return $stmt = $db->ejecutar($sql);
+        }
+
+        public function select_user_nosocial($db, $username_log) {
+            // return 'Entro a login_dao --> update_verify_email';
+
+            $sql = "SELECT `username`, `password`, `email`, `type_user`, `avatar`, `activate` 
+            FROM `users` 
+            WHERE username='$username_log' AND login_type='Local'";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar($stmt);
         }
     }
 ?>
