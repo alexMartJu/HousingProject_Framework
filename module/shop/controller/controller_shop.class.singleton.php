@@ -76,5 +76,10 @@
             // echo 'Entro al controller_shop --> load_likes_details';
             echo json_encode(common::load_model('shop_model', 'get_load_likes_details', [$_POST['access_token'], $_POST['id']]));
         }
+
+        function controller_likes() {
+            // echo 'Entro al controller_shop --> controller_likes';
+            echo json_encode(common::load_model('shop_model', 'get_controller_likes', [$_POST['access_token'], $_POST['id']]));
+        }
     }
 ?>

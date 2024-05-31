@@ -52,4 +52,8 @@
         <name>load_likes_details</name>
         <uri>load_likes_details</uri>
     </function>
+    <function>
+        <name>controller_likes</name>
+        <uri>controller_likes</uri>
+    </function>
 </functions>

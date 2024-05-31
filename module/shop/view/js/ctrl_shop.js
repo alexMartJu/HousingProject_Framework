@@ -962,65 +962,65 @@ function load_likes_details(id_housing) {
     }
 }
 
-// function click_likes() {
-//     $(document).on('click', '.img-like', function() {
-//         console.log("Entro click_likes");
-//         console.log("Elemento seleccionado:", $(this));
-//         var access_token = localStorage.getItem('access_token');
-//         var refresh_token = localStorage.getItem('refresh_token');
-//         var id = this.getAttribute('id');
-//         console.log("Elemento seleccionado:", id);
-//         if (access_token && refresh_token) {
-//             ajaxPromise(friendlyURL('?module=shop'), 'POST', 'JSON', { 'access_token': access_token, 'id': id, 'op': 'controller_likes' })
-//             // Verificar si la imagen tiene la clase unpainted_like_details
-//             if($(this).hasClass("img-icon-details")){
-//                 if ($(this).hasClass("unpainted_like_details")) {
-//                     // Remover la clase unpainted_like_details y agregar la clase painted_like_details
-//                     $(this).removeClass("unpainted_like_details").addClass("painted_like_details").attr("src", "view/icons/details_shop/like-solid.svg");
-//                 } else {
-//                     // Remover la clase painted_like_details y agregar la clase unpainted_like_details
-//                     $(this).removeClass("painted_like_details").addClass("unpainted_like_details").attr("src", "view/icons/details_shop/like-regular.svg");
-//                 }
-//             }
-//             if($(this).hasClass("img-icon")){
-//                 if ($(this).hasClass("unpainted_like_list")) {
-//                     // Remover la clase unpainted_like_list y agregar la clase painted_like_list
-//                     $(this).removeClass("unpainted_like_list").addClass("painted_like_list").attr("src", "view/icons/list_shop/like-solid.svg");
-//                 } else {
-//                     // Remover la clase painted_like_list y agregar la clase unpainted_like_list
-//                     $(this).removeClass("painted_like_list").addClass("unpainted_like_list").attr("src", "view/icons/list_shop/like-regular.svg");
-//                 }
-//             }
-//         } else {
-//             if (localStorage.getItem('id_details')) {
-//                 Swal.fire({
-//                     icon: 'error',
-//                     title: 'Restricted Like Action',
-//                     text: 'You need to be logged in to like',
-//                     showConfirmButton: false,
-//                     timer: 2000
-//                 }).then(function() {
-//                     window.location.href = friendlyURL('?module=login');
-//                 });
-//             } else {
-//                 Swal.fire({
-//                     icon: 'error',
-//                     title: 'Restricted Like Action',
-//                     text: 'You need to be logged in to like',
-//                     showConfirmButton: false,
-//                     timer: 2000
-//                 }).then(function() {
-//                     window.location.href = friendlyURL('?module=login');
-//                 });
-//             }
-//         }
-//     });
-// }
+function click_likes() {
+    $(document).on('click', '.img-like', function() {
+        console.log("Entro click_likes");
+        console.log("Elemento seleccionado:", $(this));
+        var access_token = localStorage.getItem('access_token');
+        var refresh_token = localStorage.getItem('refresh_token');
+        var id = this.getAttribute('id');
+        console.log("Elemento seleccionado:", id);
+        if (access_token && refresh_token) {
+            ajaxPromise(friendlyURL('?module=shop'), 'POST', 'JSON', { 'access_token': access_token, 'id': id, 'op': 'controller_likes' })
+            // Verificar si la imagen tiene la clase unpainted_like_details
+            if($(this).hasClass("img-icon-details")){
+                if ($(this).hasClass("unpainted_like_details")) {
+                    // Remover la clase unpainted_like_details y agregar la clase painted_like_details
+                    $(this).removeClass("unpainted_like_details").addClass("painted_like_details").attr("src", "view/icons/details_shop/like-solid.svg");
+                } else {
+                    // Remover la clase painted_like_details y agregar la clase unpainted_like_details
+                    $(this).removeClass("painted_like_details").addClass("unpainted_like_details").attr("src", "view/icons/details_shop/like-regular.svg");
+                }
+            }
+            if($(this).hasClass("img-icon")){
+                if ($(this).hasClass("unpainted_like_list")) {
+                    // Remover la clase unpainted_like_list y agregar la clase painted_like_list
+                    $(this).removeClass("unpainted_like_list").addClass("painted_like_list").attr("src", "view/icons/list_shop/like-solid.svg");
+                } else {
+                    // Remover la clase painted_like_list y agregar la clase unpainted_like_list
+                    $(this).removeClass("painted_like_list").addClass("unpainted_like_list").attr("src", "view/icons/list_shop/like-regular.svg");
+                }
+            }
+        } else {
+            if (localStorage.getItem('id_details')) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Restricted Like Action',
+                    text: 'You need to be logged in to like',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(function() {
+                    window.location.href = friendlyURL('?module=login');
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Restricted Like Action',
+                    text: 'You need to be logged in to like',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(function() {
+                    window.location.href = friendlyURL('?module=login');
+                });
+            }
+        }
+    });
+}
 
 $(document).ready(function () { 
     loadHousings();
     print_filters();
     filter_button();
     clicks();
-    // click_likes();
+    click_likes();
 });

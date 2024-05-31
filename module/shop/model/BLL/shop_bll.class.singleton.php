@@ -263,5 +263,24 @@
                 }
             }
 		}
+
+		public function get_controller_likes_BLL($args) {
+            // return 'Entro a shop_bll --> get_controller_likes_BLL';
+			if ($args[0]){
+                // Decodificar el token de acceso para obtener el nombre de usuario
+                $name_token = middleware::decode_access_token($args[0]);
+
+                $rdo = $this -> dao ->select_one_like($this -> db, $name_token['username'], $args[1]);
+                if (!$rdo){
+                    $rdo2 = $this -> dao ->insert_likes($this -> db, $name_token['username'], $args[1]);
+                    return $rdo2;
+                }else{                
+                    $rdo2 = $this -> dao ->delete_likes($this -> db, $name_token['username'], $args[1]);
+                    return $rdo2;
+                }
+            }  
+    
+            return $args[1];
+		}
 	}
 ?>

@@ -400,5 +400,78 @@
             return $db -> listar($stmt);
             
         }
+
+        public function select_one_like($db, $username, $id) {
+            // return 'Entro a shop_dao --> select_one_like';
+            $sql = "SELECT l.*, u.username
+            FROM likes l
+            JOIN users u ON l.id_user = u.id_user
+            WHERE u.username = '$username' AND l.id_housing = '$id'";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar_object($stmt);
+            
+        }
+
+        public function insert_likes($db, $username, $id) {
+            // return 'Entro a shop_dao --> insert_likes';
+            $sql = "CALL insert_likes('$username', $id)";
+
+            return $stmt = $db -> ejecutar($sql); 
+        }
+        // PROCEDURE insert_likes
+        // DELIMITER //
+
+        // CREATE PROCEDURE insert_likes(
+        // 	IN p_username VARCHAR(25),
+        // 	IN p_housing_id INT
+        // )
+        // BEGIN
+        // 	DECLARE user_id INT;
+
+        // 	-- Obtener el ID del usuario
+        // 	SELECT id_user INTO user_id FROM users WHERE username = p_username;
+
+        // 	-- Insertar el like si el usuario existe
+        // 	IF user_id IS NOT NULL THEN
+        // 		INSERT INTO likes (id_user, id_housing) VALUES (user_id, p_housing_id);
+        // 		SELECT 'Like inserted' AS message;
+        // 	ELSE
+        // 		SELECT 'User does not exist' AS message;
+        // 	END IF;
+        // END//
+
+        // DELIMITER ;
+
+
+        public function delete_likes($db, $username, $id) {
+            // return 'Entro a shop_dao --> insert_likes';
+            $sql = "CALL delete_likes('$username', $id)";
+
+            return $stmt = $db -> ejecutar($sql); 
+        }
+        // PROCEDURE delete_likes
+        // DELIMITER //
+
+        // CREATE PROCEDURE delete_likes(
+        // 	IN p_username VARCHAR(25),
+        // 	IN p_housing_id INT
+        // )
+        // BEGIN
+        // 	DECLARE user_id INT;
+
+        // 	-- Obtener el ID del usuario
+        // 	SELECT id_user INTO user_id FROM users WHERE username = p_username;
+
+        // 	-- Eliminar el like si el usuario existe
+        // 	IF user_id IS NOT NULL THEN
+        // 		DELETE FROM likes WHERE id_user = user_id AND id_housing = p_housing_id;
+        // 		SELECT 'Like deleted' AS message;
+        // 	ELSE
+        // 		SELECT 'User does not exist' AS message;
+        // 	END IF;
+        // END//
+
+        // DELIMITER ;
     }
 ?>
