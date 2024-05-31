@@ -48,4 +48,8 @@
         <name>load_likes_list</name>
         <uri>load_likes_list</uri>
     </function>
+    <function>
+        <name>load_likes_details</name>
+        <uri>load_likes_details</uri>
+    </function>
 </functions>

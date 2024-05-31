@@ -70,5 +70,10 @@
             // return 'Entro a shop_model --> get_load_likes_list'; 
             return $this -> bll -> get_load_likes_list_BLL($args);
         }
+
+        public function get_load_likes_details($args) {
+            // return 'Entro a shop_model --> get_load_likes_details'; 
+            return $this -> bll -> get_load_likes_details_BLL($args);
+        }
     }
 ?>

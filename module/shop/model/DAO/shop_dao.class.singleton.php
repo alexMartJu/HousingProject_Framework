@@ -388,5 +388,17 @@
             return $db -> listar($stmt);
             
         }
+
+        public function select_load_likes_details($db, $username, $id) {
+            // return 'Entro a shop_dao --> select_load_likes_details';
+            $sql = "SELECT l.*, u.username
+            FROM likes l
+            JOIN users u ON l.id_user = u.id_user
+            WHERE u.username = '$username' AND l.id_housing = '$id'";
+
+            $stmt = $db -> ejecutar($sql);
+            return $db -> listar($stmt);
+            
+        }
     }
 ?>

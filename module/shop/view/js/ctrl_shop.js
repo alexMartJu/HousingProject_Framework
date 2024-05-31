@@ -290,7 +290,7 @@ function loadDetails(id_housing) {
                 }
                 // <h3 class='hello'>Housings Related (${data[0].name_type}s or ${data[2][0][row].name_extras})</h3>
                 localStorage.setItem('id_details', data[0].id_housing);
-                // load_likes_details(data[0].id_housing);
+                load_likes_details(data[0].id_housing);
                 mapBox(data[0]);
                 console.log("id extras " + data[2][0][row].id_extras);
                 more_husings_related(data[0].id_type, data[0].id_housing, data[2][0][row].id_extras);
@@ -935,32 +935,32 @@ function load_likes_list() {
     }
 }
 
-// function load_likes_details(id_housing) {
-//     console.log("Entro load_likes_details");
-//     var access_token = localStorage.getItem('access_token');
-//     var refresh_token = localStorage.getItem('refresh_token');
-//     id = id_housing;
-//     if(access_token && refresh_token) {
-//         ajaxPromise(friendlyURL('?module=shop'), 'POST', 'JSON', { 'access_token': access_token, 'id': id, 'op': 'load_likes_details' })
-//         .then(function(data) {
-//             for (row in data) {
-//                 // Obtener el ID del elemento
-//                 var housingId = data[row].id_housing;
+function load_likes_details(id_housing) {
+    console.log("Entro load_likes_details");
+    var access_token = localStorage.getItem('access_token');
+    var refresh_token = localStorage.getItem('refresh_token');
+    id = id_housing;
+    if(access_token && refresh_token) {
+        ajaxPromise(friendlyURL('?module=shop'), 'POST', 'JSON', { 'access_token': access_token, 'id': id, 'op': 'load_likes_details' })
+        .then(function(data) {
+            for (row in data) {
+                // Obtener el ID del elemento
+                var housingId = data[row].id_housing;
                 
-//                 // Buscar la imagen dentro del elemento con el ID correspondiente
-//                 var imgElement = $("#" + housingId + " img.img-icon-details");
+                // Buscar la imagen dentro del elemento con el ID correspondiente
+                var imgElement = $("#" + housingId + " img.img-icon-details");
 
-//                 // Verificar si la imagen existe
-//                 if (imgElement.length > 0) {
-//                     // Cambiar la fuente de la imagen
-//                     imgElement.attr("src", "view/icons/details_shop/like-solid.svg");
-//                     // Agregar la clase painted_like
-//                     imgElement.addClass("painted_like_details").removeClass("unpainted_like_details");
-//                 }
-//             }
-//         });
-//     }
-// }
+                // Verificar si la imagen existe
+                if (imgElement.length > 0) {
+                    // Cambiar la fuente de la imagen
+                    imgElement.attr("src", "view/icons/details_shop/like-solid.svg");
+                    // Agregar la clase painted_like
+                    imgElement.addClass("painted_like_details").removeClass("unpainted_like_details");
+                }
+            }
+        });
+    }
+}
 
 // function click_likes() {
 //     $(document).on('click', '.img-like', function() {
