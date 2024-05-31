@@ -104,7 +104,7 @@ function ajaxForSearch(url, type, dataType, data=false) {
                 }
             }
             if (data != "error") {
-                // load_likes_list();
+                load_likes_list();
                 mapBox_all(data);
             }
         }).catch(function () {
@@ -909,31 +909,31 @@ function more_husings_related(housing_type, current_housing_id, current_extras_i
         });
 }
 
-// function load_likes_list() {
-//     console.log("Entro load_likes_list");
-//     var access_token = localStorage.getItem('access_token');
-//     var refresh_token = localStorage.getItem('refresh_token');
-//     if(access_token && refresh_token) {
-//         ajaxPromise('module/shop/controller/controller_shop.php?op=load_likes_list', 'POST', 'JSON', { 'access_token': access_token })
-//         .then(function(data) {
-//             for (row in data) {
-//                 // Obtener el ID del elemento
-//                 var housingId = data[row].id_housing;
+function load_likes_list() {
+    console.log("Entro load_likes_list");
+    var access_token = localStorage.getItem('access_token');
+    var refresh_token = localStorage.getItem('refresh_token');
+    if(access_token && refresh_token) {
+        ajaxPromise(friendlyURL('?module=shop'), 'POST', 'JSON', { 'access_token': access_token, 'op': 'load_likes_list' })
+        .then(function(data) {
+            for (row in data) {
+                // Obtener el ID del elemento
+                var housingId = data[row].id_housing;
                 
-//                 // Buscar la imagen dentro del elemento con el ID correspondiente
-//                 var imgElement = $("#" + housingId + " img.img-icon");
+                // Buscar la imagen dentro del elemento con el ID correspondiente
+                var imgElement = $("#" + housingId + " img.img-icon");
 
-//                 // Verificar si la imagen existe
-//                 if (imgElement.length > 0) {
-//                     // Cambiar la fuente de la imagen
-//                     imgElement.attr("src", "view/icons/list_shop/like-solid.svg");
-//                     // Agregar la clase painted_like
-//                     imgElement.addClass("painted_like_list").removeClass("unpainted_like_list");
-//                 }
-//             }
-//         });
-//     }
-// }
+                // Verificar si la imagen existe
+                if (imgElement.length > 0) {
+                    // Cambiar la fuente de la imagen
+                    imgElement.attr("src", "view/icons/list_shop/like-solid.svg");
+                    // Agregar la clase painted_like
+                    imgElement.addClass("painted_like_list").removeClass("unpainted_like_list");
+                }
+            }
+        });
+    }
+}
 
 // function load_likes_details(id_housing) {
 //     console.log("Entro load_likes_details");
@@ -941,7 +941,7 @@ function more_husings_related(housing_type, current_housing_id, current_extras_i
 //     var refresh_token = localStorage.getItem('refresh_token');
 //     id = id_housing;
 //     if(access_token && refresh_token) {
-//         ajaxPromise('module/shop/controller/controller_shop.php?op=load_likes_details', 'POST', 'JSON', { 'access_token': access_token, 'id': id })
+//         ajaxPromise(friendlyURL('?module=shop'), 'POST', 'JSON', { 'access_token': access_token, 'id': id, 'op': 'load_likes_details' })
 //         .then(function(data) {
 //             for (row in data) {
 //                 // Obtener el ID del elemento
@@ -971,7 +971,7 @@ function more_husings_related(housing_type, current_housing_id, current_extras_i
 //         var id = this.getAttribute('id');
 //         console.log("Elemento seleccionado:", id);
 //         if (access_token && refresh_token) {
-//             ajaxPromise("module/shop/controller/controller_shop.php?op=controller_likes", 'POST', 'JSON', { 'access_token': access_token, 'id': id })
+//             ajaxPromise(friendlyURL('?module=shop'), 'POST', 'JSON', { 'access_token': access_token, 'id': id, 'op': 'controller_likes' })
 //             // Verificar si la imagen tiene la clase unpainted_like_details
 //             if($(this).hasClass("img-icon-details")){
 //                 if ($(this).hasClass("unpainted_like_details")) {
@@ -1000,7 +1000,7 @@ function more_husings_related(housing_type, current_housing_id, current_extras_i
 //                     showConfirmButton: false,
 //                     timer: 2000
 //                 }).then(function() {
-//                     window.location.href = "index.php?page=controller_login&op=login-register_view";
+//                     window.location.href = friendlyURL('?module=login');
 //                 });
 //             } else {
 //                 Swal.fire({
@@ -1010,7 +1010,7 @@ function more_husings_related(housing_type, current_housing_id, current_extras_i
 //                     showConfirmButton: false,
 //                     timer: 2000
 //                 }).then(function() {
-//                     window.location.href = "index.php?page=controller_login&op=login-register_view";
+//                     window.location.href = friendlyURL('?module=login');
 //                 });
 //             }
 //         }

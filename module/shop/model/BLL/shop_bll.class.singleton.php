@@ -229,5 +229,22 @@
                 return $dinfo;
             }
 		}
+
+		public function get_load_likes_list_BLL($args) {
+            // return 'Entro a shop_bll --> get_load_likes_list_BLL';
+			if ($args) {
+                // Decodificar el token de acceso para obtener el nombre de usuario
+                $name_token = middleware::decode_access_token($args);
+            
+                // Seleccionar los "me gusta" asociados con el nombre de usuario decodificado
+                $rdo = $this -> dao ->select_load_likes_list($this -> db, $name_token['username']);
+            
+                if (!$rdo) {
+                    return "no likes";
+                } else {
+                    return $rdo;
+                }
+            }
+		}
 	}
 ?>

@@ -65,5 +65,10 @@
             // return 'Entro a shop_model --> get_housings_related'; 
             return $this -> bll -> get_housings_related_BLL($args);
         }
+
+        public function get_load_likes_list($args) {
+            // return 'Entro a shop_model --> get_load_likes_list'; 
+            return $this -> bll -> get_load_likes_list_BLL($args);
+        }
     }
 ?>

@@ -44,4 +44,8 @@
         <name>housings_related</name>
         <uri>housings_related</uri>
     </function>
+    <function>
+        <name>load_likes_list</name>
+        <uri>load_likes_list</uri>
+    </function>
 </functions>
