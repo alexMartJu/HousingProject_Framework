@@ -410,3 +410,57 @@ INSERT INTO `likes` (`id_likes`, `id_user`, `id_housing`) VALUES
 (3, 60, 3),
 (4, 60, 4);
 -------------
+
+CREATE TABLE `products` (
+    `id_product` INT NOT NULL AUTO_INCREMENT,
+    `stock` INT NOT NULL,
+    `name_product` VARCHAR(100) NOT NULL,
+    `price_product` DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (`id_product`),
+    UNIQUE KEY (`name_product`)
+);
+
+INSERT INTO `products` (`stock`, `name_product`, `price_product`) VALUES 
+(25, 'House cleaning', 300.00),
+(25, 'Gardening and maintenance', 250.00),
+(25, 'Laundry and dry cleaning services', 100.00);
+
+CREATE TABLE `housing_products` (
+    `id_housing` int UNSIGNED NOT NULL,
+    `id_product` int NOT NULL,
+    PRIMARY KEY (`id_housing`, `id_product`),
+    FOREIGN KEY (`id_housing`) REFERENCES `housings`(`id_housing`),
+    FOREIGN KEY (`id_product`) REFERENCES `products`(`id_product`)
+);
+
+INSERT INTO `housing_products` (`id_housing`, `id_product`) VALUES
+(1, 1), (1, 2), (1, 3),
+(2, 1), (2, 2), (2, 3),
+(3, 1), (3, 2), (3, 3),
+(4, 1), (4, 2), (4, 3),
+(5, 1), (5, 2), (5, 3),
+(6, 1), (6, 2), (6, 3),
+(7, 1), (7, 2), (7, 3),
+(8, 1), (8, 2), (8, 3),
+(9, 1), (9, 2), (9, 3),
+(10, 1), (10, 2), (10, 3);
+
+CREATE TABLE `cart` (
+    `id_cart` INT NOT NULL AUTO_INCREMENT,
+    `id_line` INT NOT NULL,
+    `id_product` INT NOT NULL,
+    `id_user` INT UNSIGNED NOT NULL,
+    `id_housing` INT UNSIGNED NOT NULL,
+    `quantity` INT NOT NULL,
+    PRIMARY KEY (`id_cart`),
+    FOREIGN KEY (`id_product`) REFERENCES `products`(`id_product`),
+    FOREIGN KEY (`id_user`) REFERENCES `users`(`id_user`),
+    FOREIGN KEY (`id_housing`) REFERENCES `housings`(`id_housing`)
+);
+
+CREATE TABLE line_manager (
+    id_line INT NOT NULL,
+    PRIMARY KEY (id_line)
+);
+
+INSERT INTO line_manager (id_line) VALUES (0);

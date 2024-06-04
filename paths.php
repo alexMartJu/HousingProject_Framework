@@ -70,12 +70,12 @@
     define ('VIEW_PATH_CONTACT', SITE_ROOT . 'module/contact/view/');
     
     // //MODEL_CART
-    // define('UTILS_CART', SITE_ROOT . 'module/cart/utils/');
-    // define('DAO_CART', SITE_ROOT . 'module/cart/model/DAO/');
-    // define('BLL_CART', SITE_ROOT . 'module/cart/model/BLL/');
-    // define('MODEL_CART', SITE_ROOT . 'module/cart/model/model/');
-    // define('JS_VIEW_CART', SITE_PATH . 'module/cart/view/js/');
-    // define ('VIEW_PATH_CART', SITE_ROOT . 'module/cart/view/');
+    define('UTILS_CART', SITE_ROOT . 'module/cart/utils/');
+    define('DAO_CART', SITE_ROOT . 'module/cart/model/DAO/');
+    define('BLL_CART', SITE_ROOT . 'module/cart/model/BLL/');
+    define('MODEL_CART', SITE_ROOT . 'module/cart/model/model/');
+    define('JS_VIEW_CART', SITE_PATH . 'module/cart/view/js/');
+    define ('VIEW_PATH_CART', SITE_ROOT . 'module/cart/view/');
     
     //MODEL_LOGIN
     define('UTILS_LOGIN', SITE_ROOT . 'module/login/utils/');
