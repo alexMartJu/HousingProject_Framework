@@ -4868,3 +4868,151 @@ button.btn-pager {
   line-height: 20px;
   font-size: 12px;
 }
+
+/* ------------------------------CARRITO HTML----------------------------------------- */
+
+.shopping-cart h1 {
+  text-align: center;
+  color: #333;
+  margin-top: 20px;
+}
+
+.shopping-cart .table-container {
+  width: 95%; /* Ajusta el ancho según sea necesario */
+  background-color: #f4f4f9;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px; /* Opcional, para esquinas redondeadas */
+}
+
+.shopping-cart table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.shopping-cart th,
+.shopping-cart td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.shopping-cart th {
+  background-color: #1bbd36;
+  color: #fff;
+}
+
+.shopping-cart tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.shopping-cart .quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shopping-cart .quantity-control input {
+  width: 50px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin: 0 5px;
+}
+
+.shopping-cart .quantity-control button {
+  width: 30px;
+  height: 30px;
+  background-color: #1bbd36;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.shopping-cart .quantity-control button:hover {
+  background-color: #14922b;
+}
+
+.shopping-cart .cancel-button {
+  width: 30px;
+  height: 30px;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+.shopping-cart .cancel-button:hover {
+  background-color: #c82333;
+}
+
+/* Especificar anchos para cada columna */
+.shopping-cart .column-housing {
+  width: 25%;
+}
+
+.shopping-cart .column-products {
+  width: 25%;
+}
+
+.shopping-cart .column-price {
+  width: 15%;
+}
+
+.shopping-cart .column-quantity {
+  width: 20%;
+}
+
+.shopping-cart .column-cancel {
+  width: 15%;
+}
+
+.shopping-cart .checkout-container {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.shopping-cart .checkout-button {
+  background-color: #1bbd36;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.shopping-cart .checkout-button:hover {
+  background-color: #1bbd36;
+}
+
+
+.housing-image img {
+  max-width: 100px;
+  max-height: 100px;
+  display: block;
+  margin: auto;
+}
+
+/* ------------------------------total price----------------------------------------- */
+.total-price-container {
+  display: flex;
+  justify-content: flex-end; /* Alinea a la derecha */
+  align-items: center;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.total-price-label {
+  font-weight: bold;
+}
+
+.total-price-value {
+  color: #007bff; /* Puedes cambiar el color según tu diseño */
+}
