@@ -87,5 +87,21 @@
             }
         }
 
+        public function get_delete_line_Cart_BLL($args) {
+            try {
+                $name_token = middleware::decode_access_token($args[0]);
+                $id_line = $args[1]; // ID de la línea del carrito
+                
+                $rdo = $this->dao->delete_line_cart($this->db, $name_token['username'], $id_line);
+                if ($rdo) {
+                    return "deleted"; 
+                } else {
+                    return "error"; 
+                }
+            } catch (Exception $e) {
+                return "error"; // Error al decodificar el token o al llamar al DAO
+            }
+        }
+
 	}
 ?>

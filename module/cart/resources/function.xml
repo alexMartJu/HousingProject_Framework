@@ -20,4 +20,8 @@
         <name>modifyQuantity</name>
         <uri>modifyQuantity</uri>
     </function>
+    <function>
+        <name>delete_line_Cart</name>
+        <uri>delete_line_Cart</uri>
+    </function>
 </functions>

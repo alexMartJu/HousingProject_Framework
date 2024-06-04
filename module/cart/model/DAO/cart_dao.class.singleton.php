@@ -91,5 +91,14 @@
             
             return $stmt = $db->ejecutar($sql);
         }
+
+        public function delete_line_cart($db, $username, $id_line) {
+            $sql = "DELETE c
+            FROM cart c
+            INNER JOIN users u ON c.id_user = u.id_user
+            WHERE c.id_line = $id_line AND u.username = '$username'";
+            
+            return $stmt = $db->ejecutar($sql);
+        }
     }
 ?>

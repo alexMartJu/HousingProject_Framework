@@ -35,5 +35,10 @@
             // return 'Entro a cart_model --> get_modifyQuantity'; 
             return $this -> bll -> get_modifyQuantity_BLL($args);
         }
+
+        public function get_delete_line_Cart($args) {
+            // return 'Entro a cart_model --> get_delete_line_Cart'; 
+            return $this -> bll -> get_delete_line_Cart_BLL($args);
+        }
     }
 ?>

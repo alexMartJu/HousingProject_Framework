@@ -36,5 +36,10 @@
             // echo 'Entro al controller_cart --> modifyQuantity';
             echo json_encode(common::load_model('cart_model', 'get_modifyQuantity', [$_POST['access_token'],$_POST['id_product'],$_POST['id_housing'],$_POST['quantity']]));
         }
+
+        function delete_line_Cart() {
+            // echo 'Entro al controller_cart --> delete_line_Cart';
+            echo json_encode(common::load_model('cart_model', 'get_delete_line_Cart', [$_POST['access_token'],$_POST['id_line']]));
+        }
     }
 ?>

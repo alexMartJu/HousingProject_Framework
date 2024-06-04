@@ -169,7 +169,39 @@ function modify_quantity(button) {
     }
 }
 
+function delete_line_Cart(){
+    $(document).on('click','.delete-btn-cart',function () {
+        var access_token = localStorage.getItem('access_token');
+        var refresh_token = localStorage.getItem('refresh_token');
+        var id_line = $(this).data('id-line'); // Obtener id_line del botón de eliminar
+        if(access_token && refresh_token){
+            ajaxPromise(friendlyURL('?module=cart'), 'POST', 'JSON', {'access_token': access_token, 'id_line': id_line, 'op': 'delete_line_Cart'})
+            .then(function(data) { 
+                if (data === "deleted") {
+                    $('tr').has('button[data-id-line="'+ id_line +'"]').remove();
+                    updateItemsCart();
+                } else {
+                    console.log("Error al eliminar la línea del carrito");
+                }
+            }).catch(function() {
+                console.log("Error consulta delete_line_Cart");
+            });
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Restricted Cart Action',
+                text: 'You need to be logged in to buy something',
+                showConfirmButton: false,
+                timer: 2000
+            }).then(function() {
+                window.location.href = friendlyURL('?module=login');
+            }); 
+        }
+    });
+}
+
 $(document).ready(function() {
     paint_cart();
+    delete_line_Cart();
     updateItemsCart()
 });
