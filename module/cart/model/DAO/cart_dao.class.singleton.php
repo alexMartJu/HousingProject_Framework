@@ -64,5 +64,13 @@
             $sql = "UPDATE line_manager SET id_line = $id_line";
             return $stmt = $db->ejecutar($sql);
         }
+
+        public function count_cart_lines($db, $username) {
+            $sql = "SELECT COUNT(DISTINCT id_line) AS count_lines 
+            FROM cart 
+            WHERE id_user = (SELECT id_user FROM users WHERE username = '$username')";
+            $stmt = $db->ejecutar($sql);
+            return $db -> listar($stmt);
+        }
     }
 ?>

@@ -8,4 +8,8 @@
         <name>add_update_Cart</name>
         <uri>add_update_Cart</uri>
     </function>
+    <function>
+        <name>updateItemsCart</name>
+        <uri>updateItemsCart</uri>
+    </function>
 </functions>

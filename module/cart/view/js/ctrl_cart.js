@@ -8,6 +8,7 @@ function addCart(element){
         .then(function(data) {
             if (data === "insert" || data === "update") {
                 console.log("addCart --> insert/update");
+                updateItemsCart();
             }
         }).catch(function(error) {
             console.log("Error ajaxPromise addCart", error);
@@ -24,3 +25,27 @@ function addCart(element){
         });
     }
 }
+
+function updateItemsCart() {
+    var access_token = localStorage.getItem('access_token');
+    var refresh_token = localStorage.getItem('refresh_token');
+    if(access_token && refresh_token){
+        ajaxPromise(friendlyURL('?module=cart'), 'POST', 'JSON', {'access_token': access_token, 'op':'updateItemsCart'})
+        .then(function(data) {
+            if(data.type === "numberItems") {
+                console.log("Entro updateItemsCart()", data.number_lines);
+                $('.cart-count').text(data.number_lines);
+            } else if(data.type === "error") {
+                console.log("Error: No se pudo obtener el número de líneas");
+            } else {
+                console.log("Error: Respuesta desconocida del servidor");
+            }
+        }).catch(function(error) {
+            console.log("Error ajaxPromise addCart", error);
+        });  
+    }
+}
+
+$(document).ready(function() {
+    updateItemsCart()
+});

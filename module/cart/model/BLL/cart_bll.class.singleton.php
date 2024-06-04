@@ -41,5 +41,26 @@
             } 
 		}
 
+        public function get_updateItemsCart_BLL($args) {
+            // return 'Entro a cart_bll --> get_updateItemsCart_BLL';
+            $name_token = middleware::decode_access_token($args);
+			$count_lines = $this -> dao ->count_cart_lines($this -> db, $name_token['username']);
+            $number_lines = $count_lines[0]['count_lines'];
+
+            if ($number_lines != 0) {
+                $response = array(
+                    "type" => "numberItems",
+                    "number_lines" => $number_lines
+                );
+            } else {
+                $response = array(
+                    "type" => "error"
+                );
+            }
+        
+            // Devolver el arreglo $response
+            return $response;
+		}
+
 	}
 ?>
