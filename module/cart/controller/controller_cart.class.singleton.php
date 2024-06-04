@@ -26,5 +26,10 @@
             // echo 'Entro al controller_cart --> updateItemsCart';
             echo json_encode(common::load_model('cart_model', 'get_updateItemsCart', $_POST['access_token']));
         }
+
+        function paintCart() {
+            // echo 'Entro al controller_cart --> paintCart';
+            echo json_encode(common::load_model('cart_model', 'get_paintCart', $_POST['access_token']));
+        }
     }
 ?>

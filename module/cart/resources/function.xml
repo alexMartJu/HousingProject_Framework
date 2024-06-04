@@ -12,4 +12,8 @@
         <name>updateItemsCart</name>
         <uri>updateItemsCart</uri>
     </function>
+    <function>
+        <name>paintCart</name>
+        <uri>paintCart</uri>
+    </function>
 </functions>

@@ -62,5 +62,11 @@
             return $response;
 		}
 
+        public function get_paintCart_BLL($args) {
+            // return 'Entro a cart_bll --> get_paintCart_BLL';
+            $name_token = middleware::decode_access_token($args);
+			return $this -> dao->getCartData($this -> db, $name_token['username']);
+		}
+
 	}
 ?>

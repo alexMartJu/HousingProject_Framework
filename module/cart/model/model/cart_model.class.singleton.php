@@ -25,5 +25,10 @@
             // return 'Entro a cart_model --> get_add_update_Cart'; 
             return $this -> bll -> get_updateItemsCart_BLL($args);
         }
+
+        public function get_paintCart($args) {
+            // return 'Entro a cart_model --> get_paintCart'; 
+            return $this -> bll -> get_paintCart_BLL($args);
+        }
     }
 ?>

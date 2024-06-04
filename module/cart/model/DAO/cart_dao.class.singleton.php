@@ -72,5 +72,14 @@
             $stmt = $db->ejecutar($sql);
             return $db -> listar($stmt);
         }
+
+        public function getCartData($db, $username) {
+            $sql = "SELECT c.id_line, c.id_product, c.id_user, c.id_housing, c.quantity, p.name_product, p.price_product, h.img_housing, p.stock
+            FROM cart c JOIN housings h ON c.id_housing = h.id_housing JOIN users u ON c.id_user = u.id_user JOIN products p ON c.id_product = p.id_product 
+            WHERE u.username = '$username';";
+
+            $stmt = $db->ejecutar($sql);
+            return $db -> listar($stmt);
+        }
     }
 ?>
