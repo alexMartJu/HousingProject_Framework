@@ -63,7 +63,7 @@ function ajaxForSearch(url, type, dataType, data=false) {
                             "<i class='fa-solid fa-euro-sign fa-2x'> " + data[row].housing_price + "</i>" +
                             "<hr />" +
                             "</div>" +
-                            "<p class='di'><strong> " + data[row].name_type + "</strong> of  " + data[row].housing_m2 + "m<sup>2</sup> in " + data[row].name_city + "<span class='span_total_likes'> | Total Likes: " + data[row].likes_count + "</span>" + "<img class='img-icon img-like unpainted_like_list' id='" + data[row].id_housing + "' src= 'view/icons/list_shop/like-regular.svg' alt=''></img>" + "</p>" +
+                            "<p class='di'><strong> " + data[row].name_type + "</strong> of  " + data[row].housing_m2 + "m<sup>2</sup> in " + data[row].name_city + "</p>" +
                             "<i class='fas fa-info-circle'> " + data[row].cadastral_ref + "</i>" +
                             "<i class='fa-solid fa-warehouse'> " + data[row].garage + "</i>" +
                             "<i class='fa-solid fa-location-dot'> " + data[row].housing_address + "</i>" +
@@ -71,7 +71,7 @@ function ajaxForSearch(url, type, dataType, data=false) {
                             "<i class='fa-solid fa-square'> " + data[row].housing_m2 + " m<sup>2</sup></i>" +
                             "<i class='fa-solid fa-people-roof'> " + data[row].housing_rooms + " rooms</i>" +
                             "<div class='description'>" +
-                            "<p>Descripción general aquí sobre una casa que esta en venta y que necesita venderse para calllar y no ver nada que no interese muchas overflow: hidden kjd ajahkdaka kjadjakj fhdhksfks skskjskfs jkdsjkjds kasjksakd jasjksad</p>" +
+                            "<img src= 'http://localhost/Framework/HousingProject_Framework/view/icons/cart/cart-shopping-solid.svg' class='cart_list' id='"+ data[row].id_housing + "' alt=''/>" + "<span class='span_total_likes'> | Total Likes: " + data[row].likes_count + "</span>" + "<img class='img-icon img-like unpainted_like_list' id='" + data[row].id_housing + "' src= 'view/icons/list_shop/like-regular.svg' alt=''></img>" +
                             "</div>" +
                             "</div>" +
                             "</div>"
@@ -115,7 +115,7 @@ function ajaxForSearch(url, type, dataType, data=false) {
 
 function clicks() {
     $(document).on("click", ".more_info_list1", function () {
-        if (!$(event.target).hasClass('img-like')) {
+        if (!$(event.target).hasClass('img-like') && !$(event.target).hasClass('cart_list')) {
             var id_housing = this.getAttribute('id');
             console.log(id_housing);
             loadDetails(id_housing);
@@ -206,7 +206,7 @@ function loadDetails(id_housing) {
                 .html(`
                     <div class='col-lg-8 mx-auto'>
                     <div class='portfolio-info'>
-                    <h3>${data[0].housing_price} € || <img class='img-icon-details img-like unpainted_like_details' src='view/icons/details_shop/like-regular.svg' id=${data[0].id_housing} alt=''></h3>
+                    <h3>${data[0].housing_price} € || <img class='img-icon-details img-like unpainted_like_details' src='view/icons/details_shop/like-regular.svg' id=${data[0].id_housing} alt=''> || <img src= 'http://localhost/Framework/HousingProject_Framework/view/icons/cart/cart-shopping-solid.svg' class='cart_list' id=${data[0].id_housing} alt=''/></h3>
                     <ul class='lista_1'>
                     <li><strong>Housing Type</strong>: ${data[0].name_type}</li>
                     <li><strong>Client</strong>: ASU Company</li>

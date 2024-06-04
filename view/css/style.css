@@ -4835,3 +4835,36 @@ button.btn-pager {
 .social-icon.github:hover {
   background-color: #1bbd36;
 }
+
+/* ------------------------------CARRITO HEADER----------------------------------------- */
+.cart_header{
+  width: 35px; /* Ajusta el ancho */
+  height: 35px;
+  margin-right: 5px;
+  filter: invert(41%) sepia(98%) saturate(544%) hue-rotate(82deg) brightness(114%) contrast(87%);
+  cursor:pointer;
+}
+
+.cart_list{
+  width: 35px; /* Ajusta el ancho */
+  height: 35px;
+  margin-right: 5px;
+  filter: invert(41%) sepia(98%) saturate(544%) hue-rotate(82deg) brightness(114%) contrast(87%);
+  cursor:pointer;
+}
+
+.a_cart {
+  padding:0 !important;
+}
+
+.cart-count {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #4d4643;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  font-size: 12px;
+}
