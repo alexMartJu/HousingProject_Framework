@@ -68,5 +68,24 @@
 			return $this -> dao->getCartData($this -> db, $name_token['username']);
 		}
 
+        public function get_modifyQuantity_BLL($args) {
+            try {
+                $name_token = middleware::decode_access_token($args[0]);
+                $id_product = $args[1]; // ID del producto
+                $id_housing = $args[2]; // ID del housing
+                $quantity = $args[3]; // Nueva cantidad
+        
+                $rdo = $this->dao->update_quantity_cart($this->db, $name_token['username'], $id_product, $id_housing, $quantity);
+                error_log("$rdo");
+                if ($rdo) {
+                    return "update"; 
+                } else {
+                    return "error"; 
+                }
+            } catch (Exception $e) {
+                return "error"; // Error al decodificar el token o al llamar al DAO
+            }
+        }
+
 	}
 ?>

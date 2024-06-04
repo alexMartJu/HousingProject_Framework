@@ -81,5 +81,15 @@
             $stmt = $db->ejecutar($sql);
             return $db -> listar($stmt);
         }
+
+        public function update_quantity_cart($db, $username, $id_product, $id_housing, $quantity) {
+            $sql = "UPDATE cart AS c
+            INNER JOIN users AS u ON c.id_user = u.id_user
+            SET c.quantity = $quantity
+            WHERE c.id_product = $id_product AND c.id_housing = $id_housing
+            AND u.username = '$username'";
+            
+            return $stmt = $db->ejecutar($sql);
+        }
     }
 ?>

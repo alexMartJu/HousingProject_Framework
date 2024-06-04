@@ -99,11 +99,63 @@ function paint_cart() {
                         currentLineHTML[id_line].deleteButtonAdded = true;
                     }
                 }
+
+                // Manejar eventos de clic para los botones de incrementar y decrementar
+                $(".increment-btn").click(function() {
+                    var idLine = $(this).data("id-line");
+                    var quantityInput = $(this).siblings(".quantity-input[data-id-line='" + idLine + "']");
+                    var currentQuantity = parseInt(quantityInput.val());
+                    quantityInput.val(currentQuantity + 1);
+                    modify_quantity(this);
+                });
+
+                $(".decrement-btn").click(function() {
+                    var idLine = $(this).data("id-line");
+                    var quantityInput = $(this).siblings(".quantity-input[data-id-line='" + idLine + "']");
+                    var currentQuantity = parseInt(quantityInput.val());
+                    if (currentQuantity > 1) {
+                        quantityInput.val(currentQuantity - 1);
+                    }
+                    modify_quantity(this);
+                });
                 
             })
             .catch(function() {
                 console.log("Error creación tabla");
             });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Restricted Cart Action',
+            text: 'You need to be logged in to buy something',
+            showConfirmButton: false,
+            timer: 2000
+        }).then(function() {
+            window.location.href = friendlyURL('?module=login');
+        });
+    }
+}
+
+function modify_quantity(button) {
+    var access_token = localStorage.getItem('access_token');
+    var refresh_token = localStorage.getItem('refresh_token');
+    var id_product = $(button).siblings(".quantity-input").data("id-product");
+    var id_housing = $(button).siblings(".quantity-input").data("id-housing");
+    var quantity = $(button).siblings(".quantity-input").val();
+    console.log("entro modify");
+    if (access_token && refresh_token) {
+        ajaxPromise(friendlyURL('?module=cart'), 'POST', 'JSON', {'access_token': access_token, 'id_product': id_product, 'id_housing': id_housing, 'quantity': quantity, 'op': 'modifyQuantity'})
+        .then(function(data) {
+            if (data === "update") {
+                console.log("Entro modify_quantity");
+                location.reload();
+            } else {
+                console.log("Error al updatear cantidad");
+            }
+        })
+        .catch(function() {
+            console.log("Error modificación cantidad");
+        });
     } else {
         Swal.fire({
             icon: 'error',

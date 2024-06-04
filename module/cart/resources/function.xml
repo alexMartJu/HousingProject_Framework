@@ -16,4 +16,8 @@
         <name>paintCart</name>
         <uri>paintCart</uri>
     </function>
+    <function>
+        <name>modifyQuantity</name>
+        <uri>modifyQuantity</uri>
+    </function>
 </functions>

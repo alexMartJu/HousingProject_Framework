@@ -31,5 +31,10 @@
             // echo 'Entro al controller_cart --> paintCart';
             echo json_encode(common::load_model('cart_model', 'get_paintCart', $_POST['access_token']));
         }
+
+        function modifyQuantity() {
+            // echo 'Entro al controller_cart --> modifyQuantity';
+            echo json_encode(common::load_model('cart_model', 'get_modifyQuantity', [$_POST['access_token'],$_POST['id_product'],$_POST['id_housing'],$_POST['quantity']]));
+        }
     }
 ?>
