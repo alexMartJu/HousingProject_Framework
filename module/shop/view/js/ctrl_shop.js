@@ -71,7 +71,7 @@ function ajaxForSearch(url, type, dataType, data=false) {
                             "<i class='fa-solid fa-square'> " + data[row].housing_m2 + " m<sup>2</sup></i>" +
                             "<i class='fa-solid fa-people-roof'> " + data[row].housing_rooms + " rooms</i>" +
                             "<div class='description'>" +
-                            "<img src= 'http://localhost/Framework/HousingProject_Framework/view/icons/cart/cart-shopping-solid.svg' class='cart_list' id='"+ data[row].id_housing + "' alt=''/>" + "<span class='span_total_likes'> | Total Likes: " + data[row].likes_count + "</span>" + "<img class='img-icon img-like unpainted_like_list' id='" + data[row].id_housing + "' src= 'view/icons/list_shop/like-regular.svg' alt=''></img>" +
+                            "<img src= 'http://localhost/Framework/HousingProject_Framework/view/icons/cart/cart-shopping-solid.svg' class='cart_list' id='"+ data[row].id_housing + "' onclick='addCart(this)' alt=''/>" + "<span class='span_total_likes'> | Total Likes: " + data[row].likes_count + "</span>" + "<img class='img-icon img-like unpainted_like_list' id='" + data[row].id_housing + "' src= 'view/icons/list_shop/like-regular.svg' alt=''></img>" +
                             "</div>" +
                             "</div>" +
                             "</div>"
@@ -206,7 +206,7 @@ function loadDetails(id_housing) {
                 .html(`
                     <div class='col-lg-8 mx-auto'>
                     <div class='portfolio-info'>
-                    <h3>${data[0].housing_price} € || <img class='img-icon-details img-like unpainted_like_details' src='view/icons/details_shop/like-regular.svg' id=${data[0].id_housing} alt=''> || <img src= 'http://localhost/Framework/HousingProject_Framework/view/icons/cart/cart-shopping-solid.svg' class='cart_list' id=${data[0].id_housing} alt=''/></h3>
+                    <h3>${data[0].housing_price} € || <img class='img-icon-details img-like unpainted_like_details' src='view/icons/details_shop/like-regular.svg' id=${data[0].id_housing} alt=''> || <img src= 'http://localhost/Framework/HousingProject_Framework/view/icons/cart/cart-shopping-solid.svg' class='cart_list' id=${data[0].id_housing} onclick='addCart(this)' alt=''/></h3>
                     <ul class='lista_1'>
                     <li><strong>Housing Type</strong>: ${data[0].name_type}</li>
                     <li><strong>Client</strong>: ASU Company</li>
