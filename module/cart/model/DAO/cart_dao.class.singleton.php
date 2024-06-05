@@ -18,7 +18,7 @@
 
             $sql = "SELECT * FROM cart 
             WHERE id_user = (SELECT id_user FROM users WHERE username = '$username') 
-            AND id_housing = $id";
+            AND id_housing = $id AND isActive = 0";
 
             $stmt = $db -> ejecutar($sql);
             return $db -> listar($stmt);
@@ -28,8 +28,8 @@
         public function insert_products_cart($db, $username, $id, $id_line) {
             // return 'Entro a cart_dao --> insert_products_cart';
 
-            $sql = "INSERT INTO cart (id_line, id_product, id_user, id_housing, quantity)
-            SELECT $id_line, hp.id_product, u.id_user, $id, 1
+            $sql = "INSERT INTO cart (id_line, id_product, id_user, id_housing, quantity, isActive)
+            SELECT $id_line, hp.id_product, u.id_user, $id, 1, 0
             FROM housing_products hp
             JOIN users u ON u.username = '$username'
             JOIN products p ON hp.id_product = p.id_product
@@ -46,7 +46,7 @@
             AND id_product = $id_product
             AND quantity < (SELECT p.stock FROM products p 
                             INNER JOIN housing_products hp ON p.id_product = hp.id_product 
-                            WHERE hp.id_housing = $id_housing AND p.id_product = $id_product)";
+                            WHERE hp.id_housing = $id_housing AND p.id_product = $id_product) AND isActive = 0";
             
             return $stmt = $db->ejecutar($sql);
         }
@@ -70,7 +70,7 @@
         public function count_cart_lines($db, $username) {
             $sql = "SELECT COUNT(DISTINCT id_line) AS count_lines 
             FROM cart 
-            WHERE id_user = (SELECT id_user FROM users WHERE username = '$username')";
+            WHERE id_user = (SELECT id_user FROM users WHERE username = '$username') AND isActive=0";
             $stmt = $db->ejecutar($sql);
             return $db -> listar($stmt);
         }
@@ -78,7 +78,7 @@
         public function getCartData($db, $username) {
             $sql = "SELECT c.id_line, c.id_product, c.id_user, c.id_housing, c.quantity, p.name_product, p.price_product, h.img_housing, p.stock
             FROM cart c JOIN housings h ON c.id_housing = h.id_housing JOIN users u ON c.id_user = u.id_user JOIN products p ON c.id_product = p.id_product 
-            WHERE u.username = '$username';";
+            WHERE u.username = '$username' AND c.isActive=0;";
 
             $stmt = $db->ejecutar($sql);
             return $db -> listar($stmt);
@@ -89,7 +89,7 @@
             INNER JOIN users AS u ON c.id_user = u.id_user
             SET c.quantity = $quantity
             WHERE c.id_product = $id_product AND c.id_housing = $id_housing
-            AND u.username = '$username'";
+            AND u.username = '$username'  AND c.isActive = 0";
             
             return $stmt = $db->ejecutar($sql);
         }
@@ -98,7 +98,7 @@
             $sql = "DELETE c
             FROM cart c
             INNER JOIN users u ON c.id_user = u.id_user
-            WHERE c.id_line = $id_line AND u.username = '$username'";
+            WHERE c.id_line = $id_line AND u.username = '$username' AND c.isActive = 0";
             
             return $stmt = $db->ejecutar($sql);
         }
@@ -117,7 +117,8 @@
                     WHERE id_user = (SELECT id_user FROM users WHERE username = '$username') 
                     AND id_line = $id_line
                     AND id_housing = $id_housing 
-                    AND id_product = $id_product";
+                    AND id_product = $id_product
+                    AND isActive = 0";
             return $db->ejecutar($sql);
         }
     }

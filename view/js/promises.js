@@ -55,16 +55,19 @@ function load_menu() {
                 $('.logout_login-button').empty(); //para que no se pinte mas veces cuando se refresque token
                 $('.logout_login-button').show();
 
-                // Crear y añadir el icono del carrito de compras al principio de la lista
-                var $cartItem = $('<li></li>').prependTo('#navbar ul');
-                var $cartLink = $('<a class="a_cart" href="' + friendlyURL("?module=cart") + '"></a>').appendTo($cartItem);
-                $('<img>', {
-                    src: 'http://localhost/Framework/HousingProject_Framework/view/icons/cart/cart-shopping-solid.svg',
-                    class: 'cart_header',
-                    alt: 'Shopping Cart'
-                }).appendTo($cartLink);
-                // Añadir el span para el número de artículos en el carrito
-                var $cartCount = $('<span class="cart-count"></span>').appendTo($cartLink);
+                // Verificar si el carrito ya está presente
+                if ($('#navbar ul .a_cart').length === 0) {
+                    // Crear y añadir el icono del carrito de compras al principio de la lista
+                    var $cartItem = $('<li></li>').prependTo('#navbar ul');
+                    var $cartLink = $('<a class="a_cart" href="' + friendlyURL("?module=cart") + '"></a>').appendTo($cartItem);
+                    $('<img>', {
+                        src: 'http://localhost/Framework/HousingProject_Framework/view/icons/cart/cart-shopping-solid.svg',
+                        class: 'cart_header',
+                        alt: 'Shopping Cart'
+                    }).appendTo($cartLink);
+                    // Añadir el span para el número de artículos en el carrito
+                    var $cartCount = $('<span class="cart-count"></span>').appendTo($cartLink);
+                }
                 
                 // Crear el contenedor para la imagen y el botón
                 var $container_avatar_logout = $('<div></div>').appendTo('.logout_login-button');

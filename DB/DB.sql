@@ -452,6 +452,7 @@ CREATE TABLE `cart` (
     `id_user` INT UNSIGNED NOT NULL,
     `id_housing` INT UNSIGNED NOT NULL,
     `quantity` INT NOT NULL,
+    `isActive` INT NOT NULL,
     PRIMARY KEY (`id_cart`),
     FOREIGN KEY (`id_product`) REFERENCES `products`(`id_product`),
     FOREIGN KEY (`id_user`) REFERENCES `users`(`id_user`),
