@@ -121,5 +121,19 @@
                     AND isActive = 0";
             return $db->ejecutar($sql);
         }
+
+        public function getCartDataByUsername($db, $username) {
+            $sql = "SELECT ht.name_type AS housing_type, ci.name_city AS city_name, p.price_product, pr.name_product, ca.quantity 
+            FROM cart ca 
+            INNER JOIN housings h ON ca.id_housing = h.id_housing 
+            INNER JOIN h_type ht ON h.id_type = ht.id_type 
+            INNER JOIN city ci ON h.id_city = ci.id_city 
+            INNER JOIN products p ON ca.id_product = p.id_product 
+            INNER JOIN products pr ON ca.id_product = pr.id_product 
+            WHERE ca.id_user = (SELECT id_user FROM users WHERE username = '$username') AND ca.isActive = 0;";
+            
+            $stmt = $db->ejecutar($sql);
+            return $db -> listar($stmt);
+        }
     }
 ?>

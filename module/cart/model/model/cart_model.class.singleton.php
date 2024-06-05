@@ -45,5 +45,10 @@
             // return 'Entro a cart_model --> get_removeProduct'; 
             return $this -> bll -> get_removeProduct_BLL($args);
         }
+
+        public function get_paintCheckout($args) {
+            // return 'Entro a cart_model --> get_paintCheckout'; 
+            return $this -> bll -> get_paintCheckout_BLL($args);
+        }
     }
 ?>

@@ -51,5 +51,10 @@
             // echo 'Entro al controller_cart --> view';
             common::load_view('top_page_cart.html', VIEW_PATH_CART . 'checkout.html');
         }
+
+        function paintCheckout() {
+            // echo 'Entro al controller_cart --> paintCheckout';
+            echo json_encode(common::load_model('cart_model', 'get_paintCheckout', $_POST['access_token']));
+        }
     }
 ?>

@@ -228,8 +228,40 @@ function checkout(){
     
 }
 
+// Función para cargar el resumen del pedido y pintar la tabla dinámicamente
+function loadOrderSummary() {
+    var access_token = localStorage.getItem('access_token');
+    var refresh_token = localStorage.getItem('refresh_token');
+    if (access_token && refresh_token) {
+        ajaxPromise(friendlyURL('?module=cart'), 'POST', 'JSON', {'access_token': access_token, 'op': 'paintCheckout'})
+            .then(function(response) {
+                // Limpiar la tabla antes de agregar nuevas filas
+                $('#summaryTableBody').empty();
+
+                // Iterar sobre los datos recibidos y construir las filas de la tabla
+                response.forEach(function(item) {
+                    var row = '<tr>';
+                    row += '<td>' + item.housing_type + ' in ' + item.city_name + '</td>'; // Aquí se agrega el tipo de vivienda y la ciudad
+                    row += '<td>' + item.name_product + '</td>';
+                    row += '<td>' + item.price_product + '</td>';
+                    row += '<td>' + item.quantity + '</td>';
+                    row += '</tr>';
+
+                    $('#summaryTableBody').append(row);
+                });
+            })
+            .catch(function(error) {
+                console.error('Error al cargar el resumen del pedido:', error);
+            });
+    } else {
+        // Manejar el caso en el que no haya tokens de acceso
+        console.error('No hay tokens de acceso disponibles.');
+    }
+}
+
 $(document).ready(function() {
     paint_cart();
     delete_line_Cart();
-    clicks_checkout()
+    clicks_checkout();
+    loadOrderSummary()
 });

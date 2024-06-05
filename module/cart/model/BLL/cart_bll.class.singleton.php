@@ -168,5 +168,15 @@
             }
         }
 
+        public function get_paintCheckout_BLL($args) {
+            try {
+                $name_token = middleware::decode_access_token($args);
+                $username = $name_token['username'];
+                return $this -> dao->getCartDataByUsername($this->db, $username);
+            } catch (Exception $e) {
+                return "error";
+            }
+        }
+
 	}
 ?>
