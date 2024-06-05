@@ -178,5 +178,44 @@
             }
         }
 
+        public function get_finish_buy_BLL($args) {
+            try {
+                $name_token = middleware::decode_access_token($args[0]);
+                $username = $name_token['username'];
+        
+                // Paso 1: Obtener la suma de las cantidades de productos en el carrito
+                $cartSummary = $this->dao->getCartSummary($this->db, $username);
+        
+                // Paso 2: Verificar el stock disponible para cada producto
+                foreach ($cartSummary as $item) {
+                    if ($item['total_quantity_in_cart'] > $item['available_stock']) {
+                        // return "Error: No hay suficiente stock para el producto ".$item['id_product'];
+                        return "error_stock";
+                    }
+                }
+        
+                // Paso 3: Actualizar el stock de los productos
+                foreach ($cartSummary as $item) {
+                    $productId = $item['id_product'];
+                    $quantity = $item['total_quantity_in_cart'];
+        
+                    $this->dao->updateProductStock($this->db, $productId, $quantity);
+                }
+        
+                // Paso 4: Insertar registro en la tabla purchases
+                $purchaseId = $this->dao->insertPurchase($this->db, $username, $args[1], $args[2]);
+        
+                // Paso 5: Insertar registros en la tabla purchase_lines
+                $this->dao->insertPurchaseLines($this->db, $purchaseId, $username);
+        
+                // Paso 6: Actualizar el estado del carrito
+                $this->dao->updateCartStatus($this->db, $username);
+        
+                return "Checkout_good";
+            } catch (Exception $e) {
+                return "Error: ".$e->getMessage();
+            }
+        }
+
 	}
 ?>

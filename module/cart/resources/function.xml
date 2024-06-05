@@ -36,4 +36,8 @@
         <name>paintCheckout</name>
         <uri>paintCheckout</uri>
     </function>
+    <function>
+        <name>finish_buy</name>
+        <uri>finish_buy</uri>
+    </function>
 </functions>

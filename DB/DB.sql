@@ -465,3 +465,21 @@ CREATE TABLE line_manager (
 );
 
 INSERT INTO line_manager (id_line) VALUES (0);
+
+CREATE TABLE purchases (
+    `purchase_id` INT AUTO_INCREMENT PRIMARY KEY,
+    `id_user` INT UNSIGNED NOT NULL,
+    `total_price` DECIMAL(10, 2),
+    `name` VARCHAR(100),
+    `phone` VARCHAR(20),
+    `purchase_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (`id_user`) REFERENCES `users`(`id_user`)
+);
+
+-- Tabla purchase_lines
+CREATE TABLE purchase_lines (
+    `purchase_line`_id INT AUTO_INCREMENT PRIMARY KEY,
+    `purchase_id` INT,
+    `id_line` INT,
+    FOREIGN KEY (`purchase_id`) REFERENCES `purchases`(`purchase_id`)
+);

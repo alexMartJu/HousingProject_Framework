@@ -50,5 +50,10 @@
             // return 'Entro a cart_model --> get_paintCheckout'; 
             return $this -> bll -> get_paintCheckout_BLL($args);
         }
+
+        public function get_finish_buy($args) {
+            // return 'Entro a cart_model --> get_finish_buy'; 
+            return $this -> bll -> get_finish_buy_BLL($args);
+        }
     }
 ?>

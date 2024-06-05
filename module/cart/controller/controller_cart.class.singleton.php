@@ -56,5 +56,10 @@
             // echo 'Entro al controller_cart --> paintCheckout';
             echo json_encode(common::load_model('cart_model', 'get_paintCheckout', $_POST['access_token']));
         }
+
+        function finish_buy() {
+            // echo 'Entro al controller_cart --> finish_buy';
+            echo json_encode(common::load_model('cart_model', 'get_finish_buy', [$_POST['access_token'],$_POST['name_check'],$_POST['phone_check']]));
+        }
     }
 ?>

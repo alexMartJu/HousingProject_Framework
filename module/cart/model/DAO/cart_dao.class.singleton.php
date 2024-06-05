@@ -135,5 +135,54 @@
             $stmt = $db->ejecutar($sql);
             return $db -> listar($stmt);
         }
+
+        public function getCartSummary($db, $username) {
+            $sql = "SELECT cart.id_product, 
+            SUM(cart.quantity) AS total_quantity_in_cart,
+            products.stock AS available_stock
+            FROM cart
+            JOIN products ON cart.id_product = products.id_product
+            JOIN users ON cart.id_user = users.id_user
+            WHERE cart.isActive = 0 AND users.username = '$username'
+            GROUP BY cart.id_product;";
+            
+            $stmt = $db->ejecutar($sql);
+            return $db -> listar($stmt);
+        }
+
+        public function updateProductStock($db, $productId, $quantity) {
+            $sql = "UPDATE products SET stock = stock - $quantity WHERE id_product = $productId";
+            
+            return $db->ejecutar($sql);
+        }
+
+        public function insertPurchase($db, $username, $name, $phone) {
+            $sql = "INSERT INTO purchases (id_user, total_price, name, phone)
+            SELECT users.id_user, SUM(products.price_product * cart.quantity), '$name', $phone
+            FROM cart
+            JOIN products ON cart.id_product = products.id_product
+            JOIN users ON cart.id_user = users.id_user
+            WHERE cart.isActive = 0 AND users.username = '$username'
+            GROUP BY cart.id_user";
+            $db->ejecutar($sql);
+            return $db->lastInsertId();
+        }
+
+        public function insertPurchaseLines($db, $purchaseId, $username) {
+            $sql = "INSERT INTO purchase_lines (purchase_id, id_line)
+                    SELECT $purchaseId, cart.id_line
+                    FROM cart
+                    JOIN users ON cart.id_user = users.id_user
+                    WHERE cart.isActive = 0 AND users.username = '$username'";
+            return $db->ejecutar($sql);
+        }
+
+        public function updateCartStatus($db, $username) {
+            $sql = "UPDATE cart
+                    JOIN users ON cart.id_user = users.id_user
+                    SET cart.isActive = 1
+                    WHERE cart.isActive = 0 AND users.username = '$username'";
+            return $db->ejecutar($sql);
+        }
     }
 ?>

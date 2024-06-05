@@ -78,4 +78,8 @@
             return $this -> array;
         }
 
+        public function lastInsertId() {
+            return $this -> link -> insert_id;
+        }
+
     }
