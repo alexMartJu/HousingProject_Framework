@@ -192,7 +192,44 @@ function remove_product_from_cart(idLine, idHousing, idProduct) {
     }
 }
 
+function clicks_checkout(){
+    $('.checkout-button').on('click', function(e) {
+        checkout();
+    });
+}
+
+function checkout(){
+    var access_token = localStorage.getItem('access_token');
+    var refresh_token = localStorage.getItem('refresh_token');
+    if(access_token && refresh_token){
+        if ($("#productTableBody tr").length === 0) {
+            // Mostrar el mensaje de alerta usando SweetAlert
+            Swal.fire({
+                icon: 'warning',
+                title: 'Empty Cart',
+                text: 'Your shopping cart is empty. Please add items before proceeding to checkout.',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        } else {
+            window.location.href = friendlyURL('?module=cart&op=checkout_view');
+        }
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Restricted Cart Action',
+            text: 'You need to be logged in to buy something',
+            showConfirmButton: false,
+            timer: 2000
+        }).then(function() {
+            window.location.href = friendlyURL('?module=login');
+        }); 
+    }
+    
+}
+
 $(document).ready(function() {
     paint_cart();
     delete_line_Cart();
+    clicks_checkout()
 });

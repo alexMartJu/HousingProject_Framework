@@ -46,5 +46,10 @@
             // echo 'Entro al controller_cart --> removeProduct';
             echo json_encode(common::load_model('cart_model', 'get_removeProduct', [$_POST['access_token'],$_POST['id_line'],$_POST['id_housing'],$_POST['id_product']]));
         }
+
+        function checkout_view() {
+            // echo 'Entro al controller_cart --> view';
+            common::load_view('top_page_cart.html', VIEW_PATH_CART . 'checkout.html');
+        }
     }
 ?>

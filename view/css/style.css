@@ -5014,5 +5014,81 @@ button.btn-pager {
 }
 
 .total-price-value {
-  color: #007bff; /* Puedes cambiar el color según tu diseño */
+  font-weight:bold; 
+}
+
+/* ------------------------------CHECKOUT HTML----------------------------------------- */
+#order-summary, #customer-info {
+  margin: 20px auto;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#customer-info table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+#customer-info table th, table td {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+  text-align: left;
+}
+
+#customer-info label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#customer-info input[type="text"], input[type="email"], input[type="tel"] {
+  width: calc(100% - 10px);
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#customer-info button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#customer-info button:hover {
+  background-color: #45a049;
+}
+
+.shopping-checkout table {
+  border-collapse: separate;
+  border-spacing: 0 10px; /* Ajusta el valor según sea necesario */
+}
+
+/* Añade espacio entre las filas de la tabla */
+.shopping-checkout table tbody tr {
+  margin-bottom: 10px; /* Ajusta el valor según sea necesario */
+}
+
+/* Estilo para las celdas de la tabla */
+.shopping-checkout table td, .shopping-checkout table th {
+  padding: 8px; /* Ajusta el relleno según sea necesario */
+  border: 1px solid #ddd; /* Ajusta el borde según sea necesario */
+}
+
+/* Estilo para las cabeceras de la tabla */
+.shopping-checkout table th {
+  background-color: #f2f2f2; /* Ajusta el color de fondo según sea necesario */
+  text-align: left; /* Ajusta la alineación del texto según sea necesario */
+}
+
+.shopping-checkout h1 {
+  text-align: center; 
 }

@@ -28,4 +28,8 @@
         <name>removeProduct</name>
         <uri>removeProduct</uri>
     </function>
+    <function>
+        <name>checkout_view</name>
+        <uri>checkout_view</uri>
+    </function>
 </functions>
