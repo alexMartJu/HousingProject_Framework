@@ -10,6 +10,8 @@ function paint_cart() {
 
                 var currentLineHTML = {}; // Objeto para almacenar la información de cada línea del carrito
 
+                $(".total-price-value-cart").empty();
+                var total_price = 0; // Inicializar el total_price
 
                 // Iterar sobre los datos recibidos
                 data.forEach(function(item) {
@@ -29,12 +31,14 @@ function paint_cart() {
                         '<td>' +
                         '<div class="quantity-control">' +
                         '<button class="decrement-btn" data-id-line="' + item.id_line + '">-</button>' +
-                        '<input type="number" class="quantity-input" data-id-line="' + item.id_line + '" data-id-product="' + item.id_product + '" data-id-housing="' + item.id_housing + '" value="' + item.quantity + '" min="0" readonly>' +
+                        '<input type="number" class="quantity-input" data-id-line="' + item.id_line + '" data-id-product="' + item.id_product + '" data-id-housing="' + item.id_housing + '" value="' + item.quantity + '" min="0" max="' + item.stock + '" readonly>' +
                         '<button class="increment-btn" data-id-line="' + item.id_line + '">+</button>' +
                         '</div>' +
                         '</td>'
                     );
+                    total_price += item.price_product * item.quantity;
                 });
+                $(".total-price-value-cart").append(total_price.toFixed(2) + ' €');
 
                 // Construir las filas y agregarlas a la tabla del carrito
                 for (var id_line in currentLineHTML) {
@@ -57,19 +61,38 @@ function paint_cart() {
                     var idLine = $(this).data("id-line");
                     var quantityInput = $(this).siblings(".quantity-input[data-id-line='" + idLine + "']");
                     var currentQuantity = parseInt(quantityInput.val());
-                    quantityInput.val(currentQuantity + 1);
-                    modify_quantity(this);
+                    // quantityInput.val(currentQuantity + 1);
+                    // modify_quantity(this);
+                    var stock = parseInt(quantityInput.attr("max")); // Obtener el stock desde el atributo max
+                    if (currentQuantity < stock) {
+                        quantityInput.val(currentQuantity + 1);
+                        modify_quantity(this);
+                    }
                 });
 
                 $(".decrement-btn").click(function() {
-                    var idLine = $(this).data("id-line");
-                    var quantityInput = $(this).siblings(".quantity-input[data-id-line='" + idLine + "']");
+                    var quantityInput = $(this).siblings(".quantity-input");
                     var currentQuantity = parseInt(quantityInput.val());
-                    if (currentQuantity > 1) {
+                    var idLine = quantityInput.data("id-line");
+                    var idHousing = quantityInput.data("id-housing");
+                    var idProduct = quantityInput.data("id-product");
+                
+                    if (currentQuantity > 0) {
+                        console.log("Entro decrement modify");
                         quantityInput.val(currentQuantity - 1);
+                        modify_quantity(this);
+                
+                        // Verificar si la cantidad ha llegado a 0 y eliminar el producto del carrito
+                        if (currentQuantity === 1) {
+                            console.log("Entro decrement remove");
+                            console.log("IDLINE " + idLine);
+                            console.log("idHousing " + idHousing);
+                            console.log("idProduct " + idProduct);
+                            remove_product_from_cart(idLine, idHousing, idProduct);
+                        }
                     }
-                    modify_quantity(this);
                 });
+                
                 
             })
             .catch(function() {
@@ -100,7 +123,7 @@ function modify_quantity(button) {
         .then(function(data) {
             if (data === "update") {
                 console.log("Entro modify_quantity");
-                location.reload();
+                paint_cart();
             } else {
                 console.log("Error al updatear cantidad");
             }
@@ -132,6 +155,7 @@ function delete_line_Cart(){
                 if (data === "deleted") {
                     $('tr').has('button[data-id-line="'+ id_line +'"]').remove();
                     updateItemsCart();
+                    paint_cart();
                 } else {
                     console.log("Error al eliminar la línea del carrito");
                 }
@@ -150,6 +174,22 @@ function delete_line_Cart(){
             }); 
         }
     });
+}
+
+function remove_product_from_cart(idLine, idHousing, idProduct) {
+    var access_token = localStorage.getItem('access_token');
+    var refresh_token = localStorage.getItem('refresh_token');
+    if (access_token && refresh_token) {
+        ajaxPromise(friendlyURL('?module=cart'), 'POST', 'JSON', {'access_token': access_token, 'id_line': idLine, 'id_housing': idHousing, 'id_product': idProduct, 'op': 'removeProduct'})
+            .then(function(data) {
+                console.log("Producto eliminado del carrito:", data);
+                // Volver a pintar el carrito para reflejar los cambios
+                paint_cart();
+            })
+            .catch(function() {
+                console.log("Error al eliminar producto del carrito");
+            });
+    }
 }
 
 $(document).ready(function() {

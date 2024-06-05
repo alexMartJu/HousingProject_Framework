@@ -18,28 +18,79 @@
 		}
 
         public function get_add_update_Cart_BLL($args) {
-            // return 'Entro a cart_bll --> get_add_update_Cart_BLL';
-			try{
+            try {
                 $name_token = middleware::decode_access_token($args[0]);
-                $rdo = $this -> dao ->select_products_cart($this -> db, $name_token['username'], $args[1]);
-            }catch (Exception $e){
+                $username = $name_token['username'];
+                $id_housing = $args[1];
+                
+                // Obtener la información del producto en el carrito
+                $product_in_cart = $this->dao->select_products_cart($this->db, $username, $id_housing);
+                
+                // Obtener el stock disponible del producto
+                $stock_available_array = $this->dao->select_product_info($this->db, $id_housing);
+                
+                // Verificar si el stock está disponible para al menos uno de los productos
+                $stock_available = false;
+                foreach ($stock_available_array as $stock_info) {
+                    if ($stock_info['stock'] > 0) {
+                        $stock_available = true;
+                        break;
+                    }
+                }
+        
+                if (empty($product_in_cart)) {
+                    // Si el producto no está en el carrito, insertar un nuevo registro
+                    
+                    // Verificar si el stock disponible es suficiente
+                    if ($stock_available) {
+                        $max_id_line = $this->dao->get_new_id_line($this->db);
+                        $id_line = $max_id_line[0]['max_id_line'] + 1;
+                        
+                        $this->dao->insert_products_cart($this->db, $username, $id_housing, $id_line);
+                        
+                        // Incrementar el contador de ID de línea
+                        $this->dao->increment_max_id_line($this->db, $id_line);
+                        
+                        return "insert";
+                    } else {
+                        return "out_of_stock";
+                    }
+                } else {
+                    // Si el producto ya está en el carrito, actualizar el registro existente
+                    
+                    // Inicializar un flag para determinar si se realizó una actualización
+                    $updated = false;
+        
+                    foreach ($product_in_cart as $product) {
+                        $quantity = $product['quantity'];
+                        $id_product = $product['id_product'];
+                    
+                        // Buscar el stock disponible para el producto actual
+                        $current_stock = 0;
+                        foreach ($stock_available_array as $stock_info) {
+                            if ($stock_info['id_product'] == $id_product) {
+                                $current_stock = $stock_info['stock'];
+                                break;
+                            }
+                        }
+                    
+                        // Verificar si la cantidad actual es menor al stock disponible
+                        if ($quantity < $current_stock) {
+                            $this->dao->update_products_cart($this->db, $username, $id_housing, $id_product);
+                            $updated = true; // Esta variable se puede usar para verificar si se realizó alguna actualización
+                        }
+                    }
+                    
+                    if ($updated) {
+                        return "update"; // Se actualizó un producto
+                    } else {
+                        return "exceeds_stock"; // Todos los productos están al máximo de su stock disponible
+                    }
+                }
+            } catch (Exception $e) {
                 return "error";
             }
-            if(empty($rdo)){
-                error_log("No vacio");
-                $max_id_line = $this -> dao ->get_new_id_line($this -> db);
-                $id_line = $max_id_line[0]['max_id_line'] + 1;
-                error_log("$id_line");
-
-                $rdo = $this -> dao ->insert_products_cart($this -> db, $name_token['username'], $args[1], $id_line);
-
-                $this->dao->increment_max_id_line($this->db, $id_line);
-                return "insert";
-            }else{
-                $rdo = $this -> dao ->update_products_cart($this -> db, $name_token['username'], $args[1]);
-                return "update";
-            } 
-		}
+        }
 
         public function get_updateItemsCart_BLL($args) {
             // return 'Entro a cart_bll --> get_updateItemsCart_BLL';
@@ -100,6 +151,20 @@
                 }
             } catch (Exception $e) {
                 return "error"; // Error al decodificar el token o al llamar al DAO
+            }
+        }
+
+        public function get_removeProduct_BLL($args) {
+            try {
+                $name_token = middleware::decode_access_token($args[0]);
+                $username = $name_token['username'];
+                $id_line = $args[1];
+                $id_housing = $args[2];
+                $id_product = $args[3];
+                $result = $this->dao->remove_product_from_cart($this->db, $username, $id_line, $id_housing, $id_product);
+                return $result ? "product_removed" : "error_removing_product";
+            } catch (Exception $e) {
+                return "error";
             }
         }
 

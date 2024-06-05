@@ -24,4 +24,8 @@
         <name>delete_line_Cart</name>
         <uri>delete_line_Cart</uri>
     </function>
+    <function>
+        <name>removeProduct</name>
+        <uri>removeProduct</uri>
+    </function>
 </functions>

@@ -32,23 +32,25 @@
             SELECT $id_line, hp.id_product, u.id_user, $id, 1
             FROM housing_products hp
             JOIN users u ON u.username = '$username'
-            WHERE hp.id_housing = $id";
+            JOIN products p ON hp.id_product = p.id_product
+            WHERE hp.id_housing = $id AND p.stock > 0";
 
             return $stmt = $db->ejecutar($sql);
         }
 
-
-        public function update_products_cart($db, $username, $id) {
-            // return 'Entro a cart_dao --> update_products_cart';
-
+        public function update_products_cart($db, $username, $id_housing, $id_product) {
             $sql = "UPDATE cart 
             SET quantity = quantity + 1
             WHERE id_user = (SELECT id_user FROM users WHERE username = '$username') 
-            AND id_housing = $id";
-
-            return $stmt = $db -> ejecutar($sql);
+            AND id_housing = $id_housing
+            AND id_product = $id_product
+            AND quantity < (SELECT p.stock FROM products p 
+                            INNER JOIN housing_products hp ON p.id_product = hp.id_product 
+                            WHERE hp.id_housing = $id_housing AND p.id_product = $id_product)";
             
+            return $stmt = $db->ejecutar($sql);
         }
+
 
         public function get_new_id_line($db) {
             // return 'Entro a cart_dao --> get_new_id_line';
@@ -99,6 +101,24 @@
             WHERE c.id_line = $id_line AND u.username = '$username'";
             
             return $stmt = $db->ejecutar($sql);
+        }
+
+        public function select_product_info($db, $id_housing) {
+            $sql = "SELECT p.id_product, p.stock AS stock
+            FROM products p 
+            INNER JOIN housing_products hp ON p.id_product = hp.id_product 
+            WHERE hp.id_housing = $id_housing";
+            $stmt = $db->ejecutar($sql);
+            return $db -> listar($stmt);
+        }
+
+        public function remove_product_from_cart($db, $username, $id_line, $id_housing, $id_product) {
+            $sql = "DELETE FROM cart 
+                    WHERE id_user = (SELECT id_user FROM users WHERE username = '$username') 
+                    AND id_line = $id_line
+                    AND id_housing = $id_housing 
+                    AND id_product = $id_product";
+            return $db->ejecutar($sql);
         }
     }
 ?>
