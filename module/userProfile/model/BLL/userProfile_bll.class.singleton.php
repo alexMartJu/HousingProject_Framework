@@ -44,5 +44,25 @@
                 return "error";
             }
         }
+
+		public function get_list_likes_user_BLL($args) {
+            try {
+                $json = middleware::decode_access_token($args);
+                $likesData = $this->dao->getLikesDataByUsername($this->db, $json['username']);
+        
+				foreach ($likesData as $like) {
+					error_log("like_data: " . json_encode($like)); // Registra cada objeto individualmente
+				}
+				// Verificar si los datos de los likes no están vacíos
+				if (!empty($likesData)) {
+					return $likesData; 
+				} else {
+					return "there_arent_likes";
+				}
+            } catch (Exception $e) {
+				error_log("Error en get_list_likes_user_BLL: " . $e->getMessage()); // Registra cualquier excepción en el registro de errores
+                return "error";
+            }
+        }
 	}
 ?>

@@ -45,5 +45,17 @@
                     WHERE id_user = (SELECT id_user FROM users WHERE username = '$username')";
             return $db->ejecutar($sql);
         }
+
+        public function getLikesDataByUsername($db, $username) {
+            $sql = "SELECT likes.id_likes, housings.*, city.name_city, h_type.name_type
+            FROM likes
+            INNER JOIN housings ON likes.id_housing = housings.id_housing
+            INNER JOIN users ON likes.id_user = users.id_user
+            INNER JOIN city ON housings.id_city = city.id_city
+            INNER JOIN h_type ON housings.id_type = h_type.id_type
+            WHERE users.username = '$username';";
+            $stmt = $db->ejecutar($sql);
+            return $db->listar($stmt);
+        }
     }
 ?>

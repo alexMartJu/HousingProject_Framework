@@ -5360,3 +5360,75 @@ button.btn-pager {
 .mainBlock .button-infouser:hover {
   background-color: #14922b; /* Color de fondo más oscuro */
 }
+
+/* ------------tabla likes------------------ */
+/* Estilos generales para la tabla de likes */
+.likes-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  text-align: left;
+}
+
+.likes-table th, .likes-table td {
+  padding: 12px 15px;
+}
+
+.likes-table thead tr {
+  background-color: #1bbd36;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.likes-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.likes-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.likes-table tbody tr:last-of-type {
+  border-bottom: 2px solid #1bbd36;
+}
+
+.likes-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.likes-table img {
+  width: 100px;
+  height: auto;
+  border-radius: 5px;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 600px) {
+  .likes-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+  }
+
+  .likes-table thead, .likes-table tbody, .likes-table th, .likes-table td, .likes-table tr {
+      display: block;
+  }
+
+  .likes-table th, .likes-table td {
+      text-align: right;
+      position: relative;
+      padding-left: 50%;
+  }
+
+  .likes-table th::before, .likes-table td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 0;
+      width: 50%;
+      padding-left: 15px;
+      font-weight: bold;
+      text-align: left;
+  }
+}

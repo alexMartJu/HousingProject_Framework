@@ -103,7 +103,95 @@ function change_personalInfo() {
     }
 }
 
+function list_likes_user() {
+    var access_token = localStorage.getItem('access_token');
+    var refresh_token = localStorage.getItem('refresh_token');
+    console.log("Entro list_likes_user()");
+    if (access_token && refresh_token) {
+        ajaxPromise(friendlyURL('?module=userProfile'), 'POST', 'JSON', {'access_token': access_token, 'op': 'list_likes_user'})
+        .then(function(data) {
+            console.log("then --> list_likes_user --> ", data);
+            if (data === "there_arent_likes") {
+                console.log("User doesnt have likes");
+                var galleryContainer = document.querySelector('.gallery-likes');
+                var noLikesMessage = document.createElement('h2');
+                noLikesMessage.textContent = "You haven't liked anything yet.";
+                galleryContainer.appendChild(noLikesMessage);
+            } else if (data === "error") {
+                console.log("Something wrong has occured");
+            } else {
+                // Obtener la referencia al contenedor donde se pintará la tabla
+                var galleryContainer = document.querySelector('.gallery-likes');
+
+                // Crear una tabla
+                var table = document.createElement('table');
+                table.classList.add('likes-table');
+
+                // Crear el encabezado de la tabla
+                var tableHeader = document.createElement('thead');
+                var headerRow = document.createElement('tr');
+                var headers = ['Image', 'Type', 'City', 'Price'];
+                headers.forEach(function(headerText) {
+                    var headerCell = document.createElement('th');
+                    headerCell.textContent = headerText;
+                    headerRow.appendChild(headerCell);
+                });
+                tableHeader.appendChild(headerRow);
+                table.appendChild(tableHeader);
+
+                // Crear el cuerpo de la tabla
+                var tableBody = document.createElement('tbody');
+                var baseUrl = 'http://localhost/Framework/HousingProject_Framework/';
+                data.forEach(function(like) {
+                    var row = document.createElement('tr');
+                    var imgCell = document.createElement('td');
+                    var img = document.createElement('img');
+                    img.src = baseUrl + like.img_housing; // Suponiendo que el campo se llame img_housing
+                    imgCell.appendChild(img);
+                    row.appendChild(imgCell);
+
+                    var typeCell = document.createElement('td');
+                    typeCell.textContent = like.name_type; // Suponiendo que el campo se llame type
+                    row.appendChild(typeCell);
+
+                    var cityCell = document.createElement('td');
+                    cityCell.textContent = like.name_city; // Suponiendo que el campo se llame city
+                    row.appendChild(cityCell);
+
+                    var priceCell = document.createElement('td');
+                    // Formatear el precio
+                    var formattedPrice = Number(like.housing_price).toLocaleString('es-ES', { minimumFractionDigits: 0 }) + ' €';
+                    priceCell.textContent = formattedPrice;
+                    row.appendChild(priceCell);
+
+                    tableBody.appendChild(row);
+                });
+                table.appendChild(tableBody);
+
+                // Agregar la tabla al contenedor
+                galleryContainer.appendChild(table);
+            }
+        })
+        .catch(function() {
+            console.log("catch --> list_likes_user()");
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Restricted Action',
+            text: 'You need to be logged',
+            showConfirmButton: false,
+            timer: 2000
+        }).then(function() {
+            window.location.href = friendlyURL('?module=login');
+        });
+    }
+}
+
 $(document).ready(function() {
     paint_userProfile_data();
     clicks();
+    setTimeout(function() {
+        list_likes_user();
+    }, 500);
 });

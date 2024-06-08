@@ -26,5 +26,10 @@
             return $this -> bll -> get_change_personalInfo_BLL($args);
         }
 
+        public function get_list_likes_user($args) {
+            // return 'Entro a userProfile_model --> get_list_likes_user'; 
+            return $this -> bll -> get_list_likes_user_BLL($args);
+        }
+
     }
 ?>
