@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functions>
+    <function>
+        <name>view</name>
+        <uri>view</uri>
+    </function>
+    <function>
+        <name>paint_userProfile_data</name>
+        <uri>paint_userProfile_data</uri>
+    </function>
+</functions>
