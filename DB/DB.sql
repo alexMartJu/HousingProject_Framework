@@ -483,3 +483,14 @@ CREATE TABLE purchase_lines (
     `id_line` INT,
     FOREIGN KEY (`purchase_id`) REFERENCES `purchases`(`purchase_id`)
 );
+
+CREATE TABLE user_profile (
+    `id_profile` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    `id_user` INT UNSIGNED NOT NULL,
+    `first_name` VARCHAR(50) NOT NULL,
+    `last_name` VARCHAR(50) NOT NULL,
+    `dob` DATE NOT NULL,
+    `address` VARCHAR(255),
+    `interests` VARCHAR(255),
+    FOREIGN KEY (`id_user`) REFERENCES `users`(`id_user`)
+);

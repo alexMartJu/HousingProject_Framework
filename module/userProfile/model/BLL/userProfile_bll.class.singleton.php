@@ -27,6 +27,22 @@
             }
         }
 
-		
+        
+		public function get_change_personalInfo_BLL($args) {
+            try {
+                $json = middleware::decode_access_token($args[0]);
+                if ($this -> dao->checkUserProfile($this->db, $json['username'])) {
+					// El perfil del usuario ya existe, por lo que actualizamos la información
+					$this -> dao ->updateUserProfile($this->db, $json['username'], $args[1], $args[2], $args[3], $args[4], $args[5]);
+					return "insert_info";
+				} else {
+					// El perfil del usuario no existe, por lo que insertamos una nueva entrada
+					$this -> dao ->insertUserProfile($this->db, $json['username'], $args[1], $args[2], $args[3], $args[4], $args[5]);
+					return "update_info";
+				}
+            } catch (Exception $e) {
+                return "error";
+            }
+        }
 	}
 ?>

@@ -25,5 +25,25 @@
             $stmt = $db->ejecutar($sql);
             return $db->listar_object($stmt);
         }
+
+        public function checkUserProfile($db, $username) {
+            $sql = "SELECT id_profile FROM user_profile WHERE id_user = (SELECT id_user FROM users WHERE username = '$username')";
+            $stmt = $db->ejecutar($sql);
+            $result = $db->listar($stmt);
+            return !empty($result); // Devuelve true si hay al menos un perfil para el usuario, false si no hay ninguno
+        }
+        
+        public function insertUserProfile($db, $username, $firstName, $lastName, $dob, $address, $interests) {
+            $sql = "INSERT INTO user_profile (id_user, first_name, last_name, dob, address, interests)
+                    VALUES ((SELECT id_user FROM users WHERE username = '$username'), '$firstName', '$lastName', '$dob', '$address', '$interests')";
+            return $db->ejecutar($sql);
+        }
+        
+        public function updateUserProfile($db, $username, $firstName, $lastName, $dob, $address, $interests) {
+            $sql = "UPDATE user_profile
+                    SET first_name = '$firstName', last_name = '$lastName', dob = '$dob', address = '$address', interests = '$interests'
+                    WHERE id_user = (SELECT id_user FROM users WHERE username = '$username')";
+            return $db->ejecutar($sql);
+        }
     }
 ?>

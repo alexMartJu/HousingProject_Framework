@@ -22,5 +22,10 @@
             echo json_encode(common::load_model('userProfile_model', 'get_paint_userProfile_data', $_POST['access_token']));
         }
 
+        function change_personalInfo() {
+            // echo 'Entro al controller_profile --> change_personalInfo';
+            echo json_encode(common::load_model('userProfile_model', 'get_change_personalInfo', [$_POST['access_token'], $_POST['firstName'], $_POST['lastName'], $_POST['dob'], $_POST['address'], $_POST['interests']]));
+        }
+
     }
 ?>

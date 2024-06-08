@@ -21,5 +21,10 @@
             return $this -> bll -> get_paint_userProfile_data_BLL($args);
         }
 
+        public function get_change_personalInfo($args) {
+            // return 'Entro a userProfile_model --> get_change_personalInfo'; 
+            return $this -> bll -> get_change_personalInfo_BLL($args);
+        }
+
     }
 ?>
