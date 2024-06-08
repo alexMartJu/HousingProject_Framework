@@ -21,4 +21,8 @@
         <name>cart</name>
         <uri>cart</uri>
     </module>
+    <module>
+        <name>userProfile</name>
+        <uri>userProfile</uri>
+    </module>
 </modules>

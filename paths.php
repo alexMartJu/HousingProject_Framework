@@ -85,5 +85,13 @@
     define('JS_VIEW_LOGIN', SITE_PATH . 'module/login/view/js/');
     define ('VIEW_PATH_LOGIN', SITE_ROOT . 'module/login/view/');
 
+    //MODEL_userProfile
+    define('UTILS_USERPROFILE', SITE_ROOT . 'module/userProfile/utils/');
+    define('DAO_USERPROFILE', SITE_ROOT . 'module/userProfile/model/DAO/');
+    define('BLL_USERPROFILE', SITE_ROOT . 'module/userProfile/model/BLL/');
+    define('MODEL_USERPROFILE', SITE_ROOT . 'module/userProfile/model/model/');
+    define('JS_VIEW_USERPROFILE', SITE_PATH . 'module/userProfile/view/js/');
+    define ('VIEW_PATH_USERPROFILE', SITE_ROOT . 'module/userProfile/view/');
+
     // Friendly
     define('URL_FRIENDLY', TRUE);

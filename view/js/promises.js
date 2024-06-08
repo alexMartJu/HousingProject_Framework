@@ -75,6 +75,7 @@ function load_menu() {
                 // Crear la imagen con una clase
                 var $avatar = $('<img src="' + data.avatar + '" alt="Robot">').addClass('avatar-image');
                 $avatar.appendTo($container_avatar_logout);
+                $avatar.on('click', handleAvatarClick);
 
                 // Crear el texto del nombre de usuario
                 var $username = $('<span class="span_username_logout" title="' + data.username + '">' + data.username + '</span>').addClass('username-text');
@@ -94,6 +95,9 @@ function load_menu() {
     }
 }
 
+function handleAvatarClick() {
+    window.location.href = friendlyURL("?module=userProfile");
+}
 
 //================CLICK-LOGOUT================
 function click_logout() {
