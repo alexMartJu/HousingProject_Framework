@@ -64,5 +64,22 @@
                 return "error";
             }
         }
+
+		public function get_list_invoices_user_BLL($args) {
+            try {
+                $json = middleware::decode_access_token($args);
+                $invoicesData = $this->dao->getInvoicesDataByUsername($this->db, $json['username']);
+        
+				// Verificar si los datos de los likes no están vacíos
+				if (!empty($invoicesData)) {
+					return $invoicesData; 
+				} else {
+					return "there_arent_invoices";
+				}
+            } catch (Exception $e) {
+				error_log("Error en get_list_invoices_user_BLL: " . $e->getMessage()); // Registra cualquier excepción en el registro de errores
+                return "error";
+            }
+        }
 	}
 ?>

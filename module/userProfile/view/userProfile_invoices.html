@@ -1,0 +1,47 @@
+<html>
+
+<body>
+    <section>
+        <div class="container mainBlock">
+            <header>
+                <i class="fa fa-bars"></i>
+            </header>
+            <main>
+                <div class="row">
+                    <div class="left col-lg-4">
+                        <div class="photo-left">
+                            <div class="photo" >
+                                <div class="active-status"></div>
+                            </div>
+                        </div>
+                        <h4 class="name"></h4>
+                        <p class="info">Housing Project Client</p>
+                        <p class="info info-email"></p>
+                        <div class="stat row">
+                            <div class="information col-xs-4" style="padding-right: 50px">
+                                <p class="number-stat likes-count"></p>
+                                <p class="desc-stat">Likes</p>
+                            </div>
+                            <div class="information col-xs-4">
+                                <p class="number-stat purchases-count"></p>
+                                <p class="desc-stat">Invoices</p>
+                            </div>
+                        </div>
+                        <p class="descriptions"></p>
+                        <div class="social"><i class="fa fa-facebook-square"></i><i class="fa fa-twitter-square"></i><i class="fa fa-pinterest-square"></i><i class="fa fa-tumblr-square"></i></div>
+                    </div>
+                    <div class="right col-lg-8"><a class="follow" href="#">FOLLOW</a>
+                        <div class="nav">
+                            <a class="active" onclick="window.location.href = friendlyURL('?module=userProfile');">USER INFO</a>
+                            <a onclick="window.location.href = friendlyURL('?module=userProfile&op=userProfile_invoicesView');">INVOICES</a>
+                            <a onclick="window.location.href = friendlyURL('?module=userProfile&op=userProfile_likesView');">LIKES</a>
+                        </div>
+                        <div class="row gallery-invoices">
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </section>
+</body>
+</html>

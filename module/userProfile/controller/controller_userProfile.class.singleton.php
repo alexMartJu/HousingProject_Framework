@@ -37,5 +37,15 @@
             echo json_encode(common::load_model('userProfile_model', 'get_list_likes_user', $_POST['access_token']));
         }
 
+        function userProfile_invoicesView() {
+            // echo 'Entro al controller_profile --> userProfile_invoicesView';
+            common::load_view('top_page_userProfile.html', VIEW_PATH_USERPROFILE . 'userProfile_invoices.html');
+        }
+
+        function list_invoices_user() {
+            // echo 'Entro al controller_profile --> list_invoices_user';
+            echo json_encode(common::load_model('userProfile_model', 'get_list_invoices_user', $_POST['access_token']));
+        }
+
     }
 ?>

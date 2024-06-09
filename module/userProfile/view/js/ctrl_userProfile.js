@@ -188,10 +188,92 @@ function list_likes_user() {
     }
 }
 
+function list_invoices_user() {
+    var access_token = localStorage.getItem('access_token');
+    var refresh_token = localStorage.getItem('refresh_token');
+    console.log("Entro list_invoices_user()");
+    if (access_token && refresh_token) {
+        ajaxPromise(friendlyURL('?module=userProfile'), 'POST', 'JSON', {'access_token': access_token, 'op': 'list_invoices_user'})
+        .then(function(data) {
+            console.log("then --> list_invoices_user --> ", data);
+            if (data === "there_arent_invoices") {
+                console.log("User doesnt have likes");
+                var galleryContainer = document.querySelector('.gallery-invoices');
+                var noLikesMessage = document.createElement('h2');
+                noLikesMessage.textContent = "You haven't buy anything yet.";
+                galleryContainer.appendChild(noLikesMessage);
+            } else if (data === "error") {
+                console.log("Something wrong has occured");
+            } else {
+                var galleryInvoices = document.querySelector('.gallery-invoices');
+                galleryInvoices.innerHTML = '';
+                // Crear la tabla de facturas
+                var table = document.createElement('table');
+                table.classList.add('invoice-table');
+                var thead = document.createElement('thead');
+                var tbody = document.createElement('tbody');
+                // Crear encabezados de tabla
+                var headers = ['Invoice ID', 'Date', 'Amount', 'PDF Link'];
+                var headerRow = document.createElement('tr');
+                headers.forEach(function(headerText) {
+                    var th = document.createElement('th');
+                    th.textContent = headerText;
+                    headerRow.appendChild(th);
+                });
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+                var baseUrl = 'http://localhost/Framework/HousingProject_Framework/';
+
+                // Crear filas de tabla con los datos de las facturas
+                data.forEach(function(invoice) {
+                    var row = document.createElement('tr');
+                    var invoiceIdCell = document.createElement('td');
+                    invoiceIdCell.textContent = invoice.purchase_id;
+                    row.appendChild(invoiceIdCell);
+
+                    var dateCell = document.createElement('td');
+                    dateCell.textContent = invoice.purchase_date;
+                    row.appendChild(dateCell);
+
+                    var amountCell = document.createElement('td');
+                    amountCell.textContent = invoice.total_price;
+                    row.appendChild(amountCell);
+
+                    var pdfLinkCell = document.createElement('td');
+                    var pdfLink = document.createElement('a');
+                    pdfLink.href = baseUrl + 'uploads/pdf/factura_' + invoice.purchase_id + '.pdf';
+                    pdfLink.textContent = 'Download PDF';
+                    pdfLinkCell.appendChild(pdfLink);
+                    row.appendChild(pdfLinkCell);
+
+                    tbody.appendChild(row);
+                });
+                table.appendChild(tbody);
+                // Agregar la tabla a gallery-invoices
+                galleryInvoices.appendChild(table);
+            }
+        })
+        .catch(function() {
+            console.log("catch --> list_invoices_user()");
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Restricted Action',
+            text: 'You need to be logged',
+            showConfirmButton: false,
+            timer: 2000
+        }).then(function() {
+            window.location.href = friendlyURL('?module=login');
+        });
+    }
+}
+
 $(document).ready(function() {
     paint_userProfile_data();
     clicks();
     setTimeout(function() {
         list_likes_user();
     }, 500);
+    list_invoices_user();
 });

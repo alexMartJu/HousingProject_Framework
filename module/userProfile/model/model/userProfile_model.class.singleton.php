@@ -31,5 +31,10 @@
             return $this -> bll -> get_list_likes_user_BLL($args);
         }
 
+        public function get_list_invoices_user($args) {
+            // return 'Entro a userProfile_model --> get_list_invoices_user'; 
+            return $this -> bll -> get_list_invoices_user_BLL($args);
+        }
+
     }
 ?>

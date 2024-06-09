@@ -20,4 +20,12 @@
         <name>list_likes_user</name>
         <uri>list_likes_user</uri>
     </function>
+    <function>
+        <name>userProfile_invoicesView</name>
+        <uri>userProfile_invoicesView</uri>
+    </function>
+    <function>
+        <name>list_invoices_user</name>
+        <uri>list_invoices_user</uri>
+    </function>
 </functions>

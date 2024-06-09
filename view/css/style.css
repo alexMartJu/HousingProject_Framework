@@ -5432,3 +5432,75 @@ button.btn-pager {
       text-align: left;
   }
 }
+
+/* ------------tabla invoices------------------ */
+/* Estilos generales para la tabla de likes */
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  text-align: left;
+}
+
+.invoice-table th, .invoice-table td {
+  padding: 12px 15px;
+}
+
+.invoice-table thead tr {
+  background-color: #1bbd36;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.invoice-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.invoice-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.invoice-table tbody tr:last-of-type {
+  border-bottom: 2px solid #1bbd36;
+}
+
+.invoice-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.invoice-table img {
+  width: 100px;
+  height: auto;
+  border-radius: 5px;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 600px) {
+  .invoice-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+  }
+
+  .invoice-table thead, .invoice-table tbody, .invoice-table th, .invoice-table td, .invoice-table tr {
+      display: block;
+  }
+
+  .invoice-table th, .invoice-table td {
+      text-align: right;
+      position: relative;
+      padding-left: 50%;
+  }
+
+  .invoice-table th::before, .invoice-table td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 0;
+      width: 50%;
+      padding-left: 15px;
+      font-weight: bold;
+      text-align: left;
+  }
+}

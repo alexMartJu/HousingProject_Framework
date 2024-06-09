@@ -57,5 +57,16 @@
             $stmt = $db->ejecutar($sql);
             return $db->listar($stmt);
         }
+
+        public function getInvoicesDataByUsername($db, $username) {
+            $sql = "SELECT purchase_id, total_price, purchase_date
+            FROM purchases
+            WHERE id_user = (
+                SELECT id_user
+                FROM users
+                WHERE username = '$username');";
+            $stmt = $db->ejecutar($sql);
+            return $db->listar($stmt);
+        }
     }
 ?>
