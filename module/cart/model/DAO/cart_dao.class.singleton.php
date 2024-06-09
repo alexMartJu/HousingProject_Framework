@@ -184,5 +184,29 @@
                     WHERE cart.isActive = 0 AND users.username = '$username'";
             return $db->ejecutar($sql);
         }
+
+        public function getPurchaseDetails($db, $purchaseId, $username) {
+            $sql = "SELECT purchases.purchase_id, purchases.total_price, purchases.name, purchases.phone, purchases.purchase_date, users.username 
+                    FROM purchases
+                    JOIN users ON purchases.id_user = users.id_user
+                    WHERE purchases.purchase_id = $purchaseId AND users.username = '$username'";
+            $stmt = $db->ejecutar($sql);
+            return $db->listar($stmt);
+        }
+
+        public function getPurchaseLines($db, $purchaseId, $username) {
+            $sql = "SELECT DISTINCT pl.id_line, c.id_product, p.name_product, c.quantity, p.price_product, ht.name_type, ci.name_city
+            FROM purchase_lines pl
+            JOIN cart c ON pl.id_line = c.id_line
+            JOIN products p ON c.id_product = p.id_product
+            JOIN housings h ON c.id_housing = h.id_housing
+            JOIN h_type ht ON h.id_type = ht.id_type
+            JOIN city ci ON h.id_city = ci.id_city
+            JOIN purchases pu ON pl.purchase_id = pu.purchase_id
+            JOIN users u ON pu.id_user = u.id_user
+            WHERE pl.purchase_id = $purchaseId AND u.username = '$username'";
+            $stmt = $db->ejecutar($sql);
+            return $db->listar($stmt);
+        }
     }
 ?>

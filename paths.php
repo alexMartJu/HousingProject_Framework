@@ -93,5 +93,8 @@
     define('JS_VIEW_USERPROFILE', SITE_PATH . 'module/userProfile/view/js/');
     define ('VIEW_PATH_USERPROFILE', SITE_ROOT . 'module/userProfile/view/');
 
+    //dompdf
+    define('STORE_DOMPDF', SITE_ROOT . 'uploads/pdf/');
+
     // Friendly
     define('URL_FRIENDLY', TRUE);

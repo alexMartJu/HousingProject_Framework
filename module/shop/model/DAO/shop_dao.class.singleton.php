@@ -423,7 +423,7 @@
         // DELIMITER //
 
         // CREATE PROCEDURE insert_likes(
-        // 	IN p_username VARCHAR(25),
+        // 	IN p_username VARCHAR(50),
         // 	IN p_housing_id INT
         // )
         // BEGIN
@@ -454,7 +454,7 @@
         // DELIMITER //
 
         // CREATE PROCEDURE delete_likes(
-        // 	IN p_username VARCHAR(25),
+        // 	IN p_username VARCHAR(50),
         // 	IN p_housing_id INT
         // )
         // BEGIN

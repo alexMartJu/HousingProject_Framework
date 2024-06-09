@@ -210,6 +210,19 @@
         
                 // Paso 6: Actualizar el estado del carrito
                 $this->dao->updateCartStatus($this->db, $username);
+
+                // Obtener detalles de la compra recién realizada
+                $purchaseDetails = $this->dao->getPurchaseDetails($this->db, $purchaseId, $username);
+                $purchaseLines = $this->dao->getPurchaseLines($this->db, $purchaseId, $username);
+
+                // Generar el PDF de la compra
+                $resultado_pdf = dompdf::do_pdf($purchaseDetails, $purchaseLines);
+    
+                if ($resultado_pdf === "pdf_done") {
+                    error_log('Factura generada y guardada correctamente.');
+                } else {
+                    error_log('Error al generar la factura.');
+                }
         
                 return "Checkout_good";
             } catch (Exception $e) {

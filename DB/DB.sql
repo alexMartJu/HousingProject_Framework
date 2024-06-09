@@ -478,7 +478,7 @@ CREATE TABLE purchases (
 
 -- Tabla purchase_lines
 CREATE TABLE purchase_lines (
-    `purchase_line`_id INT AUTO_INCREMENT PRIMARY KEY,
+    `purchase_line_id` INT AUTO_INCREMENT PRIMARY KEY,
     `purchase_id` INT,
     `id_line` INT,
     FOREIGN KEY (`purchase_id`) REFERENCES `purchases`(`purchase_id`)
