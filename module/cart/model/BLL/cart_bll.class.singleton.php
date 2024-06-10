@@ -217,14 +217,19 @@
 
                 // Generar el PDF de la compra
                 $resultado_pdf = dompdf::do_pdf($purchaseDetails, $purchaseLines);
+                $resultado_qr=qrcodegenerate::do_qrcode($purchaseId);
     
                 if ($resultado_pdf === "pdf_done") {
                     error_log('Factura generada y guardada correctamente.');
+                    if($resultado_qr === "qrcode_done") {
+                        error_log('Entro aqui qr hecho.');
+                        return "Checkout_good";
+                    }
                 } else {
                     error_log('Error al generar la factura.');
+                    return "Checkout_error";
                 }
         
-                return "Checkout_good";
             } catch (Exception $e) {
                 return "Error: ".$e->getMessage();
             }

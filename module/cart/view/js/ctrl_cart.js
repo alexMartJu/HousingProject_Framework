@@ -387,7 +387,17 @@ function finish_buy() {
                             showConfirmButton: false,
                             timer: 2500
                         }).then(function() {
-                            window.location.href = friendlyURL('?module=home');
+                            window.location.href = friendlyURL('?module=userProfile&op=userProfile_invoicesView');
+                        });
+                    } else if (data === "Checkout_error") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Chceckout Error',
+                            text: 'Something wrong occured',
+                            showConfirmButton: false,
+                            timer: 2500
+                        }).then(function() {
+                            window.location.href = friendlyURL('?module=cart');
                         });
                     }
                 })

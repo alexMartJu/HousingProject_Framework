@@ -4,3 +4,4 @@ utils/vendor/
 utils/composer.lock
 utils/config_firebase.js
 uploads/*
+/utils/phpqrcode/

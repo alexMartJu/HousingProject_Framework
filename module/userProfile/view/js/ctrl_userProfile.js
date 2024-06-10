@@ -213,7 +213,7 @@ function list_invoices_user() {
                 var thead = document.createElement('thead');
                 var tbody = document.createElement('tbody');
                 // Crear encabezados de tabla
-                var headers = ['Invoice ID', 'Date', 'Amount', 'PDF Link'];
+                var headers = ['Invoice ID', 'Date', 'Amount', 'PDF Link', 'QR Link'];
                 var headerRow = document.createElement('tr');
                 headers.forEach(function(headerText) {
                     var th = document.createElement('th');
@@ -245,6 +245,13 @@ function list_invoices_user() {
                     pdfLink.textContent = 'Download PDF';
                     pdfLinkCell.appendChild(pdfLink);
                     row.appendChild(pdfLinkCell);
+
+                    var qrLinkCell = document.createElement('td');
+                    var qrLink = document.createElement('a');
+                    qrLink.href = baseUrl + 'uploads/qr/qr_' + invoice.purchase_id + '.png';
+                    qrLink.textContent = 'See QR';
+                    qrLinkCell.appendChild(qrLink);
+                    row.appendChild(qrLinkCell);
 
                     tbody.appendChild(row);
                 });

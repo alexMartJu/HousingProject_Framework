@@ -96,5 +96,8 @@
     //dompdf
     define('STORE_DOMPDF', SITE_ROOT . 'uploads/pdf/');
 
+    //QRCode
+    define('STORE_QRCODE', SITE_ROOT . 'uploads/qr/');
+
     // Friendly
     define('URL_FRIENDLY', TRUE);
