@@ -105,7 +105,8 @@
 			    $filter .= " WHERE c.id_city = '$filter_city'";
 		    }
 
-            $sql = "SELECT h.*, t.name_type, c.name_city, GROUP_CONCAT(i.img_housings SEPARATOR ';') AS img_housings
+            $sql = "SELECT h.*, t.name_type, c.name_city, GROUP_CONCAT(i.img_housings SEPARATOR ';') AS img_housings,
+            (SELECT COUNT(*) FROM likes l WHERE l.id_housing = h.id_housing) AS likes_count
             FROM `housings` h
             INNER JOIN `h_type` t ON h.id_type = t.id_type
             INNER JOIN `city` c ON h.id_city = c.id_city
@@ -152,7 +153,8 @@
             $sql = "SELECT h.*, t.name_type, c.name_city, o.name_operation,
             (SELECT GROUP_CONCAT(i.img_housings SEPARATOR ';') 
             FROM img_housings i 
-            WHERE i.id_housing = h.id_housing) AS img_housings
+            WHERE i.id_housing = h.id_housing) AS img_housings,
+            (SELECT COUNT(*) FROM likes l WHERE l.id_housing = h.id_housing) AS likes_count
             FROM `housings` h
             INNER JOIN `h_type` t ON h.id_type = t.id_type
             INNER JOIN `city` c ON h.id_city = c.id_city

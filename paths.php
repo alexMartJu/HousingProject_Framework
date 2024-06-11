@@ -99,5 +99,8 @@
     //QRCode
     define('STORE_QRCODE', SITE_ROOT . 'uploads/qr/');
 
+    //QRCode
+    define('STORE_AVATAR', SITE_ROOT . 'uploads/avatar/');
+
     // Friendly
     define('URL_FRIENDLY', TRUE);

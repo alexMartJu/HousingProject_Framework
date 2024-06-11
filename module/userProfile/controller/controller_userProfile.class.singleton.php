@@ -47,5 +47,17 @@
             echo json_encode(common::load_model('userProfile_model', 'get_list_invoices_user', $_POST['access_token']));
         }
 
+        function upload_file_user() {
+            if (isset($_FILES['file']['tmp_name']) && is_uploaded_file($_FILES['file']['tmp_name'])) {
+                $result = common::load_model('userProfile_model', 'get_upload_file_user', [$_FILES['file'], $_POST['access_token']]);
+                // Devolver el resultado como JSON
+                echo json_encode($result);
+            } else {
+                // Devolver un mensaje de error si no se ha enviado ningún archivo
+                echo json_encode(['error' => 'No file uploaded']);
+                error_log("No file uploaded");
+            }
+        }
+
     }
 ?>

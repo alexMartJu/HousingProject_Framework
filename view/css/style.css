@@ -5155,7 +5155,7 @@ button.btn-pager {
 .mainBlock .left {
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   flex-direction: column;
   position: relative;
 }
@@ -5503,4 +5503,33 @@ button.btn-pager {
       font-weight: bold;
       text-align: left;
   }
+}
+
+/* ------------FileUpload------------------ */
+.fileUpload {
+  padding: 20px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+/* Estilos para el campo de carga de archivos */
+.fileUpload input[type="file"] {
+  display: block;
+  margin: 10px auto;
+}
+
+/* Estilos para el botón de envío */
+.fileUpload input[type="submit"] {
+  background-color: #1bbd36;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Estilos para el mensaje de resultado */
+#message {
+  margin-top: 20px;
+  color: #1bbd36;
 }

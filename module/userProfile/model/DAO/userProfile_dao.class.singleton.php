@@ -68,5 +68,20 @@
             $stmt = $db->ejecutar($sql);
             return $db->listar($stmt);
         }
+
+        public function getLoginTypeByUsername($db, $username) {
+            $sql = "SELECT login_type
+            FROM users
+            WHERE username = '$username';";
+            $stmt = $db->ejecutar($sql);
+            return $db->listar($stmt);
+        }
+
+        public function updateAvatar($db, $username, $fileName) {
+            $sql = "UPDATE users 
+            SET avatar = '$fileName'  
+            WHERE username = '$username'";
+            return $db->ejecutar($sql);
+        }
     }
 ?>

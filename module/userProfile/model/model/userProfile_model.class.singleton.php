@@ -36,5 +36,10 @@
             return $this -> bll -> get_list_invoices_user_BLL($args);
         }
 
+        public function get_upload_file_user($args) {
+            // return 'Entro a userProfile_model --> get_upload_file_user'; 
+            return $this->bll->get_upload_file_user_BLL($args);
+        }
+
     }
 ?>

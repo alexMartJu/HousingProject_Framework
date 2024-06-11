@@ -81,5 +81,38 @@
                 return "error";
             }
         }
+
+		public function get_upload_file_user_BLL($args) {
+            try {
+                $json = middleware::decode_access_token($args[1]);
+				$userData = $this->dao->getLoginTypeByUsername($this->db, $json['username']);
+				if (!empty($userData)) {
+					$loginType = $userData[0]['login_type']; 
+					if ($loginType === "Local") {
+						$fileName = FileUpload::uploadFile($args[0]);
+						error_log("Login type for user: " . $loginType);
+						if ($fileName) {
+							// Actualizar la imagen de perfil en la base de datos
+							$this->dao->updateAvatar($this->db, $json['username'], $fileName);
+							error_log("Avatar updated for username: " . $json['username']);
+							return "update_Avatar_done";
+						} else {
+							error_log("File upload failed for username: " . $json['username']);
+							return "fail_upload";
+							// Manejar el caso en el que no se pudo subir el archivo
+						}
+					} else {
+						error_log("Invalid user type for username: " . $json['username']);
+						return "user_invalid";
+					}
+				} else {
+					error_log("No user data found for username: " . $json['username']);
+					return "no_data";
+				}
+            } catch (Exception $e) {
+				error_log("Error en get_list_invoices_user_BLL: " . $e->getMessage()); // Registra cualquier excepción en el registro de errores
+                return "error";
+            }
+        }
 	}
 ?>

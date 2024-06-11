@@ -28,4 +28,8 @@
         <name>list_invoices_user</name>
         <uri>list_invoices_user</uri>
     </function>
+    <function>
+        <name>upload_file_user</name>
+        <uri>upload_file_user</uri>
+    </function>
 </functions>

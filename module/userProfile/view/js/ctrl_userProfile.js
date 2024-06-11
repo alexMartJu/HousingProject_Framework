@@ -276,6 +276,83 @@ function list_invoices_user() {
     }
 }
 
+function fileUpload_user() {
+    var access_token = localStorage.getItem('access_token');
+    var refresh_token = localStorage.getItem('refresh_token');
+    console.log("Entro fileUpload_user()");
+    if (access_token && refresh_token) {
+        var formData = new FormData($('#uploadForm')[0]);
+        formData.append('access_token', access_token);
+        formData.append('op', 'upload_file_user');
+
+        $.ajax({
+            url: friendlyURL('?module=userProfile'),
+            type: 'POST',
+            dataType: 'json',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                console.log("then --> list_invoices_user --> ", data);
+                if (data.error) {
+                    $('#message').html(data.error);
+                } else if (data === "user_invalid") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Restricted Action',
+                        text: 'You need to be logged with a Local user to do this action',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                } else if (data === "fail_upload") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Restricted Action',
+                        text: 'You cant upload this file',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                } else if (data === "update_Avatar_done") {
+                    $('#message').html('File successfully uploaded!');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Succesfully Picture Change',
+                        text: 'Profile picture successfully changed',
+                        showConfirmButton: false,
+                        timer: 2500
+                    }).then(function() {
+                        window.location.href = friendlyURL('?module=userProfile');
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Something error was occured',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then(function() {
+                        window.location.href = friendlyURL('?module=home');
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log("catch --> fileUpload_user()", error);
+                $('#message').html('Error uploading file.');
+            }
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Restricted Action',
+            text: 'You need to be logged',
+            showConfirmButton: false,
+            timer: 2000
+        }).then(function() {
+            window.location.href = friendlyURL('?module=login');
+        });
+    }
+}
+
 $(document).ready(function() {
     paint_userProfile_data();
     clicks();
@@ -283,4 +360,8 @@ $(document).ready(function() {
         list_likes_user();
     }, 500);
     list_invoices_user();
+    $('#uploadForm').on('submit', function(e){
+        e.preventDefault();
+        fileUpload_user();
+    });
 });
