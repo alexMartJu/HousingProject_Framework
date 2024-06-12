@@ -9,6 +9,9 @@ Housing Project es una plataforma innovadora dedicada a la compra, venta, alquil
 Este proyecto utiliza las siguientes tecnologías:
 
 <div align="center">
+  <a href="https://jwt.io" rel="nofollow">
+    <img src="https://jwt.io/img/pic_logo.svg" alt="JWT" style="max-width: 100px; margin-right: 5px;">
+  </a>
   <a href="https://skillicons.dev" rel="nofollow">
     <img src="https://skillicons.dev/icons?i=mysql,php,js,jquery,html,css,a=15" style="max-width: 100%;">
   </a>
