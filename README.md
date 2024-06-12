@@ -2,18 +2,18 @@
 ---
 ## 📝 Descripción del Proyecto
 ---
-Housing Project es una plataforma innovadora dedicada a la compra, venta, alquiler y búsqueda de pisos compartidos. Con una interfaz sencilla y amigable, Housing Project permite a los usuarios encontrar su hogar ideal de manera rápida y eficiente. Ya sea que estés buscando comprar una nueva casa, vender tu propiedad actual, alquilar un apartamento o encontrar un compañero de piso, Housing Project es tu compañero confiable en el mercado inmobiliario.
+Housing Project Realty es una plataforma innovadora dedicada a la compra, venta, alquiler y búsqueda de pisos compartidos. Con una interfaz sencilla y amigable, Housing Project Realty permite a los usuarios encontrar su hogar ideal de manera rápida y eficiente. Ya sea que estés buscando comprar una nueva casa, vender tu propiedad actual, alquilar un apartamento o encontrar un compañero de piso, Housing Project Realty es tu compañero confiable en el mercado inmobiliario.
 
 ## 🛠️Tecnologías Utilizadas
 ---
 Este proyecto utiliza las siguientes tecnologías:
 
 <div align="center">
-  <a href="https://jwt.io" rel="nofollow">
-    <img src="https://jwt.io/img/pic_logo.svg" alt="JWT" style="max-width: 100px; margin-right: 5px;">
-  </a>
   <a href="https://skillicons.dev" rel="nofollow">
     <img src="https://skillicons.dev/icons?i=mysql,php,js,jquery,html,css,a=15" style="max-width: 100%;">
+  </a>
+  <a href="https://jwt.io" rel="nofollow">
+    <img src="https://jwt.io/img/pic_logo.svg" alt="JWT" width="50" height="50">
   </a>
 </div>
 
