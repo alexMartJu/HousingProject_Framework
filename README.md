@@ -9,11 +9,26 @@ Housing Project Realty es una plataforma innovadora dedicada a la compra, venta,
 Este proyecto utiliza las siguientes tecnologías:
 
 <div align="center">
-  <a href="https://skillicons.dev" rel="nofollow">
-    <img src="https://skillicons.dev/icons?i=mysql,php,js,jquery,html,css,a=15" style="max-width: 100%;">
-  </a>
   <a href="https://jwt.io" rel="nofollow">
     <img src="https://jwt.io/img/pic_logo.svg" alt="JWT" width="50" height="50">
+  </a>
+  <a href="https://skillicons.dev" rel="nofollow">
+    <img src="https://skillicons.dev/icons?i=php" style="max-width: 100%;">
+  </a>
+  <a href="https://skillicons.dev" rel="nofollow">
+    <img src="https://skillicons.dev/icons?i=mysql" style="max-width: 100%;">
+  </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://skillicons.dev" rel="nofollow">
+    <img src="https://skillicons.dev/icons?i=js" style="max-width: 100%;">
+  </a>
+  <a href="https://skillicons.dev" rel="nofollow">
+    <img src="https://skillicons.dev/icons?i=jquery" style="max-width: 100%;">
+  </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://skillicons.dev" rel="nofollow">
+    <img src="https://skillicons.dev/icons?i=html" style="max-width: 100%;">
+  </a>
+  <a href="https://skillicons.dev" rel="nofollow">
+    <img src="https://skillicons.dev/icons?i=css" style="max-width: 100%;">
   </a>
 </div>
 
